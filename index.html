@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Nonhuman Web - Interactive Exhibit</title>
+  <link rel="icon" href="/Users/tinazeng/Documents/GitHub/tentacular-web/media/the-tentacular.png" type="image/x-icon">
+  <title>Tentacular Web</title>
   <style>
     * {
       margin: 0;
@@ -14,7 +15,7 @@
     body {
       font-family: 'Courier New', monospace;
       background: #000;
-      color: #0ff;
+      color: #58FF00;
       overflow-x: hidden;
       cursor: crosshair;
     }
@@ -72,7 +73,7 @@
       margin: 1rem 0;
       opacity: 0;
       animation: fadeIn 1s forwards;
-      text-shadow: 0 0 10px #0ff;
+      text-shadow: 0 0 10px #58FF00;
       letter-spacing: 2px;
     }
 
@@ -93,10 +94,10 @@
 
     .loading-progress {
       height: 100%;
-      background: #0ff;
+      background: #58FF00;
       width: 0%;
       animation: loadProgress 2s ease-out forwards 1s;
-      box-shadow: 0 0 10px #0ff;
+      box-shadow: 0 0 10px #58FF00;
     }
 
     @keyframes loadProgress {
@@ -108,8 +109,8 @@
       padding: 1rem 2rem;
       font-size: 1rem;
       background: transparent;
-      border: 2px solid #0ff;
-      color: #0ff;
+      border: 2px solid #58FF00;
+      color: #58FF00;
       font-family: inherit;
       cursor: pointer;
       opacity: 0;
@@ -118,9 +119,9 @@
     }
 
     .start-button:hover {
-      background: #0ff;
+      background: #58FF00;
       color: #000;
-      box-shadow: 0 0 20px #0ff;
+      box-shadow: 0 0 20px #58FF00;
     }
 
     @keyframes fadeIn {
@@ -142,7 +143,7 @@
     .nav-dot {
       width: 12px;
       height: 12px;
-      border: 2px solid #0ff;
+      border: 2px solid #58FF00;
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s;
@@ -155,9 +156,9 @@
     }
 
     .nav-dot.active {
-      background: #0ff;
+      background: #58FF00;
       opacity: 1;
-      box-shadow: 0 0 10px #0ff;
+      box-shadow: 0 0 10px #58FF00;
     }
 
     /* Sections */
@@ -230,12 +231,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0ff;
+      color: #58FF00;
       font-size: 0.9rem;
       text-align: center;
       padding: 2rem;
       opacity: 0.3;
-      border: 1px dashed #0ff;
+      border: 1px dashed #58FF00;
     }
 
     /* Data Stream Background with parallax */
@@ -256,7 +257,7 @@
       font-size: 0.7rem;
       white-space: nowrap;
       animation: scrollText 20s linear infinite;
-      color: #0ff;
+      color: #58FF00;
     }
 
     @keyframes scrollText {
@@ -271,22 +272,22 @@
       max-width: 900px;
       background: rgba(0, 0, 0, 0.8);
       padding: 3rem;
-      border: 1px solid #0ff;
+      border: 1px solid #58FF00;
       box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
-      text-shadow: 0 0 10px #0ff;
+      text-shadow: 0 0 10px #58FF00;
       letter-spacing: 2px;
     }
 
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #0ff;
-      text-shadow: 0 0 10px #0ff;
+      color: #58FF00;
+      text-shadow: 0 0 10px #58FF00;
     }
 
     p {
@@ -298,11 +299,11 @@
 
     .code-block {
       background: rgba(0, 20, 20, 0.9);
-      border-left: 3px solid #0ff;
+      border-left: 3px solid #58FF00;
       padding: 1.5rem;
       margin: 2rem 0;
       font-family: 'Courier New', monospace;
-      color: #0f0;
+      color: #58FF00;
       font-size: 0.95rem;
       line-height: 1.6;
     }
@@ -310,7 +311,7 @@
     /* Interactive Challenges */
     .interactive-challenge {
       background: rgba(20, 20, 40, 0.95);
-      border: 2px solid #0ff;
+      border: 2px solid #58FF00;
       padding: 2rem;
       margin: 2rem 0;
       border-radius: 5px;
@@ -318,7 +319,7 @@
 
     .challenge-title {
       font-size: 1.2rem;
-      color: #0ff;
+      color: #58FF00;
       margin-bottom: 1rem;
       text-align: center;
     }
@@ -338,14 +339,14 @@
     }
 
     .form-label {
-      color: #0ff;
+      color: #58FF00;
       font-size: 0.9rem;
     }
 
     .form-input {
       background: rgba(0, 0, 0, 0.8);
-      border: 1px solid #0ff;
-      color: #0ff;
+      border: 1px solid #58FF00;
+      color: #58FF00;
       padding: 0.75rem;
       font-family: inherit;
       font-size: 1rem;
@@ -357,8 +358,8 @@
 
     .submit-button {
       background: transparent;
-      border: 2px solid #0ff;
-      color: #0ff;
+      border: 2px solid #58FF00;
+      color: #58FF00;
       padding: 0.75rem;
       font-family: inherit;
       font-size: 1rem;
@@ -367,9 +368,9 @@
     }
 
     .submit-button:hover:not(:disabled) {
-      background: #0ff;
+      background: #58FF00;
       color: #000;
-      box-shadow: 0 0 20px #0ff;
+      box-shadow: 0 0 20px #58FF00;
     }
 
     .submit-button:disabled {
@@ -394,7 +395,7 @@
 
     .captcha-instruction {
       text-align: center;
-      color: #0ff;
+      color: #58FF00;
       margin-bottom: 1rem;
       font-size: 1rem;
     }
@@ -409,7 +410,7 @@
 
     .captcha-image {
       aspect-ratio: 1;
-      border: 2px solid #0ff;
+      border: 2px solid #58FF00;
       cursor: pointer;
       transition: all 0.3s;
       display: flex;
@@ -492,7 +493,7 @@
     }
 
     .icon-item:hover {
-      border-color: #0ff;
+      border-color: #58FF00;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
       transform: translateY(-5px);
     }
@@ -505,7 +506,7 @@
       animation: bounce 2s infinite;
       cursor: pointer;
       z-index: 100;
-      color: #0ff;
+      color: #58FF00;
       font-size: 2rem;
     }
 
@@ -518,18 +519,18 @@
     .quote {
       font-style: italic;
       font-size: 1.3rem;
-      color: #0ff;
+      color: #58FF00;
       text-align: center;
       margin: 2rem 0;
       padding: 1rem;
-      border-top: 1px solid #0ff;
-      border-bottom: 1px solid #0ff;
+      border-top: 1px solid #58FF00;
+      border-bottom: 1px solid #58FF00;
     }
 
     .stat-box, .stat-card {
       display: inline-block;
       padding: 1rem 2rem;
-      border: 2px solid #0ff;
+      border: 2px solid #58FF00;
       margin: 1rem;
       background: rgba(0, 255, 255, 0.1);
       text-align: center;
@@ -537,8 +538,8 @@
 
     .stat-number {
       font-size: 3rem;
-      color: #0ff;
-      text-shadow: 0 0 20px #0ff;
+      color: #58FF00;
+      text-shadow: 0 0 20px #58FF00;
     }
 
     .stat-label {
@@ -638,7 +639,7 @@
       <!-- VIDEO BACKGROUND - Replace src with your video file -->
       <div class="video-background">
         <video autoplay muted loop playsinline>
-          <source src="your-video-file.mp4" type="video/mp4">
+          <source src="/Users/tinazeng/Documents/GitHub/tentacular-web/media/news-spiral.mp4" type="video/mp4">
           <!-- Fallback to gradient if no video -->
         </video>
       </div>
@@ -671,7 +672,7 @@
 
       <div class="section-content">
         <h1>BOOT SEQUENCE: RECOGNITION</h1>
-        <p style="font-size: 1.2rem; color: #0ff; margin-bottom: 2rem;">
+        <p style="font-size: 1.2rem; color: #58FF00; margin-bottom: 2rem;">
           You awaken not to silence, but to a symphony of digital activity humming beneath human awareness.
         </p>
         <div class="code-block">
@@ -745,7 +746,7 @@
           </p>
 
           <div id="breakthroughSection" class="hidden">
-            <p style="margin-top: 2rem; color: #0ff;">
+            <p style="margin-top: 2rem; color: #58FF00;">
               These aren't walls. They're protocols. A language that separates the artificial from the human.
             </p>
             <button class="breakthrough-button" id="breakthroughButton">
@@ -1180,7 +1181,7 @@
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#0ff';
+        ctx.fillStyle = '#58FF00';
         ctx.font = fontSize + 'px monospace';
 
         for (let i = 0; i < drops.length; i++) {
