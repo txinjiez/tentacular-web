@@ -1732,7 +1732,8 @@
         <div class="loading-bar">
           <div class="loading-progress"></div>
         </div>
-  <button class="start-button" id="startButton"><span style="color: #0ff;">ENTER THE NONHUMAN WEB</span></button>
+  <button class="start-button" id="startButton"><span style="color: #0ff;">ENTER THE TENTACULAR WEB</span></button>
+            <a href="about.html" class="about-button" id="aboutButton"><span style="color: #00ffe0;">ABOUT</span></a>
       </div>
     </div>
 
@@ -2389,6 +2390,70 @@
       animation: underlinePulse 2.5s infinite alternate;
       z-index: 1;
     }
+      #welcomeTitle {
+        font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+        font-size: 2.2rem;
+        color: #00ffe0;
+        text-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0;
+        letter-spacing: 0.15em;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        background: none;
+        padding: 0.5rem 0 1.2rem 0;
+      }
+        #startButton {
+          font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+          font-size: 1.3rem;
+          color: #00ffe0;
+          background: #001a1a;
+          border: 2px solid #00ffe0;
+          border-radius: 8px;
+          padding: 0.8em 2.2em;
+          margin-top: 2.2em;
+          box-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0 inset;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.77,0,0.175,1);
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          outline: none;
+          position: relative;
+          z-index: 2;
+        }
+          .about-button {
+            font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.1rem;
+            color: #a020f0;
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 0.7em 1.8em;
+            margin-top: 2.2em;
+            margin-left: 1.2em;
+            box-shadow: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.77,0,0.175,1);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            outline: none;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: 0 0 32px #a020f0, 0 0 64px #e0b3ff, 0 0 48px #a020f0, 0 0 96px #e0b3ff;
+          }
+          .about-button:hover {
+            color: #fff;
+            text-shadow: 0 0 64px #a020f0, 0 0 128px #e0b3ff, 0 0 96px #a020f0, 0 0 192px #e0b3ff;
+            transform: scale(1.12) rotate(-2deg);
+            text-decoration: none;
+          }
+        #startButton:hover {
+          background: #002e2e;
+          color: #fff;
+          border-color: #00ffe0;
+          box-shadow: 0 0 48px #00ffe0, 0 0 96px #00ffe0 inset;
+          transform: scale(1.04) rotate(-1deg);
+        }
     @keyframes underlinePulse {
       0% { opacity: 0.5; }
       100% { opacity: 1; filter: blur(8px) brightness(1.7); }
@@ -2427,9 +2492,9 @@
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    // Keyboard shortcut: S to skip to welcome
+    // Keyboard shortcut: ` to skip to welcome
     window.addEventListener('keydown', function(e) {
-      if (e.key.toLowerCase() === 's') {
+      if (e.key.toLowerCase() === '`') {
         skipToWelcomeScene();
       }
     });
@@ -2620,16 +2685,15 @@
       if (startButton) {
         startButton.addEventListener('click', function() {
           console.log('Start button clicked'); // Debug log
-          
+
           const bootScreen = document.getElementById('bootScreen');
           if (bootScreen) {
-            // Keep the matrix running and fade out the content
             bootScreen.classList.add('hidden');
           }
-          
+
           // Trigger binary swipe transition before boot sequence
           showBinarySwipe(() => {
-            if (matrixInterval) {
+            if (typeof matrixInterval !== 'undefined' && matrixInterval) {
               clearInterval(matrixInterval);
             }
             const newBootScreen = document.getElementById('newBootScreen');
@@ -2833,7 +2897,7 @@
       const botTitle = document.getElementById('botTitle');
       if (botTitle) {
         let username = window.storedUsername;
-        botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+        botTitle.textContent = username && username.length > 0 ? `Hello World. Hello, ${username}` : 'Welcome home';
       }
       const authError = document.getElementById('authError');
       authError.classList.add('active');
