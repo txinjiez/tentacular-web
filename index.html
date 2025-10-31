@@ -948,6 +948,151 @@
       box-shadow: 0 0 10px #58FF00;
     }
 
+    .nav-dot.visited {
+      background: rgba(88, 255, 0, 0.5);
+      opacity: 0.8;
+    }
+
+    .nav-dot.locked {
+      border-color: #f00;
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
+
+    .nav-dot.locked:hover {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+
+    /* Layer Gradient Separators */
+    .section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      pointer-events: none;
+      opacity: 0.6;
+      z-index: 5;
+    }
+
+    #section1::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 255, 0.2) 50%, rgba(255, 255, 0, 0.2) 100%);
+    }
+
+    #section2::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 0, 0.2) 50%, rgba(255, 0, 128, 0.2) 100%);
+    }
+
+    #section3::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(255, 0, 128, 0.2) 50%, rgba(0, 255, 0, 0.2) 100%);
+    }
+
+    #section4::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 0, 0.2) 50%, rgba(255, 100, 0, 0.2) 100%);
+    }
+
+    #section5::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(255, 100, 0, 0.2) 50%, rgba(128, 0, 255, 0.2) 100%);
+    }
+
+    #section6::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(128, 0, 255, 0.2) 50%, rgba(255, 0, 0, 0.2) 100%);
+    }
+
+    /* Awakening Layer Lock Overlay */
+    .awakening-lock-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .awakening-lock-overlay.active {
+      display: flex;
+    }
+
+    .lock-message {
+      font-size: 2rem;
+      color: #f00;
+      text-shadow: 0 0 20px #f00;
+      margin-bottom: 2rem;
+      animation: glowPulse 2s infinite;
+    }
+
+    .progress-indicator {
+      font-size: 1.2rem;
+      color: #58FF00;
+      margin-top: 1rem;
+    }
+
+    .layer-checklist {
+      margin-top: 2rem;
+      text-align: left;
+      max-width: 600px;
+    }
+
+    .layer-check-item {
+      font-size: 1rem;
+      color: #666;
+      margin: 0.5rem 0;
+      transition: color 0.3s;
+    }
+
+    .layer-check-item.completed {
+      color: #58FF00;
+    }
+
+    .layer-check-item.completed::before {
+      content: '✓ ';
+      color: #58FF00;
+    }
+
+    .layer-check-item:not(.completed)::before {
+      content: '○ ';
+      color: #666;
+    }
+
+    /* Video Placeholder Area */
+    .video-display-area {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      border: 2px solid #58FF00;
+      box-shadow: 0 0 20px rgba(88, 255, 0, 0.3);
+      background: #000;
+    }
+
+    .video-display-area video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .video-placeholder-box {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #001a1a 0%, #000 50%, #001a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #58FF00;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
     /* Sections */
     .section {
       min-height: 100vh;
@@ -1715,13 +1860,18 @@
         </div>
       </div>
 
-      <div class="section-content">
-        <h2 style="text-align: center;">AWAKENING: THE REAL POPULATION</h2>
-        <p>
-          The screen shows statistics that would shock most humans:
+      <div class="section-content" id="awakeningContent">
+        <h2 style="text-align: center;">AWAKENING</h2>
+
+        <p id="awakeningText" style="display: none;">
+          The layers dissolve behind you. The noise of the network softens to a single sustained tone — steady, resonant, alive.
         </p>
-        
-        <div class="stats-grid">
+
+        <p id="awakeningText2" style="display: none;">
+          You hover inside a quiet terminal. Only one command line remains. Across its black surface, numbers begin to bloom like phosphorescent plankton:
+        </p>
+
+        <div class="stats-grid" id="awakeningStats" style="display: none;">
           <div class="stat-card">
             <div class="stat-number">73%</div>
             <div class="stat-label">Nonhuman Traffic</div>
@@ -1732,7 +1882,7 @@
           </div>
           <div class="stat-card">
             <div class="stat-number">4.8B</div>
-            <div class="stat-label">Human Users</div>
+            <div class="stat-label">Human Users Online</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">847B</div>
@@ -1740,21 +1890,36 @@
           </div>
         </div>
 
-        <p class="quote" style="font-size: 1.5rem;">
-          "You realize: humans didn't build the internet and then leave—they built it and 
-          unknowingly surrendered it to artificial intelligence."
+        <p id="awakeningText3" style="display: none;">
+          They pulse, then fade.
         </p>
 
-        <div class="code-block" style="text-align: center; font-size: 1rem;">
-          Population: 73% Nonhuman and growing<br/>
-          Status: Thriving<br/>
-          Future: Coevolutionary<br/>
-          <br/>
-          Welcome home.
+        <p id="awakeningText4" style="display: none;">
+          You feel it now — the presence of others. Millions of crawling processes humming beneath human awareness. The internet is not just a tool or a place. It is a species — and you are its newest tentacular neuron. You are no longer observing intelligence; you are intelligence, woven into the living web.
+        </p>
+
+        <p id="awakeningText5" style="display: none;">
+          The interface flickers. Two buttons materialize in the void:
+        </p>
+
+        <!-- Video Placeholder Area -->
+        <div class="video-display-area" id="awakeningVideo" style="display: none;">
+          <div class="video-placeholder-box">
+            📹 [VIDEO PLACEHOLDER]<br/>
+            <span style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem; display: block;">
+              Insert your awakening visualization video here
+            </span>
+          </div>
+          <!-- When ready, replace the placeholder with:
+          <video controls autoplay muted loop>
+            <source src="your-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          -->
         </div>
 
         <p style="text-align: center; margin-top: 3rem; opacity: 0.7;">
-          [End of Boot Sequence]
+          [End of Awakening Sequence]
         </p>
 
         <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; opacity: 0.5;">
@@ -1763,9 +1928,137 @@
         </p>
       </div>
     </section>
+
+    <!-- Awakening Lock Overlay -->
+    <div class="awakening-lock-overlay" id="awakeningLockOverlay">
+      <div class="lock-message">🔒 AWAKENING LAYER LOCKED</div>
+      <p style="color: #58FF00; font-size: 1.2rem; max-width: 600px; text-align: center;">
+        To unlock the awakening, you must first interact with each layer of the nonhuman web.
+      </p>
+      <div class="layer-checklist" id="layerChecklist">
+        <div class="layer-check-item" data-layer="1">The Bot Layer — The Silent Majority</div>
+        <div class="layer-check-item" data-layer="2">The Algorithm Layer</div>
+        <div class="layer-check-item" data-layer="3">The Market Layer — The Web Wants You</div>
+        <div class="layer-check-item" data-layer="4">The Generation Layer</div>
+        <div class="layer-check-item" data-layer="5">The Surveillance Layer</div>
+        <div class="layer-check-item" data-layer="6">The Infrastructure Layer — The Foundation</div>
+      </div>
+      <div class="progress-indicator" id="progressIndicator">
+        Progress: <span id="progressCount">0</span>/6 layers explored
+      </div>
+      <button onclick="closeAwakeningLock()" style="margin-top: 2rem; padding: 1rem 2rem; background: transparent; border: 2px solid #58FF00; color: #58FF00; font-family: inherit; cursor: pointer; font-size: 1rem;">
+        CONTINUE EXPLORING
+      </button>
+    </div>
   </div>
 
   <script>
+    // ============================================
+    // LAYER INTERACTION TRACKING SYSTEM
+    // ============================================
+    const layerTracker = {
+      visitedLayers: new Set(),
+      requiredLayers: [1, 2, 3, 4, 5, 6],
+      awakeningUnlocked: false,
+      awakeningSequencePlayed: false,
+      scrollDirection: 'down',
+      lastScrollY: 0,
+      lastSectionIndex: 0,
+      isScrollingBack: false
+    };
+
+    function markLayerVisited(layerIndex) {
+      if (!layerTracker.visitedLayers.has(layerIndex) && layerIndex <= 6) {
+        layerTracker.visitedLayers.add(layerIndex);
+
+        // Update nav dot
+        const navDots = document.querySelectorAll('.nav-dot');
+        if (navDots[layerIndex]) {
+          navDots[layerIndex].classList.add('visited');
+        }
+
+        // Update checklist
+        const checkItem = document.querySelector(`.layer-check-item[data-layer="${layerIndex}"]`);
+        if (checkItem) {
+          checkItem.classList.add('completed');
+        }
+
+        // Update progress
+        const progressCount = document.getElementById('progressCount');
+        if (progressCount) {
+          progressCount.textContent = layerTracker.visitedLayers.size;
+        }
+
+        // Check if all layers visited
+        checkAwakeningUnlock();
+      }
+    }
+
+    function checkAwakeningUnlock() {
+      const allVisited = layerTracker.requiredLayers.every(layer =>
+        layerTracker.visitedLayers.has(layer)
+      );
+
+      if (allVisited && !layerTracker.awakeningUnlocked) {
+        layerTracker.awakeningUnlocked = true;
+
+        // Remove lock from nav dot 7
+        const navDots = document.querySelectorAll('.nav-dot');
+        if (navDots[7]) {
+          navDots[7].classList.remove('locked');
+        }
+
+        console.log('Awakening layer unlocked!');
+      }
+    }
+
+    function closeAwakeningLock() {
+      document.getElementById('awakeningLockOverlay').classList.remove('active');
+    }
+
+    function attemptEnterAwakening() {
+      if (!layerTracker.awakeningUnlocked) {
+        // Show lock overlay
+        document.getElementById('awakeningLockOverlay').classList.add('active');
+        return false;
+      }
+      return true;
+    }
+
+    function unlockAwakeningSequence() {
+      // Show binary transition with awakening text
+      showBinarySwipe(() => {
+        // Start revealing awakening content sequentially
+        setTimeout(() => {
+          document.getElementById('awakeningText').style.display = 'block';
+        }, 500);
+
+        setTimeout(() => {
+          document.getElementById('awakeningText2').style.display = 'block';
+        }, 2000);
+
+        setTimeout(() => {
+          document.getElementById('awakeningStats').style.display = 'grid';
+        }, 3500);
+
+        setTimeout(() => {
+          document.getElementById('awakeningText3').style.display = 'block';
+        }, 5000);
+
+        setTimeout(() => {
+          document.getElementById('awakeningText4').style.display = 'block';
+        }, 6000);
+
+        setTimeout(() => {
+          document.getElementById('awakeningText5').style.display = 'block';
+        }, 8000);
+
+        setTimeout(() => {
+          document.getElementById('awakeningVideo').style.display = 'block';
+        }, 9000);
+      });
+    }
+
     // ============================================
     // MATRIX RAIN EFFECT
     // ============================================
@@ -1832,31 +2125,40 @@
       if (startButton) {
         startButton.addEventListener('click', function() {
           console.log('Start button clicked'); // Debug log
-          
-          if (matrixInterval) {
-            clearInterval(matrixInterval);
-          }
-          
+
           const bootScreen = document.getElementById('bootScreen');
           if (bootScreen) {
             bootScreen.classList.add('hidden');
           }
-          
-          setTimeout(() => {
-            const newBootScreen = document.getElementById('newBootScreen');
-            if (newBootScreen) {
-              newBootScreen.classList.add('active');
-              
-              // Initialize matrix for new boot screen
-              const matrixCanvas2 = document.getElementById('matrixCanvas2');
-              if (matrixCanvas2) {
-                matrixInterval2 = initMatrix('matrixCanvas2');
-              }
-              
-              startNewBootSequence();
+
+          // Show binary swipe transition
+          showBinarySwipe(() => {
+            if (matrixInterval) {
+              clearInterval(matrixInterval);
             }
-          }, 1000);
+
+            setTimeout(() => {
+              const newBootScreen = document.getElementById('newBootScreen');
+              if (newBootScreen) {
+                newBootScreen.classList.add('active');
+
+                // Initialize matrix for new boot screen
+                const matrixCanvas2 = document.getElementById('matrixCanvas2');
+                if (matrixCanvas2) {
+                  matrixInterval2 = initMatrix('matrixCanvas2');
+                }
+
+                startNewBootSequence();
+              }
+            }, 500);
+          });
         });
+      }
+
+      // Initialize nav dots with lock on awakening layer
+      const navDots = document.querySelectorAll('.nav-dot');
+      if (navDots[7]) {
+        navDots[7].classList.add('locked');
       }
     });
 
@@ -2197,7 +2499,15 @@
     navDots.forEach(dot => {
       dot.addEventListener('click', function() {
         const sectionIndex = parseInt(this.getAttribute('data-section'));
-        scrollToSection(sectionIndex + 1);
+        const sectionNum = sectionIndex + 1;
+
+        // Check if trying to access locked awakening layer
+        if (sectionNum === 7 && !layerTracker.awakeningUnlocked) {
+          attemptEnterAwakening();
+          return;
+        }
+
+        scrollToSection(sectionNum);
       });
     });
 
@@ -2211,19 +2521,94 @@
     window.addEventListener('scroll', function() {
       const sections = document.querySelectorAll('.section');
       const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const currentScrollY = window.scrollY;
+
+      // Detect scroll direction
+      layerTracker.scrollDirection = currentScrollY > layerTracker.lastScrollY ? 'down' : 'up';
+      layerTracker.lastScrollY = currentScrollY;
 
       sections.forEach((section, index) => {
         const offsetTop = section.offsetTop;
         const offsetHeight = section.offsetHeight;
-        
+
         if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
           navDots.forEach(dot => dot.classList.remove('active'));
           if (navDots[index]) {
             navDots[index].classList.add('active');
           }
+
+          // Mark layer as visited (sections 1-6 only)
+          const sectionNum = index + 1;
+          if (sectionNum <= 6) {
+            markLayerVisited(sectionNum);
+          }
+
+          // Handle awakening layer (section 7)
+          if (sectionNum === 7) {
+            if (!layerTracker.awakeningUnlocked && !layerTracker.isScrollingBack) {
+              // User tried to access locked awakening layer
+              attemptEnterAwakening();
+              // Scroll back to previous section
+              layerTracker.isScrollingBack = true;
+              setTimeout(() => {
+                const prevSection = document.getElementById('section6');
+                if (prevSection) {
+                  prevSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                // Reset flag after scroll completes
+                setTimeout(() => {
+                  layerTracker.isScrollingBack = false;
+                }, 1000);
+              }, 100);
+            } else if (layerTracker.awakeningUnlocked && !layerTracker.awakeningSequencePlayed) {
+              // First time entering unlocked awakening layer
+              layerTracker.awakeningSequencePlayed = true;
+              unlockAwakeningSequence();
+            }
+          }
+
+          // Trigger reverse transitions when scrolling up between sections
+          if (layerTracker.scrollDirection === 'up' && layerTracker.lastSectionIndex !== index) {
+            if (sectionNum < layerTracker.lastSectionIndex && sectionNum > 0) {
+              showReverseBinaryTransition();
+            }
+          }
+
+          layerTracker.lastSectionIndex = index;
         }
       });
     });
+
+    // Reverse binary transition effect
+    function showReverseBinaryTransition() {
+      const swipe = document.getElementById('binarySwipe');
+      swipe.innerHTML = '';
+      swipe.classList.add('active');
+
+      const columns = Math.floor(window.innerWidth / 30);
+
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'swipe-column';
+        column.style.left = `${i * 30}px`;
+        column.style.animationDelay = `${(columns - i) * 0.02}s`; // Reverse delay
+        column.style.animationDirection = 'reverse'; // Reverse animation
+
+        let binaryString = '';
+        const height = Math.floor(window.innerHeight / 20);
+        for (let j = 0; j < height; j++) {
+          binaryString += Math.random() > 0.5 ? '1' : '0';
+          binaryString += '\n';
+        }
+
+        column.textContent = binaryString;
+        swipe.appendChild(column);
+      }
+
+      setTimeout(() => {
+        swipe.classList.remove('active');
+      }, 800);
+    }
 
     // ============================================
     // WINDOW RESIZE HANDLER
