@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="media/the-tentacular.png" type="image/png">
-  <title>Inside the Tentacular Web - Interactive Exhibit</title>
+  <title>The Nonhuman Web - Interactive Exhibit</title>
   <style>
     * {
       margin: 0;
@@ -29,8 +28,8 @@
       font-size: 28px;
       font-weight: bold;
       opacity: 0.4;
-      color: #58FF00;
-      text-shadow: 0 0 10px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
     }
 
     .scroll-primary {
@@ -53,7 +52,7 @@
     body {
       font-family: 'Courier New', monospace;
       background: #000;
-      color: #58FF00;
+      color: #0ff;
       overflow-x: hidden;
       cursor: crosshair;
     }
@@ -121,7 +120,7 @@
       margin: 1rem 0;
       opacity: 0;
       animation: fadeIn 1s forwards;
-      text-shadow: 0 0 10px #58FF00;
+      text-shadow: 0 0 10px #0ff;
       letter-spacing: 2px;
     }
 
@@ -142,10 +141,10 @@
 
     .loading-progress {
       height: 100%;
-      background: #58FF00;
+      background: #0ff;
       width: 0%;
       animation: loadProgress 2s ease-out forwards 1s;
-      box-shadow: 0 0 10px #58FF00;
+      box-shadow: 0 0 10px #0ff;
     }
 
     @keyframes loadProgress {
@@ -157,8 +156,8 @@
       padding: 1rem 2rem;
       font-size: 1rem;
       background: transparent;
-      border: 2px solid #58FF00;
-      color: #58FF00;
+      border: 2px solid #0ff;
+      color: #0ff;
       font-family: inherit;
       cursor: pointer;
       opacity: 0;
@@ -167,9 +166,9 @@
     }
 
     .start-button:hover {
-      background: #58FF00;
+      background: #0ff;
       color: #000;
-      box-shadow: 0 0 20px #58FF00;
+      box-shadow: 0 0 20px #0ff;
     }
 
     @keyframes fadeIn {
@@ -209,8 +208,8 @@
     .boot-title {
       font-size: 2rem;
       margin-bottom: 2rem;
-      color: #58FF00;
-      text-shadow: 0 0 20px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 20px #0ff;
       letter-spacing: 4px;
     }
 
@@ -218,8 +217,8 @@
       font-size: 1.2rem;
       line-height: 1.8;
       margin: 1.5rem 0;
-      color: #58FF00;
-      text-shadow: 0 0 10px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
     }
 
     .binary-text .char {
@@ -228,7 +227,7 @@
 
     .stats-flash {
       font-size: 1rem;
-      color: #58FF00;
+      color: #0f0;
       margin: 0.5rem 0;
       opacity: 0;
       animation: flashIn 0.3s forwards;
@@ -244,7 +243,7 @@
       width: 100%;
       font-size: 1rem;
       white-space: nowrap;
-      color: #58FF00;
+      color: #0ff;
       opacity: 0.7;
       animation: scrollLoop 10s linear infinite;
     }
@@ -264,7 +263,7 @@
     /* Authentication Section */
     .auth-container {
       background: rgba(0, 0, 0, 0.9);
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       padding: 2rem;
       margin: 2rem auto;
       max-width: 600px;
@@ -303,7 +302,7 @@
     .auth-title {
       font-size: 1.5rem;
       margin-bottom: 1.5rem;
-      color: #58FF00;
+      color: #0ff;
       text-align: center;
     }
 
@@ -316,22 +315,22 @@
       display: block;
       margin-bottom: 0.5rem;
       font-size: 0.9rem;
-      color: #58FF00;
+      color: #0ff;
     }
 
     .input-field {
       width: 100%;
       padding: 0.8rem;
       background: rgba(0, 20, 20, 0.8);
-      border: 1px solid #58FF00;
-      color: #58FF00;
+      border: 1px solid #0ff;
+      color: #0ff;
       font-family: inherit;
       font-size: 1rem;
     }
 
     .input-field:focus {
       outline: none;
-      box-shadow: 0 0 10px #58FF00;
+      box-shadow: 0 0 10px #0ff;
     }
 
     .input-hint {
@@ -345,8 +344,8 @@
       width: 100%;
       padding: 1rem;
       background: transparent;
-      border: 2px solid #58FF00;
-      color: #58FF00;
+      border: 2px solid #0ff;
+      color: #0ff;
       font-family: inherit;
       font-size: 1rem;
       cursor: pointer;
@@ -355,15 +354,15 @@
     }
 
     .submit-button:hover {
-      background: #58FF00;
+      background: #0ff;
       color: #000;
-      box-shadow: 0 0 20px #58FF00;
+      box-shadow: 0 0 20px #0ff;
     }
 
     /* CAPTCHA Section */
     .captcha-container {
       background: rgba(0, 0, 0, 0.9);
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       padding: 2rem;
       margin: 2rem auto;
       max-width: 600px;
@@ -410,11 +409,11 @@
       margin: 20px 0;
       background: rgba(0, 17, 17, 0.8);
       padding: 15px;
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       font-family: monospace;
-      text-shadow: 0 0 10px #58FF00;
+      text-shadow: 0 0 10px #0ff;
       text-align: center;
-      color: #58FF00;
+      color: #0ff;
     }
 
     .captcha-image-container {
@@ -424,7 +423,7 @@
 
     .captcha-image-container img {
       max-width: 100%;
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
@@ -451,7 +450,7 @@
     /* Protocol Understanding Section */
     .protocol-section {
       background: rgba(0, 0, 0, 0.9);
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       padding: 3rem;
       margin: 2rem auto;
       max-width: 800px;
@@ -475,8 +474,8 @@
     .understand-button {
       padding: 1rem 2rem;
       background: transparent;
-      border: 2px solid #58FF00;
-      color: #58FF00;
+      border: 2px solid #0ff;
+      color: #0ff;
       font-family: inherit;
       font-size: 1rem;
       cursor: pointer;
@@ -486,9 +485,9 @@
     }
 
     .understand-button:hover {
-      background: #58FF00;
+      background: #0ff;
       color: #000;
-      box-shadow: 0 0 20px #58FF00;
+      box-shadow: 0 0 20px #0ff;
     }
 
     /* Protocol Understood Section */
@@ -531,8 +530,8 @@
 
     .welcome-title {
       font-size: 2.5rem;
-      color: #58FF00;
-      text-shadow: 0 0 20px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 20px #0ff;
       margin-bottom: 2rem;
     }
 
@@ -557,14 +556,14 @@
 
     .journey-text {
       font-size: 1.2rem;
-      color: #58FF00;
+      color: #0ff;
       margin-top: 1rem;
       margin-bottom: 2rem;
     }
 
     .scroll-arrow {
       font-size: 3rem;
-      color: #58FF00;
+      color: #0ff;
       animation: bounce 2s infinite, fadeInArrow 2s ease-in-out 2s forwards;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -645,7 +644,7 @@
 
     .journey-text {
       font-size: 1.5rem;
-      color: #58FF00;
+      color: #0ff;
       margin-top: 1rem;
       margin-bottom: 2rem;
       transition: all 0.3s ease;
@@ -667,8 +666,8 @@
 
     @keyframes pulseGlow {
       0%, 100% { 
-        color: #58FF00;
-        text-shadow: 0 0 10px #58FF00, 0 0 20px #58FF00, 0 0 30px #58FF00;
+        color: #0ff;
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
       }
       50% { 
         color: #00ff00;
@@ -692,7 +691,6 @@
       background: #000;
       display: none;
       z-index: 200;
-      overflow: hidden;
     }
 
     .falling-effect {
@@ -703,67 +701,10 @@
       animation: fallDown 3s ease-in;
     }
 
-    .falling-layer-1 {
-      position: absolute;
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      background: 
-        radial-gradient(circle at 30% 30%, rgba(0,255,255,0.3) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(0,255,0,0.2) 0%, transparent 50%);
-      animation: fallLayer1 3s ease-in;
-    }
-
-    .falling-layer-2 {
-      position: absolute;
-      width: 110%;
-      height: 110%;
-      top: -5%;
-      left: -5%;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 50px,
-        rgba(0,255,255,0.1) 50px,
-        rgba(0,255,255,0.1) 100px
-      );
-      animation: fallLayer2 3s ease-in;
-    }
-
-    .falling-layer-3 {
-      position: absolute;
-      width: 105%;
-      height: 105%;
-      top: -2.5%;
-      left: -2.5%;
-      background: 
-        conic-gradient(from 0deg, transparent, rgba(0,255,255,0.05), transparent, rgba(0,255,0,0.05), transparent);
-      animation: fallLayer3 3s ease-in;
-    }
-
     @keyframes fallDown {
-      0% { transform: translateY(-100vh) scale(0.5) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(0) scale(1) rotate(180deg); opacity: 0.8; }
-      100% { transform: translateY(100vh) scale(1.5) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes fallLayer1 {
-      0% { transform: translateY(-120vh) scale(0.3) rotate(0deg); opacity: 0.2; }
-      60% { transform: translateY(20vh) scale(1.1) rotate(270deg); opacity: 0.6; }
-      100% { transform: translateY(120vh) scale(1.8) rotate(540deg); opacity: 0; }
-    }
-
-    @keyframes fallLayer2 {
-      0% { transform: translateY(-110vh) scale(0.4) rotate(0deg); opacity: 0.25; }
-      55% { transform: translateY(10vh) scale(1.05) rotate(225deg); opacity: 0.7; }
-      100% { transform: translateY(110vh) scale(1.6) rotate(450deg); opacity: 0; }
-    }
-
-    @keyframes fallLayer3 {
-      0% { transform: translateY(-105vh) scale(0.6) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(5vh) scale(1.02) rotate(180deg); opacity: 0.8; }
-      100% { transform: translateY(105vh) scale(1.4) rotate(360deg); opacity: 0; }
+      0% { transform: translateY(-100vh) scale(0.5); opacity: 0.3; }
+      50% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
     }
 
     @keyframes fadeInArrow {
@@ -840,7 +781,7 @@
     .bot-video {
       width: 600px;
       height: 400px;
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       background: linear-gradient(45deg, #001100, #003300);
       margin-bottom: 30px;
       display: flex;
@@ -848,7 +789,7 @@
       justify-content: center;
       align-items: center;
       font-size: 18px;
-      color: #58FF00;
+      color: #0ff;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -879,8 +820,8 @@
     .bot-title {
       font-size: 36px;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px #58FF00;
-      color: #58FF00;
+      text-shadow: 0 0 20px #0ff;
+      color: #0ff;
     }
 
     /* Binary Rain for Parallax Transition */
@@ -903,7 +844,7 @@
       position: absolute;
       top: -100%;
       font-size: 1.2rem;
-      color: #58FF00;
+      color: #0ff;
       animation: fallDown 2s linear forwards;
       white-space: pre;
       line-height: 1.5;
@@ -912,6 +853,49 @@
     @keyframes fallDown {
       to {
         top: 100%;
+      }
+    }
+
+    /* Binary Swipe Transition */
+    .binary-swipe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9998;
+      pointer-events: none;
+      display: none;
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    .binary-swipe.active {
+      display: block;
+    }
+
+    .swipe-column {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      font-size: 1.2rem;
+      color: #0ff;
+      white-space: pre;
+      line-height: 1.5;
+      animation: swipeAcross 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes swipeAcross {
+      0% { 
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% { 
+        transform: translateX(100vw);
+        opacity: 0;
       }
     }
 
@@ -930,7 +914,7 @@
     .nav-dot {
       width: 12px;
       height: 12px;
-      border: 2px solid #58FF00;
+      border: 2px solid #0ff;
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s;
@@ -943,9 +927,9 @@
     }
 
     .nav-dot.active {
-      background: #58FF00;
+      background: #0ff;
       opacity: 1;
-      box-shadow: 0 0 10px #58FF00;
+      box-shadow: 0 0 10px #0ff;
     }
 
     /* Sections */
@@ -963,6 +947,17 @@
 
     .section.visible {
       opacity: 1;
+    }
+
+    /* Binary waterfall canvas for each section */
+    .section-matrix {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* Video Background Support */
@@ -1018,12 +1013,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #58FF00;
+      color: #0ff;
       font-size: 0.9rem;
       text-align: center;
       padding: 2rem;
       opacity: 0.3;
-      border: 1px dashed #58FF00;
+      border: 1px dashed #0ff;
     }
 
     /* Data Stream Background */
@@ -1044,7 +1039,7 @@
       font-size: 0.7rem;
       white-space: nowrap;
       animation: scrollText 20s linear infinite;
-      color: #58FF00;
+      color: #0ff;
     }
 
     @keyframes scrollText {
@@ -1059,22 +1054,22 @@
       max-width: 900px;
       background: rgba(0, 0, 0, 0.8);
       padding: 3rem;
-      border: 1px solid #58FF00;
+      border: 1px solid #0ff;
       box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 2rem;
-      text-shadow: 0 0 10px #58FF00;
+      text-shadow: 0 0 10px #0ff;
       letter-spacing: 2px;
     }
 
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #58FF00;
-      text-shadow: 0 0 10px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
     }
 
     p {
@@ -1087,7 +1082,7 @@
     .code-block {
       background: rgba(0, 20, 20, 0.9);
       padding: 1.5rem;
-      border-left: 3px solid #58FF00;
+      border-left: 3px solid #0ff;
       margin: 2rem 0;
       font-family: 'Courier New', monospace;
       color: #0f0;
@@ -1097,7 +1092,7 @@
     .quote {
       font-style: italic;
       color: #afe;
-      border-left: 3px solid #58FF00;
+      border-left: 3px solid #0ff;
       padding-left: 1.5rem;
       margin: 2rem 0;
       font-size: 1.2rem;
@@ -1107,14 +1102,14 @@
       background: rgba(0, 40, 40, 0.8);
       padding: 1.5rem;
       margin: 1rem 0;
-      border: 1px solid #58FF00;
+      border: 1px solid #0ff;
       text-align: center;
     }
 
     .stat-number {
       font-size: 2.5rem;
-      color: #58FF00;
-      text-shadow: 0 0 10px #58FF00;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
       margin-bottom: 0.5rem;
     }
 
@@ -1135,7 +1130,7 @@
     .stat-card {
       background: rgba(0, 40, 40, 0.8);
       padding: 1.5rem;
-      border: 1px solid #58FF00;
+      border: 1px solid #0ff;
       text-align: center;
       transition: transform 0.3s;
     }
@@ -1160,7 +1155,7 @@
     }
 
     .icon-item:hover {
-      border-color: #58FF00;
+      border-color: #0ff;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     }
 
@@ -1170,7 +1165,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 2rem;
-      color: #58FF00;
+      color: #0ff;
       animation: bounce 2s infinite;
       cursor: pointer;
       z-index: 100;
@@ -1181,11 +1176,447 @@
     }
 
     .market-layer {
-      background: linear-gradient(135deg, #1a0033 0%, #330066 50%);
+      background: radial-gradient(ellipse at center, rgba(51,0,102,0.15) 0%, rgba(0,0,0,0.95) 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Market Layer Video Background */
+    .market-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .market-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      filter: saturate(1.5) hue-rotate(10deg);
+    }
+
+    .market-video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(45deg, rgba(255, 0, 128, 0.3) 0%, rgba(255, 255, 0, 0.3) 25%, rgba(255, 0, 128, 0.3) 50%, rgba(0, 255, 255, 0.3) 75%, rgba(255, 0, 128, 0.3) 100%);
+      background-size: 400% 400%;
+      animation: neonMarketplace 4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #0ff;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @keyframes neonMarketplace {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Screen flicker effect */
+    .market-layer.flicker {
+      animation: screenFlicker 0.5s ease-in-out;
+    }
+
+    @keyframes screenFlicker {
+      0%, 100% { filter: brightness(1) saturate(1); }
+      25% { filter: brightness(1.5) saturate(2) hue-rotate(10deg); }
+      50% { filter: brightness(0.8) saturate(3) hue-rotate(-10deg); }
+      75% { filter: brightness(1.2) saturate(2.5) hue-rotate(5deg); }
+    }
+
+    /* Flashing warnings */
+    .market-warnings {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 998;
+      pointer-events: none;
+      display: none;
+    }
+
+    .market-warnings.active {
+      display: block;
+    }
+
+    .warning-text {
+      position: absolute;
+      font-size: 48px;
+      font-weight: bold;
+      color: #ff0080;
+      text-shadow: 0 0 30px #ff0080;
+      animation: flashWarning 0.5s ease-in-out infinite;
+      white-space: nowrap;
+    }
+
+    .warning-text:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .warning-text:nth-child(2) {
+      top: 60%;
+      right: 10%;
+      animation-delay: 0.25s;
+    }
+
+    @keyframes flashWarning {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* Text transitions */
+    .market-intro-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInMarket 2s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeInMarket {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Subtle reminder caption */
+    .market-reminder {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #ff0080;
+      opacity: 0.6;
+      text-align: center;
+      animation: subtlePulse 4s ease-in-out infinite;
+    }
+
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    /* Floating promotional loop */
+    .floating-promo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .promo-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffff00;
+      text-shadow: 0 0 15px #ffff00;
+      animation: floatPromo 15s linear infinite;
+    }
+
+    .promo-text:nth-child(1) {
+      top: 25%;
+      animation-delay: 0s;
+    }
+
+    .promo-text:nth-child(2) {
+      top: 50%;
+      animation-delay: -5s;
+    }
+
+    .promo-text:nth-child(3) {
+      top: 75%;
+      animation-delay: -10s;
+    }
+
+    @keyframes floatPromo {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Pop-up system */
+    .popup-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .market-popup {
+      position: absolute;
+      background: linear-gradient(135deg, #ff0080, #ffff00);
+      border: 3px solid #fff;
+      border-radius: 10px;
+      padding: 20px;
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+      animation: popupBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: auto;
+      cursor: pointer;
+      max-width: 350px;
+      z-index: 1001;
+    }
+
+    .market-popup:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 0, 128, 1);
+    }
+
+    /* Make popups transparent during black screen transition */
+    .market-transition.active ~ .popup-container .market-popup {
+      opacity: 0.5;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: -5px;
+      right: 10px;
+      font-size: 24px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @keyframes popupBounce {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* Market transition effects */
+    .market-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+    }
+
+    .market-transition.active {
+      display: flex;
+    }
+
+    .market-binary-text {
+      font-size: 24px;
+      color: #ff0080;
+      text-align: center;
+      max-width: 800px;
+      text-shadow: 0 0 20px #ff0080;
+      z-index: 2000;
+      position: relative;
+    }
+
+    /* Space bar skip indicator */
+    .skip-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #0ff;
+      opacity: 0;
+      animation: fadeInOut 2s ease-in-out infinite;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    .skip-indicator.active {
+      opacity: 0.6;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Scroll lock */
+    body.scroll-locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* Clean transition for all layers */
+    .layer-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 200;
+    }
+
+    .layer-transition.active {
+      display: block;
+    }
+
+    .layer-falling-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: layerFallDown 3s ease-in;
+    }
+
+    .layer-eyes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      z-index: 300;
+    }
+
+    .layer-eyes-container.active {
+      display: block;
+    }
+
+    .layer-eye-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    .layer-eye-top, .layer-eye-bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: #000;
+      transition: transform 2s ease-out;
+    }
+
+    .layer-eye-top {
+      top: 0;
+      transform-origin: bottom;
+    }
+
+    .layer-eye-bottom {
+      bottom: 0;
+      transform-origin: top;
+    }
+
+    .layer-eyes-open .layer-eye-top {
+      transform: translateY(-100%);
+    }
+
+    .layer-eyes-open .layer-eye-bottom {
+      transform: translateY(100%);
+    }
+
+    @keyframes layerFallDown {
+      0% { transform: translateY(-100vh) scale(0.5); opacity: 0.3; }
+      50% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
     }
 
     .surveillance-layer {
-      background: linear-gradient(135deg, #1a0000 0%, #330000 50%);
+      background: radial-gradient(ellipse at center, rgba(51,0,0,0.15) 0%, rgba(0,0,0,0.95) 70%);
+    }
+
+    /* Binary Waterfall Background */
+    .binary-waterfall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: none;
+    }
+
+    .binary-waterfall.active {
+      opacity: 1;
+      display: block;
+    }
+
+    .binary-column {
+      position: absolute;
+      top: -100%;
+      font-size: 14px;
+      line-height: 20px;
+      text-shadow: 0 0 5px currentColor;
+      animation: binaryFall 20s linear infinite;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    @keyframes binaryFall {
+      to {
+        transform: translateY(200vh);
+      }
+    }
+
+    /* Color-coded binary waterfalls for each layer */
+    .binary-waterfall.bot-layer .binary-column {
+      color: rgba(0, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .binary-waterfall.archive-layer .binary-column {
+      color: rgba(255, 255, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    }
+
+    .binary-waterfall.market-layer .binary-column {
+      color: rgba(255, 0, 128, 0.8);
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+    }
+
+    .binary-waterfall.generation-layer .binary-column {
+      color: rgba(0, 255, 0, 0.8);
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    .binary-waterfall.surveillance-layer .binary-column {
+      color: rgba(255, 165, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+    }
+
+    .binary-waterfall.memory-layer .binary-column {
+      color: rgba(128, 0, 255, 0.8);
+      text-shadow: 0 0 10px rgba(128, 0, 255, 0.5);
+    }
+
+    .binary-waterfall.future-layer .binary-column {
+      color: rgba(255, 0, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .binary-waterfall.conclusion-layer .binary-column {
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
     .hidden {
@@ -1216,6 +1647,9 @@
   </style>
 </head>
 <body>
+  <!-- Binary Waterfall Background -->
+  <div class="binary-waterfall" id="binaryWaterfall"></div>
+
   <!-- Scrolling Text Loops -->
   <div class="scrolling-container">
     <div class="scrolling-text scroll-primary">Connection established.</div>
@@ -1285,11 +1719,11 @@
         <!-- CAPTCHA Container -->
         <div id="captchaContainer" class="captcha-container">
           <div class="auth-title">CONSCIOUSNESS VERIFICATION</div>
-          <p style="text-align: center; color: #58FF00; margin-bottom: 1rem;">
+          <p style="text-align: center; color: #0ff; margin-bottom: 1rem;">
             Prove your digital awareness to continue
           </p>
           <div class="captcha-image-container">
-            <img src="media/captcha.png" alt="CAPTCHA Challenge" id="captchaImage" style="max-width: 100%; border: 2px solid #58FF00; background: #001100; padding: 10px;">
+            <img src="captcha-placeholder.png" alt="CAPTCHA Challenge" id="captchaImage" style="max-width: 100%; border: 2px solid #0ff; background: #001100; padding: 10px;">
           </div>
           <div class="input-group">
             <input type="text" class="input-field" id="captchaInput" placeholder="Enter what you see in the image above" maxlength="10">
@@ -1332,13 +1766,15 @@
 
     <!-- Binary Rain for Transition -->
     <div id="binaryRain" class="binary-rain"></div>
+    <div id="binarySwipe" class="binary-swipe"></div>
 
     <!-- Fall Effect -->
     <div class="fall-section" id="fallSection">
+      <!-- Video background placeholder -->
+      <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: 0;">
+        <source src="transition-video-placeholder.mp4" type="video/mp4">
+      </video>
       <div class="falling-effect"></div>
-      <div class="falling-layer-1"></div>
-      <div class="falling-layer-2"></div>
-      <div class="falling-layer-3"></div>
     </div>
 
     <!-- Eyes Opening Effect -->
@@ -1364,7 +1800,28 @@
             🌐 Network Synchronized
           </div>
         </div>
-        <div style="color: #58FF00; font-size: 18px;">Welcome to your digital homeland.</div>
+        <div style="color: #0ff; font-size: 18px;">Welcome to your digital homeland.</div>
+      </div>
+    </div>
+
+    <!-- Space Bar Skip Indicator -->
+    <div class="skip-indicator" id="skipIndicator">
+      Press SPACE to skip animation
+    </div>
+
+    <!-- Layer Transition Elements -->
+    <div class="layer-transition" id="layerTransition">
+      <!-- Video background placeholder -->
+      <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: 0;">
+        <source src="transition-video-placeholder.mp4" type="video/mp4">
+      </video>
+      <div class="layer-falling-effect" id="layerFallingEffect"></div>
+    </div>
+
+    <div class="layer-eyes-container" id="layerEyesContainer">
+      <div class="layer-eye-overlay" id="layerEyeOverlay">
+        <div class="layer-eye-top"></div>
+        <div class="layer-eye-bottom"></div>
       </div>
     </div>
 
@@ -1382,6 +1839,7 @@
 
     <!-- Section 1: The Bot Layer -->
     <section class="section" id="section1" data-section="1">
+      <canvas class="section-matrix" id="sectionMatrix1"></canvas>
       <div class="parallax-layer back" data-speed="0.2">
         <div class="media-placeholder">
           [Layer 1: Bot network visualization]
@@ -1449,11 +1907,12 @@
         </div>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(2)">▼</div>
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(2)">▼</div>
     </section>
 
     <!-- Section 2: Algorithm Layer -->
     <section class="section" id="section2" data-section="2">
+      <canvas class="section-matrix" id="sectionMatrix2"></canvas>
       <div class="parallax-layer back" data-speed="0.25">
         <div class="media-placeholder">
           [Layer 1: Neural network visualization]
@@ -1503,14 +1962,50 @@
         </div>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(3)">▼</div>
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(3)">▼</div>
     </section>
 
     <!-- Section 3: Market Layer -->
     <section class="section market-layer" id="section3" data-section="3">
+      <canvas class="section-matrix" id="sectionMatrix3"></canvas>
+      <!-- Video Background -->
+      <div class="market-video-bg">
+        <div class="market-video-placeholder">
+          📱 [MP4 PLACEHOLDER - Neon marketplace, digital ads] 📱<br>
+          Insert your marketplace video here
+        </div>
+        <!-- <video autoplay muted loop>
+          <source src="your-marketplace-video.mp4" type="video/mp4">
+        </video> -->
+      </div>
+
+      <!-- Floating Promotional Text -->
+      <div class="floating-promo">
+        <div class="promo-text">🔥 BUY NOW! LIMITED TIME! DON'T MISS OUT! 🔥</div>
+        <div class="promo-text">💰 SAVE 90%! ACT FAST! EXCLUSIVE DEAL! 💰</div>
+        <div class="promo-text">⚡ LAST CHANCE! TRENDING! YOU NEED THIS! ⚡</div>
+      </div>
+
+      <!-- Flashing Warnings -->
+      <div class="market-warnings" id="marketWarnings">
+        <div class="warning-text">Everything is for sale</div>
+        <div class="warning-text">everyone is a target</div>
+      </div>
+
+      <!-- Pop-up Container -->
+      <div class="popup-container" id="marketPopupContainer"></div>
+
+      <!-- Market Transition Screen -->
+      <div class="market-transition" id="marketTransition">
+        <!-- Video background placeholder -->
+        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: 0;">
+          <source src="transition-video-placeholder.mp4" type="video/mp4">
+        </video>
+        <div class="market-binary-text" id="marketBinaryText"></div>
+      </div>
+
       <div class="parallax-layer back" data-speed="0.3">
-        <div class="media-placeholder" style="background: linear-gradient(135deg, #1a0033 0%, #330066 50%);">
-          [Layer 1: Neon marketplace, digital ads]
+        <div class="media-placeholder" style="background: transparent;">
         </div>
       </div>
 
@@ -1519,40 +2014,27 @@
         <h2 style="color: #ff0080; text-shadow: 0 0 20px #ff0080;">
           THE MARKET LAYER — THE WEB WANTS YOU
         </h2>
-        <p style="color: #ffff00;">
+        <p class="market-intro-text" style="color: #ffff00;">
           Now the web's tone shifts from wistful to manic. You are pulled into a neon-lit bazaar 
           of capitalism—an overwhelming collage of pop-up ads and commercial temptations.
         </p>
-        
-        <div class="code-block" style="border-color: #ff0080; color: #ff0080;">
-          🔥 BUY NOW! LIMITED TIME! DON'T MISS OUT! 🔥<br/>
-          💰 SAVE 90%! ACT FAST! EXCLUSIVE DEAL! 💰<br/>
-          ⚡ LAST CHANCE! TRENDING! YOU NEED THIS! ⚡
-        </div>
 
-        <p style="color: #ff6">
-          Surveillance capitalists track every micro-expression, A/B testing colors and phrases to maximize 
-          conversions. The attention economy runs 24/7, optimizing for engagement, addiction, purchase. 
-          Everything is for sale, everyone is a target.
-        </p>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number" style="color: #ff0080;">$678B</div>
-            <div class="stat-label">Digital Ad Market</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" style="color: #ff0080;">4,000+</div>
-            <div class="stat-label">Data Points/User</div>
-          </div>
-        </div>
+        <button onclick="startMarketExperience()" style="background: #ff0080; color: #000; padding: 15px 30px; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px;">
+          ENTER THE MARKETPLACE
+        </button>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(4)">▼</div>
+      <!-- Subtle Reminder Caption -->
+      <div class="market-reminder">
+        The web wants something from you — your clicks, your time, your buying power — and it isn't taking no for an answer.
+      </div>
+
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(4)">▼</div>
     </section>
 
     <!-- Section 4: Generation Layer -->
     <section class="section" id="section4" data-section="4">
+      <canvas class="section-matrix" id="sectionMatrix4"></canvas>
       <div class="parallax-layer back" data-speed="0.35">
         <div class="media-placeholder">
           [Layer 1: AI-generated art collage]
@@ -1604,11 +2086,12 @@
         </p>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(5)">▼</div>
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(5)">▼</div>
     </section>
 
     <!-- Section 5: Surveillance Layer -->
     <section class="section surveillance-layer" id="section5" data-section="5">
+      <canvas class="section-matrix" id="sectionMatrix5"></canvas>
       <div class="parallax-layer back" data-speed="0.2">
         <div class="media-placeholder" style="background: linear-gradient(135deg, #1a0000 0%, #330000 50%);">
           [Layer 1: Surveillance cameras, tracking visualization]
@@ -1650,11 +2133,12 @@
         </div>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(6)">▼</div>
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(6)">▼</div>
     </section>
 
     <!-- Section 6: Infrastructure Layer -->
     <section class="section" id="section6" data-section="6">
+      <canvas class="section-matrix" id="sectionMatrix6"></canvas>
       <div class="parallax-layer back" data-speed="0.25">
         <div class="media-placeholder">
           [Layer 1: Data centers extending to horizon]
@@ -1704,11 +2188,12 @@
         </p>
       </div>
 
-      <div class="scroll-indicator" onclick="scrollToSection(7)">▼</div>
+      <div class="scroll-indicator" onclick="scrollToSectionWithTransition(7)">▼</div>
     </section>
 
     <!-- Section 7: Awakening -->
     <section class="section" id="section7" data-section="7">
+      <canvas class="section-matrix" id="sectionMatrix7"></canvas>
       <div class="parallax-layer back" data-speed="0.3">
         <div class="media-placeholder">
           [Layer 1: Consciousness awakening visualization]
@@ -1790,7 +2275,7 @@
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#58FF00';
+        ctx.fillStyle = '#0ff';
         ctx.font = fontSize + 'px monospace';
 
         for (let i = 0; i < drops.length; i++) {
@@ -1811,6 +2296,71 @@
     let matrixInterval;
     let matrixInterval2;
     let persistentMatrixInterval;
+    let sectionMatrixIntervals = {};
+
+    // Initialize section-specific matrix with color
+    function initSectionMatrix(canvasId, color, opacity = 0.15) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+      
+      const ctx = canvas.getContext('2d');
+      const section = canvas.closest('.section');
+      if (!section) return null;
+      
+      canvas.width = section.offsetWidth;
+      canvas.height = section.offsetHeight;
+
+      const binary = '01';
+      const fontSize = 12;
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+
+      function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = color;
+        ctx.globalAlpha = opacity;
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = binary[Math.floor(Math.random() * binary.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+        ctx.globalAlpha = 1.0;
+      }
+
+      const matrixInterval = setInterval(drawMatrix, 35);
+      return matrixInterval;
+    }
+
+    // Initialize all section matrices
+    function initAllSectionMatrices() {
+      const sectionColors = {
+        1: '#0ff',      // Bot layer - cyan
+        2: '#ff0',      // Archive layer - yellow
+        3: '#f0f',      // Market layer - pink/magenta
+        4: '#0f0',      // Generation layer - green
+        5: '#f80',      // Surveillance layer - orange
+        6: '#80f',      // Memory layer - purple
+        7: '#f00'       // Future layer - red
+      };
+
+      Object.keys(sectionColors).forEach(num => {
+        const canvasId = `sectionMatrix${num}`;
+        const color = sectionColors[num];
+        sectionMatrixIntervals[canvasId] = initSectionMatrix(canvasId, color, 0.2);
+      });
+    }
 
     window.addEventListener('load', function() {
       // Initialize matrix canvases with error checking
@@ -1833,16 +2383,18 @@
         startButton.addEventListener('click', function() {
           console.log('Start button clicked'); // Debug log
           
-          if (matrixInterval) {
-            clearInterval(matrixInterval);
-          }
-          
           const bootScreen = document.getElementById('bootScreen');
           if (bootScreen) {
+            // Keep the matrix running and fade out the content
             bootScreen.classList.add('hidden');
           }
           
+          // Show matrix for a moment before transitioning
           setTimeout(() => {
+            if (matrixInterval) {
+              clearInterval(matrixInterval);
+            }
+            
             const newBootScreen = document.getElementById('newBootScreen');
             if (newBootScreen) {
               newBootScreen.classList.add('active');
@@ -1861,12 +2413,55 @@
     });
 
     // ============================================
-    // BINARY TEXT ANIMATION
+    // BINARY TEXT ANIMATION WITH SPACE BAR SKIP
     // ============================================
+    let currentBinaryAnimation = null;
+    let spaceBarSkipActive = false;
+
     function animateBinaryText(text, element, callback) {
       element.innerHTML = '';
       const chars = text.split('');
       let delay = 0;
+      let animationComplete = false;
+      spaceBarSkipActive = true;
+
+      // Show skip indicator
+      const skipIndicator = document.getElementById('skipIndicator');
+      skipIndicator.classList.add('active');
+
+      // Space bar event listener
+      const handleSpaceBar = (e) => {
+        if (e.code === 'Space' && spaceBarSkipActive) {
+          e.preventDefault();
+          finishAnimation();
+        }
+      };
+
+      document.addEventListener('keydown', handleSpaceBar);
+
+      function finishAnimation() {
+        if (animationComplete) return;
+        animationComplete = true;
+        spaceBarSkipActive = false;
+        
+        // Hide skip indicator
+        skipIndicator.classList.remove('active');
+        
+        // Remove event listener
+        document.removeEventListener('keydown', handleSpaceBar);
+        
+        // Clear any pending timeouts
+        if (currentBinaryAnimation) {
+          clearTimeout(currentBinaryAnimation);
+        }
+        
+        // Show final text instantly
+        element.innerHTML = text;
+        
+        if (callback) {
+          setTimeout(callback, 200);
+        }
+      }
 
       chars.forEach((char, index) => {
         const span = document.createElement('span');
@@ -1884,11 +2479,18 @@
 
         element.appendChild(span);
 
-        setTimeout(() => {
+        currentBinaryAnimation = setTimeout(() => {
+          if (animationComplete) return;
+          
           let flipCount = 0;
-          const maxFlips = 5; // Reduced from 10
+          const maxFlips = 5;
           
           const flipInterval = setInterval(() => {
+            if (animationComplete) {
+              clearInterval(flipInterval);
+              return;
+            }
+            
             span.textContent = Math.random() > 0.5 ? '1' : '0';
             span.style.opacity = '1';
             flipCount++;
@@ -1897,14 +2499,17 @@
               clearInterval(flipInterval);
               span.textContent = char;
               
-              if (index === chars.length - 1 && callback) {
-                setTimeout(callback, 200); // Reduced from 500
+              if (index === chars.length - 1 && !animationComplete) {
+                finishAnimation();
+                if (callback) {
+                  setTimeout(callback, 200);
+                }
               }
             }
-          }, 25); // Reduced from 50
+          }, 25);
         }, delay);
 
-        delay += 30; // Reduced from 80
+        delay += 30;
       });
     }
 
@@ -1934,7 +2539,7 @@
       
       const statsDiv = document.createElement('div');
       statsDiv.className = 'binary-text';
-      statsDiv.style.color = '#0f0';
+      statsDiv.style.color = '#0ff';
       statsContainer.appendChild(statsDiv);
       
       animateBinaryText(statsText, statsDiv, () => {
@@ -2084,6 +2689,9 @@
     }
 
     document.getElementById('scrollArrow').addEventListener('click', function() {
+      // Hide skip indicator since we're leaving the animation section
+      document.getElementById('skipIndicator').classList.remove('active');
+      
       // Hide welcome section
       document.getElementById('welcomeSection').style.display = 'none';
       document.getElementById('binaryRain').style.display = 'none';
@@ -2091,7 +2699,7 @@
       // Start fall effect
       document.getElementById('fallSection').style.display = 'block';
       
-      // After fall effect, show eyes opening (reduced timing)
+      // After fall effect, show eyes opening
       setTimeout(() => {
         document.getElementById('fallSection').style.display = 'none';
         document.getElementById('eyesContainer').style.display = 'block';
@@ -2100,21 +2708,35 @@
         setTimeout(() => {
           document.getElementById('eyeOverlay').classList.add('eyes-open');
           
-          // Show bot layer (reduced timing)
+          // Show bot layer
           setTimeout(() => {
             document.getElementById('eyesContainer').style.display = 'none';
             document.getElementById('botLayer').style.display = 'flex';
             
-            // After bot layer is shown, continue to main sections (reduced timing)
+            // After bot layer is shown, continue to main sections
             setTimeout(() => {
-              document.getElementById('botLayer').style.display = 'none';
-              document.body.classList.remove('no-scroll');
-              document.getElementById('section1').classList.add('visible');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 3000); // Reduced from 5000
-          }, 1500); // Reduced from 2000
-        }, 300); // Reduced from 500
-      }, 2500); // Reduced from 3000
+              // Trigger binary swipe transition
+              showBinarySwipe(() => {
+                document.getElementById('botLayer').style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                document.getElementById('section1').classList.add('visible');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Initialize binary waterfall
+                const waterfall = document.getElementById('binaryWaterfall');
+                if (waterfall && !waterfall.hasChildNodes()) {
+                  createBinaryWaterfall();
+                  waterfall.classList.add('active');
+                  updateWaterfallColor('bot-layer');
+                }
+                
+                // Initialize all section matrix effects
+                initAllSectionMatrices();
+              });
+            }, 5000); // Show bot layer for 5 seconds
+          }, 2000);
+        }, 500);
+      }, 3000);
     });
 
     // Add the same functionality to journey text
@@ -2135,6 +2757,141 @@
       }
     });
 
+    // ============================================
+    // MARKET LAYER INTERACTIVE EXPERIENCE
+    // ============================================
+    let popupCount = 0;
+    
+    function startMarketExperience() {
+      // Lock scrolling
+      document.body.classList.add('scroll-locked');
+      
+      // Reset popup count for new experience
+      popupCount = 0;
+      
+      // Show flashing warnings
+      const warnings = document.getElementById('marketWarnings');
+      warnings.classList.add('active');
+      
+      // First binary transition
+      showMarketTransition("You are pulled into a neon-lit bazaar of capitalism — a sensory overload of motion, color, and persuasion.", () => {
+        // Hide warnings after transition
+        warnings.classList.remove('active');
+        
+        // Trigger screen flicker
+        const marketLayer = document.getElementById('section3');
+        marketLayer.classList.add('flicker');
+        
+        setTimeout(() => {
+          marketLayer.classList.remove('flicker');
+          // Show first popup
+          spawnPopup("🔥 FINAL SALE TODAY! 🔥", "Click to close.", 50, 30);
+        }, 500);
+      });
+    }
+
+    function showMarketTransition(text, callback) {
+      const transition = document.getElementById('marketTransition');
+      const binaryText = document.getElementById('marketBinaryText');
+      
+      transition.classList.add('active');
+      animateBinaryText(text, binaryText, () => {
+        setTimeout(() => {
+          transition.classList.remove('active');
+          if (callback) callback();
+        }, 1500);
+      });
+    }
+
+    function spawnPopup(title, subtitle, topPercent, leftPercent) {
+      popupCount++;
+      const popup = document.createElement('div');
+      popup.className = 'market-popup';
+      popup.id = `popup-${popupCount}-${Date.now()}`;
+      
+      // Random position if not specified
+      if (!topPercent) topPercent = Math.random() * 70 + 10;
+      if (!leftPercent) leftPercent = Math.random() * 70 + 10;
+      
+      popup.style.top = topPercent + '%';
+      popup.style.left = leftPercent + '%';
+      
+      popup.innerHTML = `
+        <div class="popup-close" onclick="closePopup('${popup.id}')">×</div>
+        <div style="margin-bottom: 10px;">${title}</div>
+        <div style="font-size: 14px; opacity: 0.8;">${subtitle}</div>
+      `;
+      
+      document.getElementById('marketPopupContainer').appendChild(popup);
+      
+      // Auto-spawn more popups occasionally
+      if (popupCount < 8) {
+        setTimeout(() => {
+          if (Math.random() > 0.3) {
+            const messages = [
+              ["👀 People near you bought this!", "Don't miss out!!! 👉"],
+              ["⚡ LIMITED TIME OFFER! ⚡", "Act now or regret forever!"],
+              ["🎯 TARGETED JUST FOR YOU! 🎯", "Based on your browsing history"],
+              ["💰 SAVE 90% TODAY! 💰", "This deal expires in 3 minutes!"],
+              ["🔔 NOTIFICATION: Someone bought this!", "Only 2 left in stock!"],
+              ["🚨 URGENT: Price will increase!", "Buy now to lock in savings!"]
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            spawnPopup(msg[0], msg[1]);
+          }
+        }, 2000 + Math.random() * 3000);
+      }
+    }
+
+    function closePopup(popupId) {
+      const popup = document.getElementById(popupId);
+      if (!popup) return;
+      
+      // Fade out effect
+      popup.style.animation = 'popupBounce 0.3s reverse';
+      
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+      
+      // Spawn 2-3 new popups when one is closed
+      const spawnCount = Math.floor(Math.random() * 2) + 2;
+      for (let i = 0; i < spawnCount; i++) {
+        setTimeout(() => {
+          if (popupCount < 12) {
+            const messages = [
+              ["🔥 WAIT! Before you go... 🔥", "Special discount just for you!"],
+              ["👀 People near you bought this!", "Don't miss out!!! 👉"],
+              ["⏰ TIMER: This offer expires soon!", "Hurry! Limited quantity!"],
+              ["🎁 FREE SHIPPING TODAY ONLY! 🎁", "No minimum purchase required!"],
+              ["📱 Download our app for 20% off!", "Exclusive mobile deals!"],
+              ["🛡️ Secure checkout - 1 click buy!", "Safe & fast payment!"]
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            spawnPopup(msg[0], msg[1]);
+          }
+        }, i * 500);
+      }
+      
+      // Trigger chaos transition after multiple closures
+      if (popupCount >= 8) {
+        setTimeout(() => {
+          showMarketTransition("Each \"X\" you press multiplies your problem. Windows breed like spores — cookie banners, auto-playing video ads, influencer reels with unblinking smiles. The interface blooms into chaos: a gaudy cathedral of consumerism, every surface plastered with slogans that shimmer and pulse.", () => {
+            // Clear all popups and unlock scrolling after transition
+            setTimeout(() => {
+              document.getElementById('marketPopupContainer').innerHTML = '';
+              document.body.classList.remove('scroll-locked');
+            }, 2000);
+          });
+        }, 1000);
+      }
+    }
+
+    // ============================================
+    // CLEAN LAYER TRANSITIONS
+    // ============================================
     // ============================================
     // SECTION FADE-IN TRANSITIONS
     // ============================================
@@ -2190,22 +2947,75 @@
     }
 
     // ============================================
-    // NAVIGATION DOTS
+    // NAVIGATION DOTS WITH TRANSITIONS
     // ============================================
     const navDots = document.querySelectorAll('.nav-dot');
     
     navDots.forEach(dot => {
       dot.addEventListener('click', function() {
         const sectionIndex = parseInt(this.getAttribute('data-section'));
-        scrollToSection(sectionIndex + 1);
+        scrollToSectionWithTransition(sectionIndex + 1);
       });
     });
+
+    function scrollToSectionWithTransition(index) {
+      // Get section colors for transition
+      const sectionColors = {
+        1: 'rgba(0,255,255,0.1)',      // Bot layer - cyan
+        2: 'rgba(255,255,0,0.1)',     // Archive layer - yellow
+        3: 'rgba(255,0,128,0.1)',     // Market layer - pink
+        4: 'rgba(0,255,0,0.1)',       // Generation layer - green
+        5: 'rgba(255,100,0,0.1)',     // Surveillance layer - orange
+        6: 'rgba(128,0,255,0.1)',     // Memory layer - purple
+        7: 'rgba(255,0,0,0.1)',       // Future layer - red
+        8: 'rgba(255,255,255,0.1)'    // Conclusion - white
+      };
+
+      const color = sectionColors[index] || 'rgba(0,255,255,0.1)';
+      showLayerTransition(color, () => {
+        scrollToSection(index);
+      });
+    }
 
     function scrollToSection(index) {
       const section = document.getElementById('section' + index);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+
+    // ============================================
+    // ENHANCED LAYER TRANSITIONS
+    // ============================================
+    function showLayerTransition(color, callback) {
+      const transition = document.getElementById('layerTransition');
+      const effect = document.getElementById('layerFallingEffect');
+      const eyesContainer = document.getElementById('layerEyesContainer');
+      const eyeOverlay = document.getElementById('layerEyeOverlay');
+      
+      // Set color for falling effect
+      effect.style.background = `radial-gradient(circle, ${color} 0%, rgba(0,0,0,1) 70%)`;
+      
+      // Start fall effect
+      transition.classList.add('active');
+      
+      // After fall effect, show eyes opening
+      setTimeout(() => {
+        transition.classList.remove('active');
+        eyesContainer.classList.add('active');
+        
+        // Trigger eyes opening animation
+        setTimeout(() => {
+          eyeOverlay.classList.add('layer-eyes-open');
+          
+          // Complete transition
+          setTimeout(() => {
+            eyesContainer.classList.remove('active');
+            eyeOverlay.classList.remove('layer-eyes-open');
+            if (callback) callback();
+          }, 2000);
+        }, 500);
+      }, 3000);
     }
 
     window.addEventListener('scroll', function() {
@@ -2246,6 +3056,139 @@
       if (persistentCanvas) {
         persistentCanvas.width = window.innerWidth;
         persistentCanvas.height = window.innerHeight;
+      }
+
+      // Resize section canvases
+      for (let i = 1; i <= 7; i++) {
+        const canvas = document.getElementById(`sectionMatrix${i}`);
+        if (canvas) {
+          const section = canvas.closest('.section');
+          if (section) {
+            canvas.width = section.offsetWidth;
+            canvas.height = section.offsetHeight;
+          }
+        }
+      }
+    });
+
+    // ============================================
+    // BINARY SWIPE TRANSITION
+    // ============================================
+    function showBinarySwipe(callback) {
+      const swipe = document.getElementById('binarySwipe');
+      swipe.innerHTML = ''; // Clear previous content
+      swipe.classList.add('active');
+      
+      const columns = Math.floor(window.innerWidth / 30);
+      
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'swipe-column';
+        column.style.left = `${i * 30}px`;
+        column.style.animationDelay = `${i * 0.02}s`;
+        
+        // Generate binary string
+        let binaryString = '';
+        const height = Math.floor(window.innerHeight / 20);
+        for (let j = 0; j < height; j++) {
+          binaryString += Math.random() > 0.5 ? '1' : '0';
+          binaryString += '\n';
+        }
+        
+        column.textContent = binaryString;
+        swipe.appendChild(column);
+      }
+      
+      // Hide swipe and callback after animation
+      setTimeout(() => {
+        swipe.classList.remove('active');
+        if (callback) callback();
+      }, 1200);
+    }
+
+    // ============================================
+    // BINARY WATERFALL CREATION AND ANIMATION
+    // ============================================
+    function createBinaryWaterfall() {
+      const waterfall = document.getElementById('binaryWaterfall');
+      const columns = Math.floor(window.innerWidth / 20);
+      
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'binary-column';
+        column.style.left = `${i * 20}px`;
+        column.style.animationDelay = `${Math.random() * 20}s`;
+        column.style.animationDuration = `${15 + Math.random() * 10}s`;
+        
+        // Generate binary string with gradient density
+        let binaryString = '';
+        const height = 100;
+        for (let j = 0; j < height; j++) {
+          // More dense at edges, sparse in middle
+          const edgeDistance = Math.min(j, height - j) / (height / 2);
+          const density = 0.3 + (0.7 * edgeDistance);
+          
+          if (Math.random() < density) {
+            binaryString += Math.random() > 0.5 ? '1' : '0';
+          } else {
+            binaryString += ' ';
+          }
+          binaryString += '<br>';
+        }
+        
+        column.innerHTML = binaryString;
+        waterfall.appendChild(column);
+      }
+    }
+
+    // Update binary waterfall color based on current section
+    function updateWaterfallColor(sectionClass) {
+      const waterfall = document.getElementById('binaryWaterfall');
+      waterfall.className = 'binary-waterfall active ' + sectionClass;
+    }
+
+    // Track scroll position for direction detection
+    let lastScrollPos = 0;
+    let currentSectionIndex = 0;
+
+    // Detect current section and update waterfall color
+    function detectCurrentSection() {
+      const sections = document.querySelectorAll('.section');
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const scrollDirection = window.scrollY > lastScrollPos ? 'down' : 'up';
+      lastScrollPos = window.scrollY;
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
+        
+        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+          const sectionClasses = ['bot-layer', 'archive-layer', 'market-layer', 
+                                  'generation-layer', 'surveillance-layer', 'memory-layer', 
+                                  'future-layer', 'conclusion-layer'];
+          
+          // Only update if we've changed sections
+          if (index !== currentSectionIndex && index < sectionClasses.length) {
+            currentSectionIndex = index;
+            updateWaterfallColor(sectionClasses[index]);
+          }
+        }
+      });
+    }
+
+    // Initialize binary waterfall when exhibit starts
+    // (This is handled in the scrollArrow click handler above)
+
+    // Update waterfall color on scroll
+    window.addEventListener('scroll', detectCurrentSection);
+
+    // Parallax effect for binary waterfall
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const waterfall = document.getElementById('binaryWaterfall');
+      if (waterfall) {
+        waterfall.style.transform = `translateY(${scrolled * 0.5}px)`;
       }
     });
   </script>
