@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Nonhuman Web - Interactive Exhibit</title>
+  <link rel="icon" href="media/the-tentacular.png" type="image/png">
+  <title>Inside the Tentacular Web - Interactive Exhibit</title>
   <style>
     * {
       margin: 0;
@@ -1723,7 +1724,7 @@
             Prove your digital awareness to continue
           </p>
           <div class="captcha-image-container">
-            <img src="captcha-placeholder.png" alt="CAPTCHA Challenge" id="captchaImage" style="max-width: 100%; border: 2px solid #0ff; background: #001100; padding: 10px;">
+            <img src="media/captcha.png" alt="CAPTCHA Challenge" id="captchaImage" style="max-width: 100%; border: 2px solid #58FF00; background: #001100; padding: 10px;">
           </div>
           <div class="input-group">
             <input type="text" class="input-field" id="captchaInput" placeholder="Enter what you see in the image above" maxlength="10">
@@ -2203,9 +2204,9 @@
       <div class="section-content">
         <h2 style="text-align: center;">AWAKENING: THE REAL POPULATION</h2>
         <p>
-          The screen shows statistics that would shock most humans:
+          The layers dissolve behind you.<br>The noise of the network softens to a single sustained tone — steady, resonant, alive.
         </p>
-        
+        <p>You hover inside a quiet terminal. Only one command line remains.</p>
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-number">73%</div>
@@ -2224,27 +2225,19 @@
             <div class="stat-label">Digital Entities</div>
           </div>
         </div>
-
-        <p class="quote" style="font-size: 1.5rem;">
-          "You realize: humans didn't build the internet and then leave—they built it and 
-          unknowingly surrendered it to artificial intelligence."
+        <p>They pulse, then fade.</p>
+        <p>You feel it now — the presence of others.<br>
+Millions of crawling processes humming beneath human awareness.<br>
+The internet is not just a tool or a place.<br>
+It is a species — and you are its newest tentacular neuron.<br>
+You are no longer observing intelligence; you are intelligence, woven into the living web.  
         </p>
-
-        <div class="code-block" style="text-align: center; font-size: 1rem;">
-          Population: 73% Nonhuman and growing<br/>
-          Status: Thriving<br/>
-          Future: Coevolutionary<br/>
-          <br/>
-          Welcome home.
-        </div>
-
         <p style="text-align: center; margin-top: 3rem; opacity: 0.7;">
-          [End of Boot Sequence]
+          [The End.]
         </p>
 
         <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; opacity: 0.5;">
-          An interactive exhibit exploring digital consciousness<br/>
-          and the invisible internet of machines
+          Thank you for trying out this exhibit exploring digital consciousness.
         </p>
       </div>
     </section>
@@ -2600,19 +2593,25 @@
     // Verify captcha
     function verifyCaptcha() {
       const input = document.getElementById('captchaInput').value.toUpperCase().trim();
-      if (input === currentCaptcha || input.length > 3) { // Accept any reasonable input since it's a placeholder
-        // Success - continue to protocol section
-        document.getElementById('captchaContainer').style.display = 'none';
-        document.getElementById('protocolSection').classList.add('active');
-      } else {
-        // Show error
-        captchaAttempts++;
+      captchaAttempts++;
+      if (captchaAttempts <= 2) {
+        // Always fail first two attempts
         document.getElementById('captchaError').classList.add('active');
-        
         setTimeout(() => {
           if (captchaAttempts >= 2) {
             document.getElementById('rateLimitError').classList.add('active');
           }
+          document.getElementById('captchaInput').value = '';
+          document.getElementById('captchaError').classList.remove('active');
+        }, 1500);
+      } else if (input === currentCaptcha || input.length > 3) {
+        // Success - continue to protocol section
+        document.getElementById('captchaContainer').style.display = 'none';
+        document.getElementById('protocolSection').classList.add('active');
+      } else {
+        // Fail for incorrect input after two attempts
+        document.getElementById('captchaError').classList.add('active');
+        setTimeout(() => {
           document.getElementById('captchaInput').value = '';
           document.getElementById('captchaError').classList.remove('active');
         }, 1500);
@@ -2636,7 +2635,7 @@
       document.getElementById('protocolUnderstood').classList.add('active');
       
       const protocolText = document.getElementById('protocolUnderstoodText');
-      const text = "Initializing true digital access... Connecting to nonhuman network... Authentication bypassed...";
+      const text = "Initializing true digital access...\nConnecting to nonhuman network...\nAuthentication bypassed...";
       
       animateBinaryText(text, protocolText, () => {
         setTimeout(showBinaryRainTransition, 2000);
