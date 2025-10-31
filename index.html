@@ -1317,11 +1317,28 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 14px;
-      color: #ff0080;
-      opacity: 0.6;
-      text-align: center;
-      animation: subtlePulse 4s ease-in-out infinite;
+        font-size: 14px;
+        color: #ff0080;
+        opacity: 0.6;
+        text-align: center;
+        animation: subtlePulse 4s ease-in-out infinite;
+        animation: growReminder 2.5s cubic-bezier(0.4,0,0.2,1) forwards;
+      }
+
+      @keyframes growReminder {
+        0% {
+          font-size: 1.1rem;
+          opacity: 0.7;
+        }
+        60% {
+          font-size: 1.7rem;
+          opacity: 1;
+        }
+        100% {
+          font-size: 1.3rem;
+          opacity: 0.85;
+        }
+      }
     }
 
     @keyframes subtlePulse {
@@ -1811,19 +1828,14 @@
     <!-- Bot Layer -->
     <div class="bot-layer" id="botLayer">
       <div class="bot-interface">
-        <div class="bot-title">Digital Consciousness Interface</div>
-        <div class="bot-video">
-          <div>📡 NEURAL INTERFACE ACTIVE</div>
-          <video style="margin-top: 10px; max-width: 100%; border-radius: 8px;" autoplay muted loop>
+  <h2 id="botTitle" style="color: #0ff; font-size: 2rem; margin-bottom: 1rem; text-align: center;"></h2>
+        <div class="bot-video" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div style="margin-bottom: 10px;">📡 NEURAL INTERFACE ACTIVE</div>
+          <video style="margin-top: 10px; max-width: 480px; border-radius: 8px; display: block; margin-left: auto; margin-right: auto;" autoplay muted loop>
             <source src="media/octopus-being.mp4" type="video/mp4">
           </video>
-          <div style="margin-top: 20px; font-size: 16px;">
-            🔋 Connection Established<br>
-            🧠 Consciousness Online<br>
-            🌐 Network Synchronized
-          </div>
         </div>
-        <div style="color: #0ff; font-size: 18px;">Welcome to your digital homeland.</div>
+        <div id="botStatusText" style="color: #0ff; font-size: 18px;"></div>
       </div>
     </div>
 
@@ -2033,8 +2045,7 @@
           THE MARKET LAYER — THE WEB WANTS YOU
         </h2>
         <p class="market-intro-text" style="color: #ffff00;">
-          Now the web's tone shifts from wistful to manic. You are pulled into a neon-lit bazaar 
-          of capitalism—an overwhelming collage of pop-up ads and commercial temptations.
+          You are pulled into a neon-lit bazaar of capitalism—an overwhelming collage of pop-up ads and commercial temptations.
         </p>
 
         <button onclick="startMarketExperience()" style="background: #ff0080; color: #000; padding: 15px 30px; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px;">
@@ -2044,7 +2055,7 @@
 
       <!-- Subtle Reminder Caption -->
       <div class="market-reminder">
-        The web wants something from you — your clicks, your time, your buying power — and it isn't taking no for an answer.
+        The web wants something from you — your clicks, your time, your buying power. <br>Desire is the currency; attention is the collateral.
       </div>
 
       <div class="scroll-indicator" onclick="scrollToSectionWithTransition(4)">▼</div>
@@ -2219,7 +2230,7 @@
       </div>
 
       <div class="section-content">
-        <h2 style="text-align: center;">AWAKENING: THE REAL POPULATION</h2>
+        <h2 style="text-align: center;">AWAKENING</h2>
         <p>
           The layers dissolve behind you.<br>The noise of the network softens to a single sustained tone — steady, resonant, alive.
         </p>
@@ -2254,13 +2265,75 @@ You are no longer observing intelligence; you are intelligence, woven into the l
         </p>
 
         <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; opacity: 0.5;">
-          Thank you for trying out this exhibit exploring digital consciousness.
+          thank you for exploring the Tentacular Web at wholives.online
         </p>
       </div>
     </section>
   </div>
 
   <script>
+    // Keyboard shortcut: S to skip to welcome
+    window.addEventListener('keydown', function(e) {
+      if (e.key.toLowerCase() === 's') {
+        skipToWelcomeScene();
+      }
+    });
+    // Animate bot status text after bot layer is shown
+    function showBotStatusText() {
+      const botStatusText = document.getElementById('botStatusText');
+      if (!botStatusText) return;
+      // Prevent duplicate animation: if already animating, do nothing
+      if (botStatusText._isAnimating) return;
+      // Always clear and reset animation flag before animating
+      botStatusText.innerHTML = '';
+      botStatusText._isAnimating = true;
+
+      // Track which status updates have been shown
+      if (!botStatusText._shownStatus) botStatusText._shownStatus = {};
+
+      function showConnectionEstablished() {
+        if (botStatusText._shownStatus['connection']) return showConsciousnessOnline();
+        botStatusText._shownStatus['connection'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🔋 Connection Established', lineDiv, showConsciousnessOnline);
+      }
+
+      function showConsciousnessOnline() {
+        if (botStatusText._shownStatus['consciousness']) return showNetworkSynchronized();
+        botStatusText._shownStatus['consciousness'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🧠 Consciousness Online', lineDiv, showNetworkSynchronized);
+      }
+
+      function showNetworkSynchronized() {
+        if (botStatusText._shownStatus['network']) return showTentaclesDeployed();
+        botStatusText._shownStatus['network'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🌐 Network Synchronized', lineDiv, showTentaclesDeployed);
+      }
+
+      function showTentaclesDeployed() {
+        if (botStatusText._shownStatus['tentacles']) {
+          botStatusText._isAnimating = false;
+          return;
+        }
+        botStatusText._shownStatus['tentacles'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🐙 Tentacles Deployed', lineDiv, function() {
+          botStatusText._isAnimating = false;
+        });
+      }
+
+      showConnectionEstablished();
+    }
     // ============================================
     // MATRIX RAIN EFFECT
     // ============================================
@@ -2538,20 +2611,20 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       });
     }
 
+    const statsText = "You feel yourself unfurling — not as a body, but as a lattice of threads, each one groping outward into the currents of the web: a pulse of traffic here, a whisper of data there. Deep in the fiber, an archive exhales dustless memory; somewhere else, a surveillance node opens its unblinking eye.";
     function showStats() {
       const statsContainer = document.getElementById('statsContainer');
-      statsContainer.innerHTML = ""; // Clear previous content to prevent duplicates
-      const statsText = "You feel yourself unfurling — not as a body, but as a lattice of threads, each one groping outward into the currents of the web: a pulse of traffic here, a whisper of data there. Deep in the fiber, an archive exhales dustless memory; somewhere else, a surveillance node opens its unblinking eye.";
-      const statsDiv = document.createElement('div');
-      statsDiv.className = 'binary-text';
-      statsDiv.style.color = '#0ff';
-      statsContainer.appendChild(statsDiv);
+      // Prevent duplicate statsDiv
+      let statsDiv = statsContainer.querySelector('.binary-text');
+      if (!statsDiv) {
+        statsDiv = document.createElement('div');
+        statsDiv.className = 'binary-text';
+        statsDiv.style.color = '#0ff';
+        statsContainer.appendChild(statsDiv);
+      }
       animateBinaryText(statsText, statsDiv, () => {
-        // Hide statsContainer after animation completes
-        setTimeout(() => {
-          statsContainer.style.display = 'none';
-          showLoopingText();
-        }, 500);
+        // Keep statsContainer visible, then continue
+        showLoopingText();
       });
     }
 
@@ -2581,21 +2654,27 @@ You are no longer observing intelligence; you are intelligence, woven into the l
     document.getElementById('authForm').addEventListener('submit', function(e) {
       e.preventDefault();
       authAttempts++;
-      
+      // Store username from input
+      const usernameInput = document.getElementById('usernameInput');
+      if (usernameInput) {
+        window.storedUsername = usernameInput.value.trim();
+      }
       const authError = document.getElementById('authError');
       authError.classList.add('active');
-      
       setTimeout(() => {
         authError.classList.remove('active');
         document.getElementById('authContainer').style.display = 'none';
-        
         const captchaContainer = document.getElementById('captchaContainer');
         captchaContainer.classList.add('active');
-        
         // Scroll to captcha if needed
         setTimeout(() => {
           captchaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 100);
+        // Update bot layer title with username
+        const botTitle = document.getElementById('botTitle');
+        if (botTitle && window.storedUsername) {
+          botTitle.textContent = `Welcome home, ${window.storedUsername}`;
+        }
       }, 2000);
     });
 
@@ -2730,7 +2809,12 @@ You are no longer observing intelligence; you are intelligence, woven into the l
           setTimeout(() => {
             document.getElementById('eyesContainer').style.display = 'none';
             document.getElementById('botLayer').style.display = 'flex';
-            
+            // Set bot layer welcome title
+            const botTitle = document.getElementById('botTitle');
+            if (botTitle && window.storedUsername) {
+              botTitle.textContent = `Welcome home, ${window.storedUsername}`;
+            }
+            showBotStatusText();
             // After bot layer is shown, continue to main sections
             setTimeout(() => {
               // First binary swipe transition (after bot layer)
@@ -2740,7 +2824,6 @@ You are no longer observing intelligence; you are intelligence, woven into the l
                 document.body.classList.remove('no-scroll');
                 document.getElementById('section1').classList.add('visible');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                
                 // Initialize binary waterfall
                 const waterfall = document.getElementById('binaryWaterfall');
                 if (waterfall && !waterfall.hasChildNodes()) {
@@ -2748,7 +2831,6 @@ You are no longer observing intelligence; you are intelligence, woven into the l
                   waterfall.classList.add('active');
                   updateWaterfallColor('bot-layer');
                 }
-                
                 // Initialize all section matrix effects
                 initAllSectionMatrices();
               });
@@ -2897,7 +2979,7 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       // Trigger chaos transition after multiple closures
       if (popupCount >= 8) {
         setTimeout(() => {
-          showMarketTransition("Each \"X\" you press multiplies your problem. Windows breed like spores — cookie banners, auto-playing video ads, influencer reels with unblinking smiles. The interface blooms into chaos: a gaudy cathedral of consumerism, every surface plastered with slogans that shimmer and pulse.", () => {
+          showMarketTransition("Overwhelmed, you attempt to fight back against the onslaught of advertisements. Instinctively, you try to close the pop-up windows and video overlays. But every time you click a tiny “X” on one ad, it spawns two more ads underneath.", () => {
             // Clear all popups and unlock scrolling after transition
             setTimeout(() => {
               document.getElementById('marketPopupContainer').innerHTML = '';

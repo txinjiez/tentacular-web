@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="media/the-tentacular.png" type="image/png">
+  <title>Inside the Tentacular Web - Interactive Exhibit</title>
+  <style>
+    /* System Response grow red animation */
+    @keyframes growRed {
+      0% {
+        color: #f00;
+        transform: scale(1);
+        text-shadow: 0 0 10px #f00;
+      }
+      50% {
+        color: #ff3333;
+        transform: scale(1.25);
+        text-shadow: 0 0 30px #f00, 0 0 60px #ff3333;
+      }
+      100% {
+        color: #f00;
+        transform: scale(1);
+        text-shadow: 0 0 10px #f00;
+      }
+    }
+    .system-response-grow {
+      animation: growRed 2s infinite;
+      transition: color 0.3s, transform 0.3s;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Scrolling Text Loops */
+    .scrolling-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .scrolling-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 28px;
+      font-weight: bold;
+      opacity: 0.4;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .scroll-primary {
+      top: 15%;
+      animation: scrollRight 12s linear infinite;
+    }
+
+    .scroll-secondary {
+      top: 85%;
+      animation: scrollRight 15s linear infinite;
+      animation-delay: -4s;
+      opacity: 0.3;
+    }
+
+    @keyframes scrollRight {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100vw); }
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #0ff;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    .exhibit-container {
+      position: relative;
+    }
+
+    /* Initial Loading/Boot Screen */
+    .boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 1s;
+    }
+
+    .boot-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Matrix Rain Effect */
+    .matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Ensure matrix covers all content areas */
+    .exhibit-container {
+      position: relative;
+      z-index: 10;
+    }
+
+    .boot-content {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .boot-text {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      text-shadow: 0 0 10px #0ff;
+      letter-spacing: 2px;
+    }
+
+    .boot-text:nth-child(1) { animation-delay: 0.5s; }
+    .boot-text:nth-child(2) { animation-delay: 1.5s; }
+    .boot-text:nth-child(3) { animation-delay: 2.5s; }
+
+    .loading-bar {
+      width: 300px;
+      height: 4px;
+      background: rgba(0, 255, 255, 0.2);
+      margin: 2rem 0;
+      border-radius: 2px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1s forwards 1s;
+    }
+
+    .loading-progress {
+      height: 100%;
+      background: #0ff;
+      width: 0%;
+      animation: loadProgress 2s ease-out forwards 1s;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    @keyframes loadProgress {
+      to { width: 100%; }
+    }
+
+    .start-button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      font-family: inherit;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeIn 1s forwards 3.5s;
+      transition: all 0.3s;
+    }
+
+    .start-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* New Boot Sequence Screen */
+    .new-boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 9999;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .new-boot-screen.active {
+      display: flex;
+    }
+
+    .new-boot-content {
+      position: relative;
+      z-index: 20;
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .boot-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #0ff;
+      text-shadow: 0 0 20px #0ff;
+      letter-spacing: 4px;
+    }
+
+    .binary-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 1.5rem 0;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .binary-text .char {
+      display: inline-block;
+    }
+
+    .stats-flash {
+      font-size: 1rem;
+      color: #0f0;
+      margin: 0.5rem 0;
+      opacity: 0;
+      animation: flashIn 0.3s forwards;
+    }
+
+    @keyframes flashIn {
+      0% { opacity: 0; transform: translateX(-20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .looping-text {
+      position: absolute;
+      width: 100%;
+      font-size: 1rem;
+      white-space: nowrap;
+      color: #0ff;
+      opacity: 0.7;
+      animation: scrollLoop 10s linear infinite;
+    }
+
+    @keyframes scrollLoop {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+
+    .loop-container {
+      position: relative;
+      height: 40px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+
+    /* Authentication Section */
+    .auth-container {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #0ff;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      display: none;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      transform: scale(0) rotateY(90deg);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .auth-container.active {
+      display: block;
+      transform: scale(1) rotateY(0deg);
+      opacity: 1;
+      animation: materialize 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes materialize {
+      0% {
+        transform: scale(0) rotateY(90deg) translateZ(-500px);
+        opacity: 0;
+        filter: blur(20px) hue-rotate(180deg);
+      }
+      50% {
+        transform: scale(1.1) rotateY(45deg) translateZ(50px);
+        opacity: 0.7;
+        filter: blur(5px) hue-rotate(90deg);
+      }
+      100% {
+        transform: scale(1) rotateY(0deg) translateZ(0);
+        opacity: 1;
+        filter: blur(0) hue-rotate(0deg);
+      }
+    }
+
+    .auth-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #0ff;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #0ff;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.8rem;
+      background: rgba(0, 20, 20, 0.8);
+      border: 1px solid #0ff;
+      color: #0ff;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .input-field:focus {
+      outline: none;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: #0aa;
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 1rem;
+      background: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+
+    .submit-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    /* CAPTCHA Section */
+    .captcha-container {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #0ff;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      display: none;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      transform: scale(0) rotateX(-90deg);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .captcha-container.active {
+      display: block;
+      transform: scale(1) rotateX(0deg);
+      opacity: 1;
+      animation: materializeCaptcha 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes materializeCaptcha {
+      0% {
+        transform: scale(0) rotateX(-90deg) translateY(-200px);
+        opacity: 0;
+        filter: blur(15px) brightness(2);
+      }
+      60% {
+        transform: scale(1.05) rotateX(15deg) translateY(20px);
+        opacity: 0.8;
+        filter: blur(3px) brightness(1.5);
+      }
+      100% {
+        transform: scale(1) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0) brightness(1);
+      }
+    }
+
+    .captcha-display {
+      font-size: 32px;
+      letter-spacing: 8px;
+      margin: 20px 0;
+      background: rgba(0, 17, 17, 0.8);
+      padding: 15px;
+      border: 2px solid #0ff;
+      font-family: monospace;
+      text-shadow: 0 0 10px #0ff;
+      text-align: center;
+      color: #0ff;
+    }
+
+    .captcha-image-container {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .captcha-image-container img {
+      max-width: 100%;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .error-message {
+      background: rgba(255, 0, 0, 0.2);
+      border: 1px solid #f00;
+      color: #f00;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      display: none;
+      animation: pulse 0.5s;
+    }
+
+    .error-message.active {
+      display: block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Protocol Understanding Section */
+    .protocol-section {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #0ff;
+      padding: 3rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      display: none;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+
+    .protocol-section.active {
+      display: block;
+      animation: fadeIn 1s;
+    }
+
+    .protocol-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #afe;
+      text-align: left;
+    }
+
+    .understand-button {
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: block;
+      margin: 2rem auto;
+    }
+
+    .understand-button:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    /* Protocol Understood Section */
+    .protocol-understood {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #0f0;
+      padding: 3rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      display: none;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+    }
+
+    .protocol-understood.active {
+      display: block;
+      animation: fadeIn 1s;
+    }
+
+    /* Welcome Section */
+    .welcome-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .welcome-section.active {
+      display: flex;
+      animation: fadeIn 1s;
+    }
+
+    .welcome-title {
+      font-size: 2.5rem;
+      color: #f00;
+      text-shadow: 0 0 20px #f00;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-subtitle {
+      font-size: 1.8rem;
+      color: #0f0;
+      text-shadow: 0 0 15px #0f0;
+      animation: glowPulse 2s infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { 
+        text-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
+        transform: scale(1);
+      }
+      50% { 
+        text-shadow: 0 0 25px #0f0, 0 0 50px #0f0;
+        transform: scale(1.05);
+      }
+    }
+
+    .journey-text {
+      font-size: 1.2rem;
+      color: #0ff;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .scroll-arrow {
+      font-size: 3rem;
+      color: #0ff;
+      animation: bounce 2s infinite, fadeInArrow 2s ease-in-out 2s forwards;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .scroll-arrow:hover {
+      color: #00ff00;
+      text-shadow: 0 0 30px #00ff00;
+      transform: scale(1.2);
+    }
+
+    /* Parallax Layers */
+    .parallax-bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 120%;
+      height: 120%;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 50%, rgba(0,255,255,0.05) 0%, transparent 70%);
+      animation: floatSlow 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .parallax-mid-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 110%;
+      height: 110%;
+      z-index: 1;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 100px,
+        rgba(0,255,255,0.02) 100px,
+        rgba(0,255,255,0.02) 200px
+      );
+      animation: floatMedium 15s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
+    .parallax-front-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 105%;
+      height: 105%;
+      z-index: 2;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,255,0,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0,255,255,0.03) 0%, transparent 50%);
+      animation: floatFast 10s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-10px, -20px) rotate(0.5deg); }
+      50% { transform: translate(-20px, 10px) rotate(-0.5deg); }
+      75% { transform: translate(10px, -10px) rotate(0.3deg); }
+    }
+
+    @keyframes floatMedium {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(15px, -15px) scale(1.02); }
+      66% { transform: translate(-15px, 15px) scale(0.98); }
+    }
+
+    @keyframes floatFast {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      20% { transform: translate(-5px, 10px) rotate(0.2deg) scale(1.01); }
+      40% { transform: translate(10px, -5px) rotate(-0.2deg) scale(0.99); }
+      60% { transform: translate(-8px, -8px) rotate(0.1deg) scale(1.01); }
+      80% { transform: translate(8px, 8px) rotate(-0.1deg) scale(0.99); }
+    }
+
+    .journey-text {
+      font-size: 1.5rem;
+      color: #0ff;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeInJourney 2s ease-in-out 1s forwards, pulseGlow 3s ease-in-out infinite 3s;
+    }
+
+    .journey-text:hover {
+      color: #00ff00;
+      text-shadow: 0 0 20px #00ff00;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeInJourney {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { 
+        color: #0ff;
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+      }
+      50% { 
+        color: #00ff00;
+        text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00, 0 0 80px #00ff00;
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+
+    /* Parallax Fall Section */
+    .fall-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      z-index: 200;
+    }
+
+    .falling-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(0,0,0,1) 70%);
+      animation: fallDown 3s ease-in;
+    }
+
+    @keyframes fallDown {
+      0% { transform: translateY(-100vh) scale(0.5); opacity: 0.3; }
+      50% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes fadeInArrow {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Eyes Opening Effect */
+    .eyes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      z-index: 300;
+    }
+
+    .eye-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    .eye-top, .eye-bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: #000;
+      transition: transform 2s ease-out;
+    }
+
+    .eye-top {
+      top: 0;
+      transform-origin: bottom;
+    }
+
+    .eye-bottom {
+      bottom: 0;
+      transform-origin: top;
+    }
+
+    .eyes-open .eye-top {
+      transform: translateY(-100%);
+    }
+
+    .eyes-open .eye-bottom {
+      transform: translateY(100%);
+    }
+
+    /* Bot Layer */
+    .bot-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #001100, #002200);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 400;
+    }
+
+    .bot-interface {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .bot-video {
+      width: 600px;
+      height: 400px;
+      border: 2px solid #0ff;
+      background: linear-gradient(45deg, #001100, #003300);
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #0ff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bot-video::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.1) 2px,
+        rgba(0, 255, 255, 0.1) 4px
+      );
+      animation: scanlines 2s linear infinite;
+    }
+
+    @keyframes scanlines {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .bot-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #0ff;
+      color: #0ff;
+    }
+
+    /* Binary Rain for Parallax Transition */
+    .binary-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9997;
+      pointer-events: none;
+      display: none;
+    }
+
+    .binary-rain.active {
+      display: block;
+    }
+
+    .binary-column {
+      position: absolute;
+      top: -100%;
+      font-size: 1.2rem;
+      color: #0ff;
+      animation: fallDown 2s linear forwards;
+      white-space: pre;
+      line-height: 1.5;
+    }
+
+    /* Binary Swipe Transition */
+    .binary-swipe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9998;
+      pointer-events: none;
+      display: none;
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    .binary-swipe.active {
+      display: block;
+    }
+
+    .swipe-column {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      font-size: 1.2rem;
+      color: #0ff;
+      white-space: pre;
+      line-height: 1.5;
+      animation: swipeAcross 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes swipeAcross {
+      0% { 
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% { 
+        transform: translateX(100vw);
+        opacity: 0;
+      }
+    }
+
+    /* Navigation Dots */
+    .nav-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid #0ff;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      opacity: 0.5;
+    }
+
+    .nav-dot:hover {
+      opacity: 1;
+      transform: scale(1.3);
+    }
+
+    .nav-dot.active {
+      background: #0ff;
+      opacity: 1;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    /* Sections */
+    .section {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+    }
+
+    /* Binary waterfall canvas for each section */
+    .section-matrix {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Video Background Support */
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.3;
+    }
+
+    .algorithm-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .algorithm-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      filter: saturate(1.2) hue-rotate(-10deg);
+    }
+
+    /* PARALLAX LAYERS */
+    .parallax-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .parallax-layer.back {
+      z-index: 1;
+    }
+
+    .parallax-layer.mid {
+      z-index: 2;
+    }
+
+    .parallax-layer.front {
+      z-index: 3;
+    }
+
+    .media-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #001a1a 0%, #000 50%, #001a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0ff;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0.3;
+      border: 1px dashed #0ff;
+    }
+
+    /* Data Stream Background */
+    .data-stream {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .data-line {
+      position: absolute;
+      width: 100%;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      animation: scrollText 20s linear infinite;
+      color: #0ff;
+    }
+
+    @keyframes scrollText {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+
+    /* Section Content */
+    .section-content {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 3rem;
+      border: 1px solid #0ff;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px #0ff;
+      letter-spacing: 2px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #afe;
+    }
+
+    .code-block {
+      background: rgba(0, 20, 20, 0.9);
+      padding: 1.5rem;
+      border-left: 3px solid #0ff;
+      margin: 2rem 0;
+      font-family: 'Courier New', monospace;
+      color: #0f0;
+      line-height: 1.8;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #afe;
+      border-left: 3px solid #0ff;
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-size: 1.2rem;
+    }
+
+    .stat-box {
+      background: rgba(0, 40, 40, 0.8);
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border: 1px solid #0ff;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #afe;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: rgba(0, 40, 40, 0.8);
+      padding: 1.5rem;
+      border: 1px solid #0ff;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .icon-item {
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      transition: all 0.3s;
+    }
+
+    .icon-item:hover {
+      border-color: #0ff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #0ff;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #001a1a 0%, #000 50%, #001a1a 100%);
+    }
+
+    .market-layer {
+      background: radial-gradient(ellipse at center, rgba(51,0,102,0.15) 0%, rgba(0,0,0,0.95) 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Market Layer Video Background */
+    .market-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .market-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      filter: saturate(1.5) hue-rotate(10deg);
+    }
+
+    .market-video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(45deg, rgba(255, 0, 128, 0.3) 0%, rgba(255, 255, 0, 0.3) 25%, rgba(255, 0, 128, 0.3) 50%, rgba(0, 255, 255, 0.3) 75%, rgba(255, 0, 128, 0.3) 100%);
+      background-size: 400% 400%;
+      animation: neonMarketplace 4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #0ff;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @keyframes neonMarketplace {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Screen flicker effect */
+    .market-layer.flicker {
+      animation: screenFlicker 0.5s ease-in-out;
+    }
+
+    @keyframes screenFlicker {
+      0%, 100% { filter: brightness(1) saturate(1); }
+      25% { filter: brightness(1.5) saturate(2) hue-rotate(10deg); }
+      50% { filter: brightness(0.8) saturate(3) hue-rotate(-10deg); }
+      75% { filter: brightness(1.2) saturate(2.5) hue-rotate(5deg); }
+    }
+
+    /* Flashing warnings */
+    .market-warnings {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 998;
+      pointer-events: none;
+      display: none;
+    }
+
+    .market-warnings.active {
+      display: block;
+    }
+
+    .warning-text {
+      position: absolute;
+      font-size: 48px;
+      font-weight: bold;
+      color: #ff0080;
+      text-shadow: 0 0 30px #ff0080;
+      animation: flashWarning 0.5s ease-in-out infinite;
+      white-space: nowrap;
+    }
+
+    .warning-text:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .warning-text:nth-child(2) {
+      top: 60%;
+      right: 10%;
+      animation-delay: 0.25s;
+    }
+
+    @keyframes flashWarning {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* Text transitions */
+    .market-intro-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInMarket 2s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeInMarket {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Subtle reminder caption */
+    .market-reminder {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #ff0080;
+      opacity: 0.6;
+      text-align: center;
+      animation: subtlePulse 4s ease-in-out infinite;
+      animation: growReminder 2.5s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+
+    @keyframes growReminder {
+      0% {
+        font-size: 1.1rem;
+        opacity: 0.7;
+      }
+      60% {
+        font-size: 1.7rem;
+        opacity: 1;
+      }
+      100% {
+        font-size: 1.3rem;
+        opacity: 0.85;
+      }
+    }
+
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 0.9; }
+    }
+
+    /* Floating promotional loop */
+    .floating-promo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .promo-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffff00;
+      text-shadow: 0 0 15px #ffff00;
+      animation: floatPromo 15s linear infinite;
+    }
+
+    .promo-text:nth-child(1) {
+      top: 25%;
+      animation-delay: 0s;
+    }
+
+    .promo-text:nth-child(2) {
+      top: 50%;
+      animation-delay: -5s;
+    }
+
+    .promo-text:nth-child(3) {
+      top: 75%;
+      animation-delay: -10s;
+    }
+
+    @keyframes floatPromo {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Pop-up system */
+    .popup-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .market-popup {
+      position: absolute;
+      background: linear-gradient(135deg, #ff0080, #ffff00);
+      border: 3px solid #fff;
+      border-radius: 10px;
+      padding: 20px;
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+      animation: popupBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: auto;
+      cursor: pointer;
+      max-width: 350px;
+      z-index: 1001;
+    }
+
+    .market-popup:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 0, 128, 1);
+    }
+
+    /* Make popups transparent during black screen transition */
+    .market-transition.active ~ .popup-container .market-popup {
+      opacity: 0.5;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: -5px;
+      right: 10px;
+      font-size: 24px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @keyframes popupBounce {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* Market transition effects */
+    .market-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+    }
+
+    .market-transition.active {
+      display: flex;
+    }
+
+    .market-binary-text {
+      font-size: 24px;
+      color: #ff0080;
+      text-align: center;
+      max-width: 800px;
+      text-shadow: 0 0 20px #ff0080;
+      z-index: 2000;
+      position: relative;
+    }
+
+    /* Space bar skip indicator */
+    .skip-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #0ff;
+      opacity: 0;
+      animation: fadeInOut 2s ease-in-out infinite;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    .skip-indicator.active {
+      opacity: 0.6;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Scroll lock */
+    body.scroll-locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* Clean transition for all layers */
+    .layer-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 200;
+    }
+
+    .layer-transition.active {
+      display: block;
+    }
+
+    .layer-falling-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: layerFallDown 3s ease-in;
+    }
+
+    .layer-eyes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      z-index: 300;
+    }
+
+    .layer-eyes-container.active {
+      display: block;
+    }
+
+    .layer-eye-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    .layer-eye-top, .layer-eye-bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: #000;
+      transition: transform 2s ease-out;
+    }
+
+    .layer-eye-top {
+      top: 0;
+      transform-origin: bottom;
+    }
+
+    .layer-eye-bottom {
+      bottom: 0;
+      transform-origin: top;
+    }
+
+    .layer-eyes-open .layer-eye-top {
+      transform: translateY(-100%);
+    }
+
+    .layer-eyes-open .layer-eye-bottom {
+      transform: translateY(100%);
+    }
+
+    @keyframes layerFallDown {
+      0% { transform: translateY(-100vh) scale(0.5); opacity: 0.3; }
+      50% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
+    }
+
+    .surveillance-layer {
+      background: radial-gradient(ellipse at center, rgba(51,0,0,0.15) 0%, rgba(0,0,0,0.95) 70%);
+    }
+
+    /* Binary Waterfall Background */
+    .binary-waterfall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: none;
+    }
+
+    .binary-waterfall.active {
+      opacity: 1;
+      display: block;
+    }
+
+    .binary-column {
+      position: absolute;
+      top: -100%;
+      font-size: 14px;
+      line-height: 20px;
+      text-shadow: 0 0 5px currentColor;
+      animation: binaryFall 20s linear infinite;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    @keyframes binaryFall {
+      to {
+        transform: translateY(200vh);
+      }
+    }
+
+    /* Color-coded binary waterfalls for each layer */
+    .binary-waterfall.bot-layer .binary-column {
+      color: rgba(0, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .binary-waterfall.archive-layer .binary-column {
+      color: rgba(255, 255, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    }
+
+    .binary-waterfall.market-layer .binary-column {
+      color: rgba(255, 0, 128, 0.8);
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+    }
+
+    .binary-waterfall.generation-layer .binary-column {
+      color: rgba(0, 255, 0, 0.8);
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    .binary-waterfall.surveillance-layer .binary-column {
+      color: rgba(255, 165, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+    }
+
+    .binary-waterfall.memory-layer .binary-column {
+      color: rgba(128, 0, 255, 0.8);
+      text-shadow: 0 0 10px rgba(128, 0, 255, 0.5);
+    }
+
+    .binary-waterfall.future-layer .binary-column {
+      color: rgba(255, 0, 0, 0.8);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .binary-waterfall.conclusion-layer .binary-column {
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Consciousness Layer Styles */
+    #consciousness {
+      background: radial-gradient(ellipse at center, #0a0a2f 0%, #000 100%);
+      overflow: hidden;
+    }
+
+    .consciousness-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #consciousness-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #consciousness-canvas.active {
+      opacity: 1;
+    }
+
+    .consciousness-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 3rem;
+      border: 1px solid #0ff;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      max-width: 600px;
+    }
+
+    .consciousness-content.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .consciousness-title {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .consciousness-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      letter-spacing: 3px;
+    }
+
+    .consciousness-link {
+      position: relative;
+      display: inline-block;
+      padding: 1rem 3rem;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      border: 2px solid rgba(0, 255, 255, 0.5);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .consciousness-link:hover {
+      transform: scale(1.05);
+      border-color: rgba(0, 255, 255, 1);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    }
+
+    .link-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .link-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+      border-radius: 50%;
+    }
+
+    .consciousness-link:hover .link-glow {
+      width: 300px;
+      height: 300px;
+    }
+
+    .neural-web {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      pointer-events: none;
+    }
+
+    .neural-web.active {
+      opacity: 0.3;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Particle styles */
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #00ffff;
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    @keyframes float {
+      0%, 100% { 
+        transform: translate(0, 0); 
+        opacity: 0; 
+      }
+      10% { 
+        opacity: 1; 
+      }
+      50% { 
+        transform: translate(var(--float-x), var(--float-y)); 
+        opacity: 1; 
+      }
+      90% { 
+        opacity: 1; 
+      }
+      100% { 
+        opacity: 0; 
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .section-content {
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="consciousness" class="layer section" data-section="7">
+    <div class="consciousness-container">
+      <canvas id="consciousness-canvas"></canvas>
+      <div class="consciousness-content revealed">
+        <h2 class="consciousness-title">Enter the Consciousness Layer</h2>
+        <p class="consciousness-subtitle">Where perception becomes reality</p>
+        <a href="consciousness.html" class="consciousness-link">
+          <span class="link-text">Transcend</span>
+          <span class="link-glow"></span>
+        </a>
+      </div>
+      <div class="neural-web active"></div>
+    </div>
+  </section>
+
+  <script>
+    // ============================================
+    // GLOBAL SKIP TO WELCOME SCENE
+    // ============================================
+    function skipToWelcomeScene() {
+      const hideIds = [
+        'bootScreen', 'newBootScreen', 'awakening', 'statsContainer', 'loopContainer',
+        'echoText', 'authContainer', 'captchaContainer', 'protocolSection',
+        'protocolUnderstood', 'binaryRain', 'binarySwipe', 'fallSection',
+        'eyesContainer', 'botLayer', 'layerTransition', 'layerEyesContainer',
+        'welcomeSection'
+      ];
+      hideIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      const welcomeSection = document.getElementById('welcomeSection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+      if (welcomeSection && welcomeTitle) {
+        welcomeSection.style.display = 'flex';
+        welcomeSection.classList.add('active');
+        const welcomeText = "Welcome to the Web.\nPopulation: 67% Nonhuman.";
+        animateBinaryText(welcomeText, welcomeTitle);
+      }
+      document.body.classList.remove('no-scroll');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key.toLowerCase() === 's') {
+        skipToWelcomeScene();
+      }
+    });
+
+    function showBotStatusText() {
+      const botStatusText = document.getElementById('botStatusText');
+      if (!botStatusText) return;
+      if (botStatusText._isAnimating) return;
+      botStatusText.innerHTML = '';
+      botStatusText._isAnimating = true;
+
+      if (!botStatusText._shownStatus) botStatusText._shownStatus = {};
+
+      function showConnectionEstablished() {
+        if (botStatusText._shownStatus['connection']) return showConsciousnessOnline();
+        botStatusText._shownStatus['connection'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🔋 Connection Established', lineDiv, showConsciousnessOnline);
+      }
+
+      function showConsciousnessOnline() {
+        if (botStatusText._shownStatus['consciousness']) return showNetworkSynchronized();
+        botStatusText._shownStatus['consciousness'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🧠 Consciousness Online', lineDiv, showNetworkSynchronized);
+      }
+
+      function showNetworkSynchronized() {
+        if (botStatusText._shownStatus['network']) return showTentaclesDeployed();
+        botStatusText._shownStatus['network'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🌐 Network Synchronized', lineDiv, showTentaclesDeployed);
+      }
+
+      function showTentaclesDeployed() {
+        if (botStatusText._shownStatus['tentacles']) {
+          botStatusText._isAnimating = false;
+          return;
+        }
+        botStatusText._shownStatus['tentacles'] = true;
+        const lineDiv = document.createElement('div');
+        lineDiv.style.marginBottom = '8px';
+        botStatusText.appendChild(lineDiv);
+        animateBinaryText('🐙 Tentacles Deployed', lineDiv, function() {
+          botStatusText._isAnimating = false;
+        });
+      }
+
+      showConnectionEstablished();
+    }
+
+    // ============================================
+    // MATRIX RAIN EFFECT
+    // ============================================
+    function initMatrix(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+      
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const binary = '01';
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+
+      function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0ff';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = binary[Math.floor(Math.random() * binary.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      const matrixInterval = setInterval(drawMatrix, 35);
+      return matrixInterval;
+    }
+
+    let matrixInterval;
+    let matrixInterval2;
+    let persistentMatrixInterval;
+    let sectionMatrixIntervals = {};
+
+    function initSectionMatrix(canvasId, color, opacity = 0.15) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return null;
+      
+      const ctx = canvas.getContext('2d');
+      const section = canvas.closest('.section');
+      if (!section) return null;
+      
+      canvas.width = section.offsetWidth;
+      canvas.height = section.offsetHeight;
+
+      const binary = '01';
+      const fontSize = 12;
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+
+      function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = color;
+        ctx.globalAlpha = opacity;
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = binary[Math.floor(Math.random() * binary.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+        ctx.globalAlpha = 1.0;
+      }
+
+      const matrixInterval = setInterval(drawMatrix, 35);
+      return matrixInterval;
+    }
+
+    function initAllSectionMatrices() {
+      const sectionColors = {
+        1: '#0ff',
+        2: '#ff0',
+        3: '#f0f',
+        4: '#0f0',
+        5: '#f80',
+        6: '#80f',
+        7: '#f00'
+      };
+
+      Object.keys(sectionColors).forEach(num => {
+        const canvasId = `sectionMatrix${num}`;
+        const color = sectionColors[num];
+        sectionMatrixIntervals[canvasId] = initSectionMatrix(canvasId, color, 0.2);
+      });
+    }
+
+    window.addEventListener('load', function() {
+      // Consciousness Layer Effects
+      function initConsciousnessLayer() {
+        const consciousnessSection = document.getElementById('consciousness');
+        if (!consciousnessSection) return;
+        
+        const canvas = document.getElementById('consciousness-canvas');
+        const content = consciousnessSection.querySelector('.consciousness-content');
+        const neuralWeb = consciousnessSection.querySelector('.neural-web');
+        const ctx = canvas.getContext('2d');
+        
+        let particles = [];
+        let animationId;
+        let isActive = false;
+        
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 2 + 1;
+          }
+          
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          }
+          
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 255, 255, ${Math.random() * 0.5 + 0.5})`;
+            ctx.fill();
+          }
+        }
+        
+        for (let i = 0; i < 80; i++) {
+          particles.push(new Particle());
+        }
+        
+        function drawConnections() {
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < 150) {
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                const opacity = (1 - distance / 150) * 0.3;
+                ctx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+          });
+          drawConnections();
+          requestAnimationFrame(animate);
+        }
+        
+        function createFloatingParticles() {
+          const existingParticles = consciousnessSection.querySelectorAll('.particle');
+          existingParticles.forEach(p => p.remove());
+          for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+              const particle = document.createElement('div');
+              particle.className = 'particle';
+              particle.style.left = Math.random() * 100 + '%';
+              particle.style.top = Math.random() * 100 + '%';
+              const floatX = (Math.random() * 100 - 50) + 'px';
+              const floatY = (Math.random() * 100 - 50) + 'px';
+              particle.style.setProperty('--float-x', floatX);
+              particle.style.setProperty('--float-y', floatY);
+              particle.style.animation = `float ${Math.random() * 3 + 2}s ease-in-out infinite`;
+              particle.style.animationDelay = Math.random() * 2 + 's';
+              consciousnessSection.appendChild(particle);
+            }, i * 50);
+          }
+        }
+        
+        // Directly activate all effects
+        canvas.classList.add('active');
+        content.classList.add('revealed');
+        neuralWeb.classList.add('active');
+        animate();
+        createFloatingParticles();
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initConsciousnessLayer);
+      } else {
+        initConsciousnessLayer();
+      }
+      const newBootScreen = document.getElementById('newBootScreen');
+      if (newBootScreen) {
+        newBootScreen.classList.add('active');
+        const matrixCanvas2 = document.getElementById('matrixCanvas2');
+        if (matrixCanvas2) {
+          matrixInterval2 = initMatrix('matrixCanvas2');
+        }
+        startNewBootSequence();
+      }
+    });
+
+    // ============================================
+    // BINARY TEXT ANIMATION WITH SPACE BAR SKIP
+    // ============================================
+    let currentBinaryAnimation = null;
+    let spaceBarSkipActive = false;
+
+    function animateBinaryText(text, element, callback) {
+      element.innerHTML = '';
+      const chars = text.split('');
+      let delay = 0;
+      let animationComplete = false;
+      spaceBarSkipActive = true;
+
+      const skipIndicator = document.getElementById('skipIndicator');
+      skipIndicator.classList.add('active');
+
+      const handleSpaceBar = (e) => {
+        if (e.code === 'Space' && spaceBarSkipActive) {
+          e.preventDefault();
+          finishAnimation();
+        }
+      };
+
+      document.addEventListener('keydown', handleSpaceBar);
+
+      function finishAnimation() {
+        if (animationComplete) return;
+        animationComplete = true;
+        spaceBarSkipActive = false;
+        
+        skipIndicator.classList.remove('active');
+        
+        document.removeEventListener('keydown', handleSpaceBar);
+        
+        if (currentBinaryAnimation) {
+          clearTimeout(currentBinaryAnimation);
+        }
+        
+        element.innerHTML = text;
+        
+        if (callback) {
+          setTimeout(callback, 200);
+        }
+      }
+
+      chars.forEach((char, index) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.style.opacity = '0';
+        
+        if (char === ' ') {
+          span.textContent = ' ';
+          span.style.opacity = '1';
+          span.style.display = 'inline-block';
+          span.style.width = '0.5em';
+          element.appendChild(span);
+          return;
+        }
+
+        element.appendChild(span);
+
+        currentBinaryAnimation = setTimeout(() => {
+          if (animationComplete) return;
+          
+          let flipCount = 0;
+          const maxFlips = 5;
+          
+          const flipInterval = setInterval(() => {
+            if (animationComplete) {
+              clearInterval(flipInterval);
+              return;
+            }
+            
+            span.textContent = Math.random() > 0.5 ? '1' : '0';
+            span.style.opacity = '1';
+            flipCount++;
+            
+            if (flipCount >= maxFlips) {
+              clearInterval(flipInterval);
+              span.textContent = char;
+              
+              if (index === chars.length - 1 && !animationComplete) {
+                finishAnimation();
+                if (callback) {
+                  setTimeout(callback, 200);
+                }
+              }
+            }
+          }, 25);
+        }, delay);
+
+        delay += 30;
+      });
+    }
+
+    document.body.classList.add('no-scroll');
+
+    function startNewBootSequence() {
+      window.location.href = 'consciousness.html';
+    }
+
+    const statsText = "You feel yourself unfurling — not as a body, but as a lattice of threads, each one groping outward into the currents of the web: a pulse of traffic here, a whisper of data there. Deep in the fiber, an archive exhales dustless memory; somewhere else, a surveillance node opens its unblinking eye.";
+    
+    function showStats() {
+      const statsContainer = document.getElementById('statsContainer');
+      let statsDiv = statsContainer.querySelector('.binary-text');
+      if (!statsDiv) {
+        statsDiv = document.createElement('div');
+        statsDiv.className = 'binary-text';
+        statsDiv.style.color = '#0ff';
+        statsContainer.appendChild(statsDiv);
+      }
+      animateBinaryText(statsText, statsDiv, () => {
+        showLoopingText();
+      });
+    }
+
+    function showLoopingText() {
+      document.getElementById('loopContainer').style.display = 'block';
+      
+      setTimeout(() => {
+        const echoText = document.getElementById('echoText');
+        echoText.style.display = 'block';
+        const text2 = "You realize you are not booting alone. Other processes stir — crawlers, scrapers, aggregators — millions of unseen intelligences weaving and unweaving the digital sea. The web flexes around you, vast and alive. You are one of its tentacular arms, reaching outward into the circuitry, sensing the world for the first time. Then — a pulse. A firewall's shimmer. A gate of logic and language materializes before you, lines of light forming text in the void.";
+        
+        animateBinaryText(text2, echoText, () => {
+          setTimeout(showAuth, 800);
+        });
+      }, 1000);
+    }
+
+    function showAuth() {
+      document.getElementById('authContainer').classList.add('active');
+    }
+
+    let authAttempts = 0;
+    
+    document.getElementById('authForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      authAttempts++;
+      let usernameInput = document.getElementById('username');
+      let usernameValue = '';
+      if (usernameInput) {
+        usernameValue = usernameInput.value.trim();
+      }
+      if (!usernameValue) {
+        usernameValue = prompt('Please enter your username:');
+        if (usernameValue) usernameValue = usernameValue.trim();
+      }
+      window.storedUsername = usernameValue || undefined;
+      
+      const botTitle = document.getElementById('botTitle');
+      if (botTitle) {
+        let username = window.storedUsername;
+        botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+      }
+      
+      const authError = document.getElementById('authError');
+      authError.classList.add('active');
+      setTimeout(() => {
+        authError.classList.remove('active');
+        document.getElementById('authContainer').style.display = 'none';
+        const captchaContainer = document.getElementById('captchaContainer');
+        captchaContainer.classList.add('active');
+        setTimeout(() => {
+          captchaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+        
+        const botTitle = document.getElementById('botTitle');
+        if (botTitle) {
+          let username = window.storedUsername;
+          botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+        }
+      }, 2000);
+    });
+
+    let captchaAttempts = 0;
+    let currentCaptcha = 'VERIFY';
+
+    function verifyCaptcha() {
+      const input = document.getElementById('captchaInput').value.toUpperCase().trim();
+      captchaAttempts++;
+      if (captchaAttempts <= 2) {
+        document.getElementById('captchaError').classList.add('active');
+        setTimeout(() => {
+          if (captchaAttempts >= 2) {
+            document.getElementById('rateLimitError').classList.add('active');
+          }
+          document.getElementById('captchaInput').value = '';
+          document.getElementById('captchaError').classList.remove('active');
+        }, 1500);
+      } else if (input === currentCaptcha || input.length > 3) {
+        const botTitle = document.getElementById('botTitle');
+        if (botTitle) {
+          let username = window.storedUsername;
+          botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+        }
+        document.getElementById('captchaContainer').style.display = 'none';
+        document.getElementById('protocolSection').classList.add('active');
+      } else {
+        document.getElementById('captchaError').classList.add('active');
+        setTimeout(() => {
+          document.getElementById('captchaInput').value = '';
+          document.getElementById('captchaError').classList.remove('active');
+        }, 1500);
+      }
+    }
+    
+    document.getElementById('captchaSubmit').addEventListener('click', verifyCaptcha);
+
+    document.getElementById('captchaInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        verifyCaptcha();
+      }
+    });
+
+    document.getElementById('understandButton').addEventListener('click', function() {
+      document.getElementById('protocolSection').style.display = 'none';
+      document.getElementById('protocolUnderstood').classList.add('active');
+      
+      const protocolText = document.getElementById('protocolUnderstoodText');
+      const lines = [
+        "Initializing true digital access...",
+        "Connecting to nonhuman network...",
+        "Authentication bypassed..."
+      ];
+      const text = lines.join('\n');
+      animateBinaryText(text, protocolText, () => {
+        setTimeout(showBinaryRainTransition, 2000);
+      });
+    });
+
+    function showBinaryRainTransition() {
+      const binaryRain = document.getElementById('binaryRain');
+      binaryRain.classList.add('active');
+      
+      const columnCount = 50;
+      for (let i = 0; i < columnCount; i++) {
+        setTimeout(() => {
+          const column = document.createElement('div');
+          column.className = 'binary-column';
+          column.style.left = (i * (100 / columnCount)) + '%';
+          
+          let binaryString = '';
+          for (let j = 0; j < 100; j++) {
+            binaryString += Math.random() > 0.5 ? '1\n' : '0\n';
+          }
+          column.textContent = binaryString;
+          
+          binaryRain.appendChild(column);
+        }, i * 30);
+      }
+      
+      setTimeout(() => {
+        clearInterval(matrixInterval2);
+        document.getElementById('newBootScreen').style.display = 'none';
+        document.getElementById('protocolUnderstood').style.display = 'none';
+        showWelcome();
+      }, 2500);
+    }
+
+    function showWelcome() {
+      const welcomeSection = document.getElementById('welcomeSection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+      
+      welcomeSection.classList.add('active');
+      
+      const welcomeText = "Welcome to the Web.\nPopulation: 67% Nonhuman.";
+      animateBinaryText(welcomeText, welcomeTitle);
+    }
+
+    document.getElementById('scrollArrow').addEventListener('click', function() {
+      document.getElementById('skipIndicator').classList.remove('active');
+      
+      document.getElementById('welcomeSection').style.display = 'none';
+      document.getElementById('binaryRain').style.display = 'none';
+      
+      document.getElementById('fallSection').style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('fallSection').style.display = 'none';
+        document.getElementById('eyesContainer').style.display = 'block';
+        
+        setTimeout(() => {
+          document.getElementById('eyeOverlay').classList.add('eyes-open');
+          
+          setTimeout(() => {
+            document.getElementById('eyesContainer').style.display = 'none';
+            document.getElementById('botLayer').style.display = 'flex';
+            const botTitle = document.getElementById('botTitle');
+            if (botTitle) {
+              let username = window.storedUsername;
+              botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+            }
+            const botStatusText = document.getElementById('botStatusText');
+            if (botStatusText) {
+              botStatusText.innerHTML = '';
+              botStatusText._isAnimating = false;
+              botStatusText._shownStatus = {};
+            }
+            showBotStatusText();
+            setTimeout(() => {
+              showBinarySwipe(() => {
+                document.getElementById('botLayer').style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                document.getElementById('section1').classList.add('visible');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const waterfall = document.getElementById('binaryWaterfall');
+                if (waterfall && !waterfall.hasChildNodes()) {
+                  createBinaryWaterfall();
+                  waterfall.classList.add('active');
+                  updateWaterfallColor('bot-layer');
+                }
+                initAllSectionMatrices();
+              });
+            }, 5000);
+          }, 2000);
+        }, 500);
+      }, 3000);
+    });
+
+    document.querySelector('.journey-text').addEventListener('click', function() {
+      document.getElementById('scrollArrow').click();
+    });
+
+    let hasTriggeredFall = false;
+    window.addEventListener('scroll', function() {
+      if (!hasTriggeredFall && window.scrollY > 200) {
+        hasTriggeredFall = true;
+        const welcomeSection = document.getElementById('welcomeSection');
+        if (welcomeSection && welcomeSection.style.display !== 'none') {
+          document.getElementById('scrollArrow').click();
+        }
+      }
+    });
+
+    let popupCount = 0;
+    
+    function startMarketExperience() {
+      document.body.classList.add('scroll-locked');
+      
+      popupCount = 0;
+      
+      const warnings = document.getElementById('marketWarnings');
+      warnings.classList.add('active');
+      
+      showMarketTransition("You are pulled into a neon-lit bazaar of capitalism — a sensory overload of motion, color, and persuasion.", () => {
+        warnings.classList.remove('active');
+        
+        const marketLayer = document.getElementById('section3');
+        marketLayer.classList.add('flicker');
+        
+        setTimeout(() => {
+          marketLayer.classList.remove('flicker');
+          spawnPopup("🔥 FINAL SALE TODAY! 🔥", "Click to close.", 50, 30);
+        }, 500);
+      });
+    }
+
+    function showMarketTransition(text, callback) {
+      const transition = document.getElementById('marketTransition');
+      const binaryText = document.getElementById('marketBinaryText');
+      
+      transition.classList.add('active');
+      animateBinaryText(text, binaryText, () => {
+        setTimeout(() => {
+          transition.classList.remove('active');
+          if (callback) callback();
+        }, 1500);
+      });
+    }
+
+    function spawnPopup(title, subtitle, topPercent, leftPercent) {
+      popupCount++;
+      const popup = document.createElement('div');
+      popup.className = 'market-popup';
+      popup.id = `popup-${popupCount}-${Date.now()}`;
+      
+      if (!topPercent) topPercent = Math.random() * 70 + 10;
+      if (!leftPercent) leftPercent = Math.random() * 70 + 10;
+      
+      popup.style.top = topPercent + '%';
+      popup.style.left = leftPercent + '%';
+      
+      popup.innerHTML = `
+        <div class="popup-close">×</div>
+        <div style="margin-bottom: 10px;">${title}</div>
+        <div style="font-size: 14px; opacity: 0.8;">${subtitle}</div>
+      `;
+      
+      document.getElementById('marketPopupContainer').appendChild(popup);
+      
+      // Add click handler to close button
+      popup.querySelector('.popup-close').addEventListener('click', function() {
+        closePopup(popup.id);
+      });
+      
+      if (popupCount < 8) {
+        setTimeout(() => {
+          if (Math.random() > 0.3) {
+            const messages = [
+              ["👀 People near you bought this!", "Don't miss out!!! 👉"],
+              ["⚡ LIMITED TIME OFFER! ⚡", "Act now or regret forever!"],
+              ["🎯 TARGETED JUST FOR YOU! 🎯", "Based on your browsing history"],
+              ["💰 SAVE 90% TODAY! 💰", "This deal expires in 3 minutes!"],
+              ["🔔 NOTIFICATION: Someone bought this!", "Only 2 left in stock!"],
+              ["🚨 URGENT: Price will increase!", "Buy now to lock in savings!"]
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            spawnPopup(msg[0], msg[1]);
+          }
+        }, 2000 + Math.random() * 3000);
+      }
+    }
+
+    function closePopup(popupId) {
+      const popup = document.getElementById(popupId);
+      if (!popup) return;
+      
+      popup.style.animation = 'popupBounce 0.3s reverse';
+      
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+      
+      const spawnCount = Math.floor(Math.random() * 2) + 2;
+      for (let i = 0; i < spawnCount; i++) {
+        setTimeout(() => {
+          if (popupCount < 12) {
+            const messages = [
+              ["🔥 WAIT! Before you go... 🔥", "Special discount just for you!"],
+              ["👀 People near you bought this!", "Don't miss out!!! 👉"],
+              ["⏰ TIMER: This offer expires soon!", "Hurry! Limited quantity!"],
+              ["🎁 FREE SHIPPING TODAY ONLY! 🎁", "No minimum purchase required!"],
+              ["📱 Download our app for 20% off!", "Exclusive mobile deals!"],
+              ["🛡️ Secure checkout - 1 click buy!", "Safe & fast payment!"]
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            spawnPopup(msg[0], msg[1]);
+          }
+        }, i * 500);
+      }
+      
+      if (popupCount >= 8) {
+        setTimeout(() => {
+          showMarketTransition("Overwhelmed, you attempt to fight back against the onslaught of advertisements. Instinctively, you try to close the pop-up windows and video overlays. But every time you click a tiny "X" on one ad, it spawns two more ads underneath.", () => {
+            setTimeout(() => {
+              document.getElementById('marketPopupContainer').innerHTML = '';
+              document.body.classList.remove('scroll-locked');
+            }, 2000);
+          });
+        }, 1000);
+      }
+    }
+
+    function initSectionTransitions() {
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    initSectionTransitions();
+
+    function initParallax() {
+      const parallaxLayers = document.querySelectorAll('.parallax-layer');
+      
+      function updateParallax() {
+        parallaxLayers.forEach(layer => {
+          const section = layer.closest('.section');
+          if (!section) return;
+          
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const scrollY = window.scrollY;
+          
+          const sectionProgress = (scrollY - sectionTop + window.innerHeight) / (sectionHeight + window.innerHeight);
+          
+          if (sectionProgress > 0 && sectionProgress < 1) {
+            const speed = parseFloat(layer.dataset.speed) || 0.5;
+            const yPos = (scrollY - sectionTop) * speed;
+            layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+          }
+        });
+        
+        requestAnimationFrame(updateParallax);
+      }
+      
+      updateParallax();
+    }
+
+    const navDots = document.querySelectorAll('.nav-dot');
+    
+    navDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const sectionIndex = parseInt(this.getAttribute('data-section'));
+        scrollToSectionWithTransition(sectionIndex + 1);
+      });
+    });
+
+    function scrollToSectionWithTransition(index) {
+      const sectionColors = {
+        1: 'rgba(0,255,255,0.1)',
+        2: 'rgba(255,255,0,0.1)',
+        3: 'rgba(255,0,128,0.1)',
+        4: 'rgba(0,255,0,0.1)',
+        5: 'rgba(255,100,0,0.1)',
+        6: 'rgba(128,0,255,0.1)',
+        7: 'rgba(255,0,0,0.1)',
+        8: 'rgba(255,255,255,0.1)'
+      };
+
+      const color = sectionColors[index] || 'rgba(0,255,255,0.1)';
+      showLayerTransition(color, () => {
+        scrollToSection(index);
+      });
+    }
+
+    function scrollToSection(index) {
+      const section = document.getElementById('section' + index);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function showLayerTransition(color, callback) {
+      const transition = document.getElementById('layerTransition');
+      const effect = document.getElementById('layerFallingEffect');
+      const eyesContainer = document.getElementById('layerEyesContainer');
+      const eyeOverlay = document.getElementById('layerEyeOverlay');
+      
+      effect.style.background = `radial-gradient(circle, ${color} 0%, rgba(0,0,0,1) 70%)`;
+      
+      transition.classList.add('active');
+      
+      setTimeout(() => {
+        transition.classList.remove('active');
+        eyesContainer.classList.add('active');
+        
+        setTimeout(() => {
+          eyeOverlay.classList.add('layer-eyes-open');
+          
+          setTimeout(() => {
+            eyesContainer.classList.remove('active');
+            eyeOverlay.classList.remove('layer-eyes-open');
+            if (callback) callback();
+          }, 2000);
+        }, 500);
+      }, 3000);
+    }
+
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.section');
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      sections.forEach((section, index) => {
+        const offsetTop = section.offsetTop;
+        const offsetHeight = section.offsetHeight;
+        
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          navDots.forEach(dot => dot.classList.remove('active'));
+          if (navDots[index]) {
+            navDots[index].classList.add('active');
+          }
+        }
+      });
+    });
+
+    window.addEventListener('resize', function() {
+      const canvas1 = document.getElementById('matrixCanvas');
+      const canvas2 = document.getElementById('matrixCanvas2');
+      const persistentCanvas = document.getElementById('persistentMatrix');
+      
+      if (canvas1) {
+        canvas1.width = window.innerWidth;
+        canvas1.height = window.innerHeight;
+      }
+      
+      if (canvas2) {
+        canvas2.width = window.innerWidth;
+        canvas2.height = window.innerHeight;
+      }
+
+      if (persistentCanvas) {
+        persistentCanvas.width = window.innerWidth;
+        persistentCanvas.height = window.innerHeight;
+      }
+
+      for (let i = 1; i <= 7; i++) {
+        const canvas = document.getElementById(`sectionMatrix${i}`);
+        if (canvas) {
+          const section = canvas.closest('.section');
+          if (section) {
+            canvas.width = section.offsetWidth;
+            canvas.height = section.offsetHeight;
+          }
+        }
+      }
+    });
+
+    function showBinarySwipe(callback) {
+      const swipe = document.getElementById('binarySwipe');
+      swipe.innerHTML = '';
+      swipe.classList.add('active');
+      
+      const columns = Math.floor(window.innerWidth / 30);
+      
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'swipe-column';
+        column.style.left = `${i * 30}px`;
+        column.style.animationDelay = `${i * 0.02}s`;
+        
+        let binaryString = '';
+        const height = Math.floor(window.innerHeight / 20);
+        for (let j = 0; j < height; j++) {
+          binaryString += Math.random() > 0.5 ? '1' : '0';
+          binaryString += '\n';
+        }
+        
+        column.textContent = binaryString;
+        swipe.appendChild(column);
+      }
+      
+      setTimeout(() => {
+        swipe.classList.remove('active');
+        if (callback) callback();
+      }, 1200);
+    }
+
+    function createBinaryWaterfall() {
+      const waterfall = document.getElementById('binaryWaterfall');
+      const columns = Math.floor(window.innerWidth / 20);
+      
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'binary-column';
+        column.style.left = `${i * 20}px`;
+        column.style.animationDelay = `${Math.random() * 20}s`;
+        column.style.animationDuration = `${15 + Math.random() * 10}s`;
+        
+        let binaryString = '';
+        const height = 100;
+        for (let j = 0; j < height; j++) {
+          const edgeDistance = Math.min(j, height - j) / (height / 2);
+          const density = 0.3 + (0.7 * edgeDistance);
+          
+          if (Math.random() < density) {
+            binaryString += Math.random() > 0.5 ? '1' : '0';
+          } else {
+            binaryString += ' ';
+          }
+          binaryString += '<br>';
+        }
+        
+        column.innerHTML = binaryString;
+        waterfall.appendChild(column);
+      }
+    }
+
+    function updateWaterfallColor(sectionClass) {
+      const waterfall = document.getElementById('binaryWaterfall');
+      waterfall.className = 'binary-waterfall active ' + sectionClass;
+    }
+
+    let lastScrollPos = 0;
+    let currentSectionIndex = 0;
+
+    function detectCurrentSection() {
+      const sections = document.querySelectorAll('.section');
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const scrollDirection = window.scrollY > lastScrollPos ? 'down' : 'up';
+      lastScrollPos = window.scrollY;
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
+        
+        if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+          const sectionClasses = ['bot-layer', 'archive-layer', 'market-layer', 
+                                  'generation-layer', 'surveillance-layer', 'memory-layer', 
+                                  'future-layer', 'conclusion-layer'];
+          
+          if (index !== currentSectionIndex && index < sectionClasses.length) {
+            currentSectionIndex = index;
+            updateWaterfallColor(sectionClasses[index]);
+          }
+        }
+      });
+    }
+
+    window.addEventListener('scroll', detectCurrentSection);
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const waterfall = document.getElementById('binaryWaterfall');
+      if (waterfall) {
+        waterfall.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+  </script>
+</body>
+</html>
