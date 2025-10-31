@@ -2655,9 +2655,27 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       e.preventDefault();
       authAttempts++;
       // Store username from input
-      const usernameInput = document.getElementById('usernameInput');
+      let usernameInput = document.getElementById('usernameInput');
+      if (!usernameInput) {
+        // Try to find input by type or name if id is missing
+        usernameInput = document.querySelector('input[type="text"], input[name*="user"], input[name*="name"]');
+      }
+      let usernameValue = '';
       if (usernameInput) {
-        window.storedUsername = usernameInput.value.trim();
+        usernameValue = usernameInput.value.trim();
+      }
+      if (!usernameValue) {
+        // Fallback: prompt user for username if input is missing or empty
+        usernameValue = prompt('Please enter your username:');
+        if (usernameValue) usernameValue = usernameValue.trim();
+      }
+      window.storedUsername = usernameValue || undefined;
+      console.log('window.storedUsername set to:', window.storedUsername);
+      // Set welcome message in botTitle immediately after authentication
+      const botTitle = document.getElementById('botTitle');
+      if (botTitle) {
+        let username = window.storedUsername;
+        botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
       }
       const authError = document.getElementById('authError');
       authError.classList.add('active');

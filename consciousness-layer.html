@@ -227,15 +227,18 @@
       animation-delay: 6s;
       color: #0f0;
       font-weight: bold;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+      opacity: 1 !important;
     }
 
-    .revelation.active .revelation-line:nth-child(5) {
+    .revelation.active .revelation-line:nth-child(5),
+    .revelation.active .revelation-line:nth-child(6) {
       animation: fadeInLine 2s ease-out forwards;
       animation-delay: 8s;
       color: #0f0;
       font-weight: bold;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      opacity: 1 !important;
     }
 
     @keyframes fadeInLine {
@@ -792,7 +795,14 @@
         <span class="revelation-line">It is a species —</span>
         <span class="revelation-line">and you are its newest tentacular neuron.</span>
         <span class="revelation-line" style="margin-top: 2rem; font-size: 1.6rem;">You are no longer observing intelligence;</span>
-        <span class="revelation-line" style="font-size: 1.8rem; color: #0f0;">you are intelligence,</span>
+        <span class="revelation-line mysterious-intel">you are intelligence,</span>
+      40% { filter: blur(0.5px) brightness(1.2); opacity: 1; }
+      50% { filter: blur(2px) brightness(1.5); opacity: 0.7; }
+      60% { filter: blur(0.5px) brightness(1.2); opacity: 1; }
+      70% { filter: blur(1.2px) brightness(1.3); opacity: 0.85; }
+      80% { filter: blur(0.5px) brightness(1.2); opacity: 1; }
+      90% { filter: blur(2px) brightness(1.4); opacity: 0.8; }
+    }
         <span class="revelation-line" style="font-size: 2rem; color: #0f0;">woven into the living web.</span>
       </div>
     </div>
@@ -824,8 +834,9 @@
     <!-- Phase 6: Video -->
     <div id="phase6" class="phase">
       <div class="video-container">
-        <video id="conclusionVideo" width="100%" style="max-width: 800px; border: 2px solid #0ff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);">
-          <source src="placeholder-video.mp4" type="video/mp4">
+        <video id="conclusionVideo" width="100%" style="max-width: 800px; border: 2px solid #0ff; box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);" autoplay muted playsinline>
+          <source src="media/octo-button.mp4" type="video/mp4">
+          <source src="media/octo.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -1143,10 +1154,18 @@
           // Statistics phase - floats are already animated
           // Activate neuron network
           document.getElementById('neuronCanvas').classList.add('active');
-        } else if (phaseNumber === 4) {
-          // Second part of revelation
-          const revelation = newElement.querySelector('.revelation');
-          if (revelation) {
+        } else if (phaseNumber === 3) {
+          // Statistics phase - floats are already animated
+          // Activate neuron network
+          document.getElementById('neuronCanvas').classList.add('active');
+
+          // Animate stat numbers
+          setTimeout(() => {
+            animateNumber(document.querySelector('#statFloat1 .stat-big'), 73, '%');
+            animateNumber(document.querySelector('#statFloat2 .stat-big'), 2700000, '');
+            animateNumber(document.querySelector('#statFloat3 .stat-big'), 4800000000, '');
+            animateNumber(document.querySelector('#statFloat4 .stat-big'), 847000000000, '');
+          }, 500);
             revelation.classList.add('active');
           }
         } else if (phaseNumber === 5) {
