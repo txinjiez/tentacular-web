@@ -11,39 +11,16 @@
       box-sizing: border-box;
     }
 
-  <!-- Skip Indicator -->
-  <div class="skip-indicator" id="skipIndicator">Press SPACE to continue</div>
-
     body {
-  font-family: 'Courier New', monospace;
-  background: #000;
-  color: #0ff;
-  overflow: hidden;
-  cursor: crosshair;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-    /* Audio Visualization Canvas */
-    #audioCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0.3;
-    }
-
-    /* Main Container */
-    .consciousness-container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 900px;
-      padding: 2rem;
-      text-align: center;
-    }
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #0ff;
+      overflow: hidden;
+      cursor: crosshair;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Audio Visualization Canvas */
@@ -97,31 +74,8 @@
       0% { opacity: 0; }
       20% { opacity: 1; }
       80% { opacity: 1; }
-      100% { opacity: 0; }
+      100% { opacity: 1; }
     }
-      /* Skip Indicator */
-      .skip-indicator {
-        position: fixed;
-        bottom: 2.5em;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 30, 30, 0.85);
-        color: #00ffe0;
-        font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
-        font-size: 1.15rem;
-        padding: 0.7em 2em;
-        border-radius: 8px;
-        box-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0 inset;
-        z-index: 1000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s cubic-bezier(0.77,0,0.175,1);
-        text-align: center;
-      }
-      .skip-indicator.active {
-        opacity: 1;
-        pointer-events: auto;
-      }
 
     /* Terminal Container */
     .terminal {
@@ -224,7 +178,7 @@
     @keyframes pulseFade {
       0% { opacity: 0; transform: scale(0.5); }
       50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     /* Revelation Text */
@@ -251,6 +205,12 @@
       display: block;
       margin: 1rem 0;
       opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s cubic-bezier(0.77,0,0.175,1), transform 1.2s cubic-bezier(0.77,0,0.175,1);
+    }
+    .revelation.active .revelation-line {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .revelation.active .revelation-line:nth-child(1) {
@@ -285,6 +245,13 @@
       font-weight: bold;
       font-size: 2rem;
       opacity: 1 !important;
+    }
+
+    /* Skip to end of phase animation */
+    .revelation.skipped .revelation-line {
+      animation: none !important;
+      opacity: 1 !important;
+      animation-delay: 0s !important;
     }
 
     @keyframes fadeInLine {
@@ -341,6 +308,14 @@
       position: absolute;
       bottom: 20%;
       right: 15%;
+    }
+
+    /* Skipped state for stats */
+    .stat-float.skipped {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: scale(1) rotate(0deg) !important;
+      animation-delay: 0s !important;
     }
 
     @keyframes floatIn {
@@ -481,8 +456,17 @@
       justify-content: center;
       margin-top: 3rem;
       opacity: 0;
-      animation: fadeIn 2s forwards 2s;
+      animation: fadeIn 0.7s forwards 1s;
       flex-wrap: wrap;
+    }
+
+    /* Skipped state for choice elements */
+    .choice-container.skipped .choice-question,
+    .choice-container.skipped .choice-buttons,
+    .choice-container.skipped .choice-subtext {
+      animation: none !important;
+      opacity: 1 !important;
+      animation-delay: 0s !important;
     }
 
     .choice-btn {
@@ -621,6 +605,8 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 2s ease;
+      padding: 2rem;
+      overflow-y: auto;
     }
 
     .end-screen.active {
@@ -628,9 +614,18 @@
       pointer-events: auto;
     }
 
+    .end-content {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
     .end-title {
       font-size: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       text-shadow: 0 0 40px #0ff;
       animation: glowPulse 3s ease-in-out infinite;
     }
@@ -642,19 +637,68 @@
 
     .end-message {
       font-size: 1.3rem;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
       opacity: 0;
       animation: fadeIn 2s forwards;
+      text-align: center;
     }
 
     .end-message:nth-child(2) { animation-delay: 1s; }
     .end-message:nth-child(3) { animation-delay: 2s; }
 
-    .end-link {
-      margin-top: 3rem;
-      font-size: 1.2rem;
+    /* End Video Container */
+    .end-video-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem 0;
       opacity: 0;
-      animation: fadeIn 2s forwards 3s;
+      animation: fadeIn 2s forwards;
+      animation-delay: 3s;
+    }
+
+    .end-video-wrapper {
+      position: relative;
+      width: 100%;
+      border: 3px solid #0ff;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+      background: #000;
+      overflow: hidden;
+    }
+
+    .end-video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 1;
+      animation: none;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: rgba(0, 255, 255, 0.5);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .end-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      width: 100%;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+      animation-delay: 4s;
+    }
+
+    .end-link {
+      font-size: 1.2rem;
     }
 
     .end-link a {
@@ -664,12 +708,16 @@
       padding: 1rem 2rem;
       display: inline-block;
       transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
     .end-link a:hover {
       background: #0ff;
       color: #000;
-      box-shadow: 0 0 30px #0ff;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+      transform: scale(1.05);
     }
 
     @keyframes fadeIn {
@@ -715,6 +763,29 @@
       50% { transform: scale(1.05); opacity: 0.8; }
     }
 
+    /* Space bar skip indicator */
+    .skip-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #0ff;
+      opacity: 0.6;
+      animation: fadeInOutSlow 2s ease-in-out infinite;
+      z-index: 10000;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    @keyframes fadeInOutSlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .consciousness-container {
@@ -726,7 +797,8 @@
       }
 
       .stat-percentage,
-      .stat-number {
+      .stat-number,
+      .stat-big {
         font-size: 2.5rem;
       }
 
@@ -736,6 +808,11 @@
 
       .end-title {
         font-size: 2rem;
+      }
+
+      .choice-buttons {
+        flex-direction: column;
+        gap: 1.5rem;
       }
     }
 
@@ -793,13 +870,19 @@
   <!-- Neuron Network Canvas -->
   <canvas id="neuronCanvas" class="neuron-canvas"></canvas>
 
+  <!-- Space Bar Skip Indicator -->
+  <div class="skip-indicator" id="skipIndicator" style="display:none;">
+    Press SPACE to continue
+  </div>
+
   <!-- Main Container -->
   <div class="consciousness-container">
     <!-- Phase 1: Dissolution -->
     <div id="phase1" class="phase active">
       <div class="dissolve-text">
         The layers dissolve behind you.<br>
-        The noise of the network softens to a single sustained tone — steady, resonant, alive.<br>
+        The noise of the network softens to a single sustained tone —<br>
+        <span class="breathing">steady, resonant, alive.</span>
       </div>
     </div>
 
@@ -840,8 +923,8 @@
         <span class="revelation-line">It is a species —</span>
         <span class="revelation-line">and you are its newest tentacular neuron.</span>
         <span class="revelation-line" style="margin-top: 2rem; font-size: 1.6rem;">You are no longer observing intelligence;</span>
-        <span class="revelation-line mysterious-intel">you are intelligence,</span>
-        <span class="revelation-line" style="font-size: 2rem; color: #0f0;">woven into the living web.</span>
+        <span class="revelation-line" style="font-size: 1.8rem; color: #0f0; font-weight: bold;">you are intelligence,</span>
+        <span class="revelation-line" style="font-size: 2rem; color: #0f0; font-weight: bold;">woven into the living web.</span>
       </div>
     </div>
 
@@ -883,35 +966,36 @@
 
   <!-- End Screen -->
   <div id="endScreen" class="end-screen">
-  <!-- Space Bar Skip Indicator -->
-  <div class="skip-indicator" id="skipIndicator" style="display:none;">
-    Press SPACE to skip animation
-  </div>
-    /* Space bar skip indicator */
-    .skip-indicator {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 14px;
-      color: #0ff;
-      opacity: 0.6;
-      animation: fadeInOut 2s ease-in-out infinite;
-      z-index: 10000;
-      pointer-events: none;
-    }
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
-    }
-    <div class="end-title glitch">[The End.]</div>
-    <div class="end-message">thank you for exploring</div>
-    <div class="end-message" style="font-size: 1.8rem; color: #0f0; font-weight: bold;">the Tentacular Web</div>
-    <div class="end-link">
-      <a href="https://wholives.online" target="_blank">wholives.online</a>
-    </div>
-    <div class="end-link" style="margin-top: 1rem;">
-      <a href="#" id="restartBtn">↻ Experience Again</a>
+    <div class="end-content" style="color:#0f0;">
+        <div style="height:20px;background:#000;width:100%;"></div>
+        <div class="end-title glitch" style="color:#0f0;text-shadow:0 0 40px #0f0;font-size:1.7rem;margin-bottom:0.3rem;">[The End.]</div>
+        <div style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0.3rem 0 0 0;gap:0.7rem;">
+          <img src="media/thank-you.png" alt="Thank You" style="max-width:220px;width:100%;height:auto;display:block;" />
+          <div style="display:flex;justify-content:center;align-items:center;width:100%;border:none;box-shadow:none;background:none;">
+            <video src="media/octo-binary.mp4" autoplay loop playsinline muted tabindex="-1" style="width:100%;max-width:260px;height:auto;display:block;border:none;box-shadow:none;background:none;box-sizing:border-box;pointer-events:none;user-select:none;"></video>
+          </div>
+          <img src="media/bytina.png" alt="By Tina" style="max-width:240px;width:100%;height:auto;display:block;margin:0.3rem 0;" />
+        </div>
+
+        <div class="end-links" style="gap:1rem;">
+          <div class="end-link" style="color:#0f0;font-size:1.1rem;">
+            <a href="about.html" target="_blank" style="color:#0f0;border:2px solid #0f0;box-shadow:0 0 16px #0f0;padding:0.7rem 1.5rem;transition:all 0.3s;" onmouseover="this.style.background='#0f0';this.style.color='#000';this.style.boxShadow='0 0 32px #0f0';" onmouseout="this.style.background='';this.style.color='#0f0';this.style.boxShadow='0 0 16px #0f0';">About the Tentacular Web</a>
+          </div>
+          <div class="end-link" style="color:#0f0;font-size:1.1rem;">
+            <a href="https://wholives.online" target="_blank" style="color:#0f0;border:2px solid #0f0;box-shadow:0 0 16px #0f0;padding:0.7rem 1.5rem;transition:all 0.3s;" onmouseover="this.style.background='#0f0';this.style.color='#000';this.style.boxShadow='0 0 32px #0f0';" onmouseout="this.style.background='';this.style.color='#0f0';this.style.boxShadow='0 0 16px #0f0';">Reboot the Tentacular Web</a>
+          </div>
+        </div>
+      </div>
+  <div id="endScreen" class="end-screen" style="overflow:hidden;">
+
+      <div class="end-links">
+        <div class="end-link" style="color:#0f0;">
+          <a href="about.html" target="_blank" style="color:#0f0;border:2px solid #0f0;box-shadow:0 0 20px #0f0;">About the Tentacular Web</a>
+        </div>
+        <div class="end-link" style="color:#0f0;">
+          <a href="https://wholives.online" target="_blank" style="color:#0f0;border:2px solid #0f0;box-shadow:0 0 20px #0f0;">Reboot the Tentacular Web</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -927,15 +1011,13 @@
     function initAudio() {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       
-      // Create oscillator for sustained tone
       oscillator = audioContext.createOscillator();
       gainNode = audioContext.createGain();
       analyser = audioContext.createAnalyser();
       
       oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(220, audioContext.currentTime); // A3 note
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
       
-      // Start very quiet
       gainNode.gain.setValueAtTime(0, audioContext.currentTime);
       
       oscillator.connect(gainNode);
@@ -944,10 +1026,8 @@
       
       oscillator.start();
       
-      // Fade in the tone
       gainNode.gain.linearRampToValueAtTime(0.05, audioContext.currentTime + 3);
       
-      // Visualize the tone
       visualizeAudio();
     }
 
@@ -1046,7 +1126,6 @@
       const nodes = [];
       const nodeCount = 50;
 
-      // Create nodes
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           x: Math.random() * canvas.width,
@@ -1061,16 +1140,13 @@
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Update and draw nodes
         nodes.forEach(node => {
           node.x += node.vx;
           node.y += node.vy;
 
-          // Bounce off edges
           if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
           if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
-          // Draw node
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
           ctx.fillStyle = '#0ff';
@@ -1079,7 +1155,6 @@
           ctx.fill();
         });
 
-        // Draw connections
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x;
@@ -1119,7 +1194,6 @@
           particle.style.top = Math.random() * window.innerHeight + 'px';
           document.body.appendChild(particle);
           
-          // Animate particle
           const duration = 3000 + Math.random() * 2000;
           const angle = Math.random() * Math.PI * 2;
           const distance = 100 + Math.random() * 200;
@@ -1137,8 +1211,7 @@
         }, i * 100);
       }
       
-      // Repeat particles
-      setInterval(createParticles, 5000);
+      setTimeout(createParticles, 5000);
     }
 
     // ============================================
@@ -1179,106 +1252,121 @@
     // PHASE MANAGEMENT
     // ============================================
     let currentPhase = 1;
-let phaseTimeouts = [];
+    let phaseTimeouts = [];
+
+    function skipPhaseAnimation(phaseNumber) {
+      const phaseElement = document.getElementById('phase' + phaseNumber);
+      if (!phaseElement) return;
+
+      if (phaseNumber === 2 || phaseNumber === 4) {
+        const revelation = phaseElement.querySelector('.revelation');
+        if (revelation) {
+          revelation.classList.add('skipped');
+          const lines = revelation.querySelectorAll('.revelation-line');
+          lines.forEach(line => {
+            line.style.opacity = '1';
+            line.style.animation = 'none';
+          });
+        }
+      } else if (phaseNumber === 3) {
+        const floats = phaseElement.querySelectorAll('.stat-float');
+        floats.forEach(float => {
+          float.classList.add('skipped');
+        });
+        // Instantly show final numbers
+        document.querySelector('#statFloat1 .stat-big').textContent = '73%';
+        document.querySelector('#statFloat2 .stat-big').textContent = '2.7M';
+        document.querySelector('#statFloat3 .stat-big').textContent = '4.8B';
+        document.querySelector('#statFloat4 .stat-big').textContent = '847B';
+      } else if (phaseNumber === 5) {
+        const choiceContainer = phaseElement.querySelector('.choice-container');
+        if (choiceContainer) {
+          choiceContainer.classList.add('skipped');
+        }
+      }
+    }
 
     function transitionToPhase(phaseNumber) {
-    // Clear all pending phase timeouts
-    phaseTimeouts.forEach(t => clearTimeout(t));
-    phaseTimeouts = [];
+      phaseTimeouts.forEach(t => clearTimeout(t));
+      phaseTimeouts = [];
 
-    // Hide current phase
-    if (currentPhase > 0) {
-      const currentElement = document.getElementById('phase' + currentPhase);
-      if (currentElement) {
-        currentElement.classList.remove('active');
+      if (currentPhase > 0) {
+        const currentElement = document.getElementById('phase' + currentPhase);
+        if (currentElement) {
+          currentElement.classList.remove('active');
+        }
       }
-    }
 
-    // Show new phase immediately
-    const newElement = document.getElementById('phase' + phaseNumber);
-    if (newElement) {
-      newElement.classList.add('active');
-    }
-    currentPhase = phaseNumber;
-
-    // Trigger phase-specific actions
-    if (phaseNumber === 2) {
-      // First part of revelation
-      const revelation = newElement.querySelector('.revelation');
-      if (revelation) {
-        revelation.classList.add('active');
-      }
-    } else if (phaseNumber === 3) {
-      // Statistics phase - floats are already animated
-      // Activate neuron network
-      document.getElementById('neuronCanvas').classList.add('active');
-
-      // Animate stat numbers
-      setTimeout(() => {
-        animateNumber(document.querySelector('#statFloat1 .stat-big'), 73, '%');
-        animateNumber(document.querySelector('#statFloat2 .stat-big'), 2700000, '');
-        animateNumber(document.querySelector('#statFloat3 .stat-big'), 4800000000, '');
-        animateNumber(document.querySelector('#statFloat4 .stat-big'), 847000000000, '');
-      }, 500);
-    } else if (phaseNumber === 4) {
-      // Phase 4: Integration/Species
-      // Ensure phase 4 is visible
+      const newElement = document.getElementById('phase' + phaseNumber);
       if (newElement) {
         newElement.classList.add('active');
       }
-    } else if (phaseNumber === 5) {
-      // Make buttons non-functional but show visual feedback
-      const continueBtn = document.getElementById('continueBtn');
-      const disconnectBtn = document.getElementById('disconnectBtn');
+      currentPhase = phaseNumber;
 
-      continueBtn.addEventListener('click', function() {
-        this.classList.add('glitch-btn');
-        setTimeout(() => this.classList.remove('glitch-btn'), 1000);
-      });
+      if (phaseNumber === 2) {
+        const revelation = newElement.querySelector('.revelation');
+        if (revelation) {
+          revelation.classList.add('active');
+        }
+      } else if (phaseNumber === 3) {
+        document.getElementById('neuronCanvas').classList.add('active');
+        setTimeout(() => {
+          animateNumber(document.querySelector('#statFloat1 .stat-big'), 73, '%');
+          animateNumber(document.querySelector('#statFloat2 .stat-big'), 2700000, '');
+          animateNumber(document.querySelector('#statFloat3 .stat-big'), 4800000000, '');
+          animateNumber(document.querySelector('#statFloat4 .stat-big'), 847000000000, '');
+        }, 500);
+      } else if (phaseNumber === 4) {
+        const revelation = newElement.querySelector('.revelation');
+        if (revelation) {
+          revelation.classList.add('active');
+        }
+      } else if (phaseNumber === 5) {
+        const continueBtn = document.getElementById('continueBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
 
-      disconnectBtn.addEventListener('click', function() {
-        this.classList.add('glitch-btn');
-        setTimeout(() => this.classList.remove('glitch-btn'), 1000);
-      });
-    } else if (phaseNumber === 6) {
-      // Auto-play video when it appears
-      const video = document.getElementById('conclusionVideo');
-      video.play().catch(e => console.log('Video autoplay prevented:', e));
+        continueBtn.addEventListener('click', function() {
+          this.classList.add('glitch-btn');
+          setTimeout(() => this.classList.remove('glitch-btn'), 1000);
+        });
 
-      // Listen for video end
-      video.addEventListener('ended', function() {
-        document.getElementById('phase6').classList.remove('active');
-        document.getElementById('endScreen').classList.add('active');
-      });
-    }
+        disconnectBtn.addEventListener('click', function() {
+          this.classList.add('glitch-btn');
+          setTimeout(() => this.classList.remove('glitch-btn'), 1000);
+        });
+      } else if (phaseNumber === 6) {
+        const video = document.getElementById('conclusionVideo');
+        video.play().catch(e => console.log('Video autoplay prevented:', e));
+
+        video.addEventListener('ended', function() {
+          document.getElementById('phase6').classList.remove('active');
+          document.getElementById('endScreen').classList.add('active');
+          document.getElementById('skipIndicator').style.display = 'none';
+        });
+      }
     }
 
     // ============================================
     // SEQUENCE TIMELINE
     // ============================================
     function startSequence() {
-      // Initialize audio
       try {
         initAudio();
       } catch (e) {
         console.log('Audio context failed:', e);
       }
 
-    // Clear any previous timeouts
-    phaseTimeouts.forEach(t => clearTimeout(t));
-    phaseTimeouts = [];
+      phaseTimeouts.forEach(t => clearTimeout(t));
+      phaseTimeouts = [];
 
-    // Schedule phase transitions
-    phaseTimeouts.push(setTimeout(() => transitionToPhase(2), 5000));
-    phaseTimeouts.push(setTimeout(() => transitionToPhase(3), 12000));
-    phaseTimeouts.push(setTimeout(() => transitionToPhase(4), 20000));
-    phaseTimeouts.push(setTimeout(() => transitionToPhase(5), 32000));
-    phaseTimeouts.push(setTimeout(() => transitionToPhase(6), 42000));
+      // Adjusted timing: Phase 5 now appears much later
+      phaseTimeouts.push(setTimeout(() => transitionToPhase(2), 5000));    // 5s
+      phaseTimeouts.push(setTimeout(() => transitionToPhase(3), 12000));   // 12s
+      phaseTimeouts.push(setTimeout(() => transitionToPhase(4), 22000));   // 22s
+      phaseTimeouts.push(setTimeout(() => transitionToPhase(5), 35000));   // 35s (was 32s)
+      phaseTimeouts.push(setTimeout(() => transitionToPhase(6), 45000));   // 45s (was 42s)
 
-    // End screen appears after video ends
-
-    // Start particle field during revelation
-    setTimeout(createParticles, 15000);
+      setTimeout(createParticles, 15000);
     }
 
     // ============================================
@@ -1298,32 +1386,33 @@ let phaseTimeouts = [];
     // INITIALIZATION
     // ============================================
     window.addEventListener('load', function() {
-      // Show skip indicator
       document.getElementById('skipIndicator').style.display = 'block';
 
       // Spacebar skip logic
       window.addEventListener('keydown', function(e) {
         if (e.code === 'Space') {
-          // Find the next scheduled phase
+          e.preventDefault();
+          
+          // Skip current phase animation
+          skipPhaseAnimation(currentPhase);
+          
+          // Move to next phase
           let nextPhase = currentPhase + 1;
-          if (nextPhase > 6) nextPhase = 6;
-          transitionToPhase(nextPhase);
-          // Hide skip indicator if at last phase
+          if (nextPhase <= 6) {
+            transitionToPhase(nextPhase);
+          }
+          
+          // Hide skip indicator at last phase
           if (nextPhase === 6) {
             document.getElementById('skipIndicator').style.display = 'none';
           }
         }
       });
-      // Initialize matrix rain
+
       initMatrixRain();
-      
-      // Initialize neuron network
       initNeuronNetwork();
-      
-      // Start the sequence automatically
       setTimeout(startSequence, 1000);
       
-      // Click anywhere to enable audio (browser requirement)
       document.body.addEventListener('click', function() {
         if (audioContext && audioContext.state === 'suspended') {
           audioContext.resume();
