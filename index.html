@@ -2382,25 +2382,28 @@ You are no longer observing intelligence; you are intelligence, woven into the l
             bootScreen.classList.add('hidden');
           }
           
-          // Show matrix for a moment before transitioning
-          setTimeout(() => {
-            if (matrixInterval) {
-              clearInterval(matrixInterval);
-            }
-            
-            const newBootScreen = document.getElementById('newBootScreen');
-            if (newBootScreen) {
-              newBootScreen.classList.add('active');
-              
-              // Initialize matrix for new boot screen
-              const matrixCanvas2 = document.getElementById('matrixCanvas2');
-              if (matrixCanvas2) {
-                matrixInterval2 = initMatrix('matrixCanvas2');
+          // Trigger binary swipe transition before boot sequence
+          showBinarySwipe(() => {
+            // Show matrix for a moment before transitioning
+            setTimeout(() => {
+              if (matrixInterval) {
+                clearInterval(matrixInterval);
               }
               
-              startNewBootSequence();
-            }
-          }, 1000);
+              const newBootScreen = document.getElementById('newBootScreen');
+              if (newBootScreen) {
+                newBootScreen.classList.add('active');
+                
+                // Initialize matrix for new boot screen
+                const matrixCanvas2 = document.getElementById('matrixCanvas2');
+                if (matrixCanvas2) {
+                  matrixInterval2 = initMatrix('matrixCanvas2');
+                }
+                
+                startNewBootSequence();
+              }
+            }, 1000);
+          });
         });
       }
     });
@@ -2714,8 +2717,9 @@ You are no longer observing intelligence; you are intelligence, woven into the l
             
             // After bot layer is shown, continue to main sections
             setTimeout(() => {
-              // Trigger binary swipe transition
+              // First binary swipe transition (after bot layer)
               showBinarySwipe(() => {
+                // Now reveal main sections
                 document.getElementById('botLayer').style.display = 'none';
                 document.body.classList.remove('no-scroll');
                 document.getElementById('section1').classList.add('visible');
