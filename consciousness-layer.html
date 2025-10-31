@@ -11,6 +11,9 @@
       box-sizing: border-box;
     }
 
+  <!-- Skip Indicator -->
+  <div class="skip-indicator" id="skipIndicator">Press SPACE to continue</div>
+
     body {
   font-family: 'Courier New', monospace;
   background: #000;
@@ -96,6 +99,29 @@
       80% { opacity: 1; }
       100% { opacity: 0; }
     }
+      /* Skip Indicator */
+      .skip-indicator {
+        position: fixed;
+        bottom: 2.5em;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 30, 30, 0.85);
+        color: #00ffe0;
+        font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+        font-size: 1.15rem;
+        padding: 0.7em 2em;
+        border-radius: 8px;
+        box-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0 inset;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.77,0,0.175,1);
+        text-align: center;
+      }
+      .skip-indicator.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
 
     /* Terminal Container */
     .terminal {
@@ -773,8 +799,7 @@
     <div id="phase1" class="phase active">
       <div class="dissolve-text">
         The layers dissolve behind you.<br>
-        The noise of the network softens to a single sustained tone —<br>
-        <span class="breathing">steady, resonant, alive.</span>
+        The noise of the network softens to a single sustained tone — steady, resonant, alive.<br>
       </div>
     </div>
 

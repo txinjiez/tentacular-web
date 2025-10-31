@@ -1,64 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Tentacular Web</title>
-  <link rel="icon" href="media/the-tentacular.png" type="image/png">
-  <style>
-    body {
-      background: linear-gradient(90deg, #001a1a 0%, #003333 100%);
-      color: #00ffe0;
-      font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .about-container {
-      background: rgba(0, 30, 30, 0.85);
-      border: 2px solid #00ffe0;
-      border-radius: 16px;
-      box-shadow: 0 0 48px #00ffe0, 0 0 96px #00ffe0 inset;
-      padding: 2.5em 3em;
-      max-width: 600px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1.2em;
-      text-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0;
-    }
-    p {
-      font-size: 1.15rem;
-      margin-bottom: 1.5em;
-      line-height: 1.6;
-    }
-    a {
-      color: #00ffe0;
-      text-decoration: underline;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-    a:hover {
-      color: #fff;
-      text-shadow: 0 0 24px #00ffe0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about ⋆｡꩜ the tentacular web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-image: url('media/2about-background.jpg'); /* Change this to url('your-image.jpg') to add a background image */
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #f0e6ff;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Optional overlay for better text readability when using background image */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 46, 0.7);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0; /* Set to 1 if you want a dark overlay over your background image */
+        }
+
+        /* Floating tentacle decorations */
+        .tentacle-bg {
+            position: fixed;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .tentacle-bg:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .tentacle-bg:nth-child(2) { top: 60%; right: 10%; animation-delay: 5s; }
+        .tentacle-bg:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 10s; }
+        .tentacle-bg:nth-child(4) { top: 30%; right: 20%; animation-delay: 15s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-30px) rotate(3deg); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 30px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2rem;
+            color: #b8a4d5;
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .divider-top {
+            margin-bottom: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            z-index: 100;
+            background: transparent;
+        }
+
+        .divider-scroll {
+            display: inline-block;
+            animation: scroll 40s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ffd6ff, #b8a4d5, #a8dadc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #c8b6e2;
+            margin-top: 10px;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            color: #ffd6ff;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        a {
+            color: #ffd6ff;
+            text-decoration: none;
+            border-bottom: 2px dotted #b8a4d5;
+            transition: all 0.3s ease;
+            padding-bottom: 2px;
+        }
+
+        a:hover {
+            color: #a8dadc;
+            border-bottom-color: #a8dadc;
+            transform: translateY(-2px);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-top: 40px;
+            color: #ffd6ff;
+            font-style: italic;
+        }
+
+        .cute-accent {
+            display: inline-block;
+            margin: 0 5px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .footer-divider {
+            margin-top: 50px;
+        }
+
+        /* Sparkle effects */
+        .sparkle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #ffd6ff;
+            border-radius: 50%;
+            animation: sparkle 3s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Create multiple sparkles */
+        .sparkle:nth-child(5) { top: 15%; left: 10%; animation-delay: 0.5s; }
+        .sparkle:nth-child(6) { top: 45%; right: 15%; animation-delay: 1.5s; }
+        .sparkle:nth-child(7) { bottom: 25%; left: 20%; animation-delay: 2.5s; }
+        .sparkle:nth-child(8) { top: 70%; right: 25%; animation-delay: 3.5s; }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="about-container">
-    <h1>About the Tentacular Web Exhibit</h1>
-    <p>
-      This interactive experience guides you through the layers of the modern web—from bots and algorithms to markets, surveillance, and digital consciousness. Each layer reveals a new facet of our interconnected digital ecosystem, blending art, code, and narrative.
-    </p>
-    <p>
-      Created by <strong>Tina Zeng</strong>.<br>
-      For more information, visit <a href="https://github.com/tinazeng/tentacular-web" target="_blank">the GitHub repository</a>.
-    </p>
-    <a href="index.html">← Back to Exhibit</a>
-  </div>
+    <!-- Floating tentacle decorations -->
+    <div class="tentacle-bg">🐙</div>
+    <div class="tentacle-bg">🐙</div>
+    <div class="tentacle-bg">🐙</div>
+    <div class="tentacle-bg">🐙</div>
+    
+    <!-- Sparkles -->
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="divider divider-top">
+                <div class="divider-scroll">
+                    ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅ ⋅˚₊‧⌇⟢ ଳ ⟣⌇‧₊˚⋅ ⋅₊⟡⌇⌇ ଳ ⌇⌇⟡₊⋅
+                </div>
+            </div>
+            <h1>about <span class="cute-accent">☆</span> the tentacular web</h1>
+        </div>
+
+        <div class="greeting">hi,</div>
+
+        <div class="content">
+            <p>my name is tina zeng, and i (orchestrated) built this exhibit because i've been pondering about ai webscrapers and their implications for the economy and the future of the internet, alongside all the nonhuman creatures that inhabit the web — ai agents, crawlers, llm (chatbot) models in training, and everything in between. since my ai collaborators — chatgpt, sora, and claude — helped me create the tentacular web experience, i ought to offer them some credit and camaraderie as we spent at least 23 hours together building this. all the videos and the octopus visuals were generated by openai's sora.</p>
+
+            <p>the focus on the tentacular draws from how octopuses are often seen as symbols of intelligence — and from donna haraway's concept of tentacular thinking: a way of understanding the world through its messy, interdependent, and intertwined relationships between humans and nonhumans. the octopus's tentacles become a metaphor for the internet's invisible threads — reaching, sensing, touching, and entangling. this exhibit is the pov of such a nonhuman, tentacular creature exploring the underlying mechanisms of the web that most of us never see.</p>
+
+            <p>i plan to maintain this website for a bit so check back every once in a while if you're curious how else i'm building on it. eventually, i plan to release my claude and chatgpt chat history to show how i built this website as an amateur web developer (i previously built a few websites without any ai!). truly, this project was supercharged by ai.</p>
+
+            <p>more about me, i'm a college sophomore studying global affairs + computing, culture & society at yale. with my passions in public interest technology, democratic innovation and social entrepreneurship, i hope to leverage technologies like ai for social impact. i'm grateful that the tentacular web is an exhibit at the <a href="https://nycpitpopup.org/" target="_blank" rel="noopener noreferrer">nyc pit popup</a>. (initially for my pit pop-up, i wanted to do something on deliberative democracy and ai, however i experienced a lot of hurdles. for the future!)</p>
+
+            <p>feel free to reach me at tina.zeng@yale.edu or connect with me on <a href="https://www.linkedin.com/in/xinjie-tina-zeng/" target="_blank" rel="noopener noreferrer">linkedin</a>!</p>
+
+            <div class="signature">tina zeng <span class="cute-accent">⋆｡꩜ ˚ ⋆˚｡</span></div>
+        </div>
+
+        <div class="divider footer-divider">⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅</div>
+    </div>
 </body>
 </html>
