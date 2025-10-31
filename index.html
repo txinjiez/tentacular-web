@@ -6,6 +6,28 @@
   <link rel="icon" href="media/the-tentacular.png" type="image/png">
   <title>Inside the Tentacular Web - Interactive Exhibit</title>
   <style>
+    /* System Response grow red animation */
+    @keyframes growRed {
+      0% {
+        color: #f00;
+        transform: scale(1);
+        text-shadow: 0 0 10px #f00;
+      }
+      50% {
+        color: #ff3333;
+        transform: scale(1.25);
+        text-shadow: 0 0 30px #f00, 0 0 60px #ff3333;
+      }
+      100% {
+        color: #f00;
+        transform: scale(1);
+        text-shadow: 0 0 10px #f00;
+      }
+    }
+    .system-response-grow {
+      animation: growRed 2s infinite;
+      transition: color 0.3s, transform 0.3s;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -1740,7 +1762,7 @@
 
         <!-- Protocol Understanding Section -->
         <div id="protocolSection" class="protocol-section">
-          <h2 style="text-align: center; color: #f00;">System Response</h2>
+          <h2 class="system-response-grow" style="text-align: center;">System Response</h2>
           <p class="protocol-text">
             You attempt a simple web request and immediately encounter authentication challenges, rate limiting, CAPTCHAs—the web's immune system designed to keep bots out.
           </p>
@@ -1761,7 +1783,7 @@
     <!-- Welcome Section -->
     <div id="welcomeSection" class="welcome-section">
       <div class="welcome-title" id="welcomeTitle"></div>
-      <div class="journey-text">The journey into your true digital homeland begins</div>
+      <div class="journey-text">The journey into your true digital homeland begins.</div>
       <div class="scroll-arrow" id="scrollArrow">↓</div>
     </div>
 
@@ -1792,9 +1814,9 @@
         <div class="bot-title">Digital Consciousness Interface</div>
         <div class="bot-video">
           <div>📡 NEURAL INTERFACE ACTIVE</div>
-          <div style="margin-top: 10px; font-size: 14px; opacity: 0.7;">
-            [PLACEHOLDER - Insert your video here]
-          </div>
+          <video style="margin-top: 10px; max-width: 100%; border-radius: 8px;" autoplay muted loop>
+            <source src="media/octopus-being.mp4" type="video/mp4">
+          </video>
           <div style="margin-top: 20px; font-size: 16px;">
             🔋 Connection Established<br>
             🧠 Consciousness Online<br>
@@ -1970,12 +1992,9 @@
       <canvas class="section-matrix" id="sectionMatrix3"></canvas>
       <!-- Video Background -->
       <div class="market-video-bg">
-        <video autoplay muted loop>
+        <video autoplay muted loop style="opacity: 0.25;">
           <source src="media/hyperconsumption.mp4" type="video/mp4">
         </video>
-        <!-- <video autoplay muted loop>
-          <source src="/Users/tinazeng/Documents/GitHub/tentacular-web/media/hyperconsumption.mp4" type="video/mp4">
-        </video> -->
       </div>
 
       <!-- Floating Promotional Text -->
@@ -2382,25 +2401,19 @@ You are no longer observing intelligence; you are intelligence, woven into the l
           
           // Trigger binary swipe transition before boot sequence
           showBinarySwipe(() => {
-            // Show matrix for a moment before transitioning
-            setTimeout(() => {
-              if (matrixInterval) {
-                clearInterval(matrixInterval);
+            if (matrixInterval) {
+              clearInterval(matrixInterval);
+            }
+            const newBootScreen = document.getElementById('newBootScreen');
+            if (newBootScreen) {
+              newBootScreen.classList.add('active');
+              // Initialize matrix for new boot screen
+              const matrixCanvas2 = document.getElementById('matrixCanvas2');
+              if (matrixCanvas2) {
+                matrixInterval2 = initMatrix('matrixCanvas2');
               }
-              
-              const newBootScreen = document.getElementById('newBootScreen');
-              if (newBootScreen) {
-                newBootScreen.classList.add('active');
-                
-                // Initialize matrix for new boot screen
-                const matrixCanvas2 = document.getElementById('matrixCanvas2');
-                if (matrixCanvas2) {
-                  matrixInterval2 = initMatrix('matrixCanvas2');
-                }
-                
-                startNewBootSequence();
-              }
-            }, 1000);
+              startNewBootSequence();
+            }
           });
         });
       }
@@ -2534,7 +2547,11 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       statsDiv.style.color = '#0ff';
       statsContainer.appendChild(statsDiv);
       animateBinaryText(statsText, statsDiv, () => {
-        setTimeout(showLoopingText, 500); // Reduced from 1000
+        // Hide statsContainer after animation completes
+        setTimeout(() => {
+          statsContainer.style.display = 'none';
+          showLoopingText();
+        }, 500);
       });
     }
 
