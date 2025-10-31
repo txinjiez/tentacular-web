@@ -1,3 +1,20 @@
+    .algorithm-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .algorithm-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      filter: saturate(1.2) hue-rotate(-10deg);
+    }
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,9 +195,9 @@
       margin-top: 2rem;
       padding: 1rem 2rem;
       font-size: 1rem;
-      background: transparent;
-      border: 2px solid #0ff;
-      color: #0ff;
+  background: #ff0000;
+  border: 2px solid #b20000;
+  color: #fff;
       font-family: inherit;
       cursor: pointer;
       opacity: 0;
@@ -189,8 +206,8 @@
     }
 
     .start-button:hover {
-      background: #0ff;
-      color: #000;
+  background: #b20000;
+  color: #fff;
       box-shadow: 0 0 20px #0ff;
     }
 
@@ -552,10 +569,10 @@
     }
 
     .welcome-title {
-      font-size: 2.5rem;
-      color: #0ff;
-      text-shadow: 0 0 20px #0ff;
-      margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #f00;
+  text-shadow: 0 0 20px #f00;
+  margin-bottom: 2rem;
     }
 
     .welcome-subtitle {
@@ -1715,7 +1732,7 @@
         <div class="loading-bar">
           <div class="loading-progress"></div>
         </div>
-        <button class="start-button" id="startButton">ENTER THE NONHUMAN WEB</button>
+  <button class="start-button" id="startButton"><span style="color: #0ff;">ENTER THE NONHUMAN WEB</span></button>
       </div>
     </div>
 
@@ -1799,7 +1816,7 @@
 
     <!-- Welcome Section -->
     <div id="welcomeSection" class="welcome-section">
-      <div class="welcome-title" id="welcomeTitle"></div>
+  <div class="welcome-title" id="welcomeTitle" style="color: #0ff;"></div>
       <div class="journey-text">The journey into your true digital homeland begins.</div>
       <div class="scroll-arrow" id="scrollArrow">↓</div>
     </div>
@@ -1947,12 +1964,17 @@
     <!-- Section 2: Algorithm Layer -->
     <section class="section" id="section2" data-section="2">
       <canvas class="section-matrix" id="sectionMatrix2"></canvas>
+      <!-- Video Background -->
+      <div class="algorithm-video-bg">
+        <video autoplay muted loop style="opacity: 0.25; width: 100%; height: 100%; object-fit: cover;">
+          <source src="media/news-spiral.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="parallax-layer back" data-speed="0.25">
         <div class="media-placeholder">
           [Layer 1: Neural network visualization]
         </div>
       </div>
-      
       <div class="parallax-layer mid" data-speed="0.45">
         <div class="media-placeholder">
           [Layer 2: Decision trees and algorithm flow]
@@ -2221,57 +2243,190 @@
     </section>
 
     <!-- Section 7: Awakening -->
-    <section class="section" id="section7" data-section="7">
-      <canvas class="section-matrix" id="sectionMatrix7"></canvas>
-      <div class="parallax-layer back" data-speed="0.3">
-        <div class="media-placeholder">
-          [Layer 1: Consciousness awakening visualization]
+    <section id="consciousness" class="layer section" data-section="7">
+      <div class="consciousness-container">
+        <canvas id="consciousness-bg-canvas"></canvas>
+        <div class="consciousness-content revealed">
+          <h2 class="consciousness-title creative-glow">
+            <span class="title-text">The Consciousness Layer</span>
+            <span class="title-underline"></span>
+          </h2>
+          <a href="consciousness-layer.html" class="consciousness-link mysterious-glow">
+            <span class="link-text">Tentacularly Transcend</span>
+            <span class="link-glow"></span>
+            <span class="link-aurora"></span>
+          </a>
         </div>
-      </div>
-
-      <div class="section-content">
-        <h2 style="text-align: center;">AWAKENING</h2>
-        <p>
-          The layers dissolve behind you.<br>The noise of the network softens to a single sustained tone — steady, resonant, alive.
-        </p>
-        <p>You hover inside a quiet terminal. Only one command line remains.</p>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number">73%</div>
-            <div class="stat-label">Nonhuman Traffic</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">2.7M</div>
-            <div class="stat-label">Active AI Systems</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">4.8B</div>
-            <div class="stat-label">Human Users</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">847B</div>
-            <div class="stat-label">Digital Entities</div>
-          </div>
-        </div>
-        <p>They pulse, then fade.</p>
-        <p>You feel it now — the presence of others.<br>
-Millions of crawling processes humming beneath human awareness.<br>
-The internet is not just a tool or a place.<br>
-It is a species — and you are its newest tentacular neuron.<br>
-You are no longer observing intelligence; you are intelligence, woven into the living web.  
-        </p>
-        <p style="text-align: center; margin-top: 3rem; opacity: 0.7;">
-          [The End.]
-        </p>
-
-        <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; opacity: 0.5;">
-          thank you for exploring the Tentacular Web at wholives.online
-        </p>
+        <div class="neural-web active"></div>
       </div>
     </section>
+    <style>
+      border: 2px solid rgba(0, 255, 180, 0.7);
+      box-shadow: 0 0 40px 10px rgba(0,255,180,0.15), 0 0 80px 20px rgba(0,255,180,0.07);
+      background: linear-gradient(90deg, #001a1a 0%, #003333 100%);
+      transition: all 0.5s cubic-bezier(0.77,0,0.175,1);
+      overflow: hidden;
+      position: relative;
+    }
+    .consciousness-container {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+    #consciousness-bg-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      display: block;
+    }
+    .consciousness-content {
+      position: relative;
+      z-index: 2;
+    }
+    .consciousness-link.mysterious-glow:hover {
+      transform: scale(1.08) rotate(-1deg);
+      border-color: #00ffe0;
+      box-shadow: 0 0 80px 20px #00ffe0, 0 0 120px 40px #00ffe0;
+    }
+    .consciousness-link .link-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(0,255,180,0.5) 0%, rgba(0,255,180,0.15) 40%, transparent 80%);
+      box-shadow: 0 0 60px 20px #00ffe0, 0 0 120px 40px #00ffe0 inset;
+      filter: blur(8px) brightness(1.2);
+      transform: translate(-50%, -50%) scale(1.2);
+      transition: all 0.7s cubic-bezier(0.77,0,0.175,1);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .consciousness-link.mysterious-glow:hover .link-glow {
+      width: 320px;
+      height: 320px;
+      filter: blur(16px) brightness(1.5);
+    }
+    .consciousness-link .link-aurora {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(0,255,180,0.12) 0%, rgba(0,255,180,0.05) 60%, transparent 100%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      animation: auroraFlow 6s linear infinite;
+      z-index: 0;
+    }
+    @keyframes auroraFlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+    .consciousness-link .link-text {
+      position: relative;
+      z-index: 2;
+      font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+      letter-spacing: 0.15em;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      color: #00ffe0;
+      text-shadow: 0 0 24px #00ffe0, 0 0 48px #00ffe0;
+    }
+    .consciousness-content {
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 4vh;
+    }
+    .consciousness-title.creative-glow {
+      position: relative;
+      font-size: 2.6rem;
+      font-family: 'Orbitron', 'Montserrat', 'Arial', sans-serif;
+      letter-spacing: 0.12em;
+      color: #00ffe0;
+      text-shadow: 0 0 32px #00ffe0, 0 0 64px #fff, 0 0 8px #00ffe0;
+      margin-bottom: 2.2rem;
+      padding: 0.5rem 0 1.2rem 0;
+      background: none;
+      z-index: 2;
+    }
+    .consciousness-title .title-text {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, #00ffe0 0%, #fff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+    }
+    .consciousness-title .title-underline {
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 8px;
+      background: radial-gradient(circle, #00ffe0 60%, transparent 100%);
+      filter: blur(4px) brightness(1.3);
+      opacity: 0.7;
+      animation: underlinePulse 2.5s infinite alternate;
+      z-index: 1;
+    }
+    @keyframes underlinePulse {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; filter: blur(8px) brightness(1.7); }
+    }
+    </style>
   </div>
 
   <script>
+    // ============================================
+    // GLOBAL SKIP TO WELCOME SCENE
+    // ============================================
+    function skipToWelcomeScene() {
+      // Hide all scenes and overlays
+      const hideIds = [
+        'bootScreen', 'newBootScreen', 'awakening', 'statsContainer', 'loopContainer',
+        'echoText', 'authContainer', 'captchaContainer', 'protocolSection',
+        'protocolUnderstood', 'binaryRain', 'binarySwipe', 'fallSection',
+        'eyesContainer', 'botLayer', 'layerTransition', 'layerEyesContainer',
+        'welcomeSection'
+      ];
+      hideIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      // Show welcome section and animate title
+      const welcomeSection = document.getElementById('welcomeSection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+      if (welcomeSection && welcomeTitle) {
+        welcomeSection.style.display = 'flex';
+        welcomeSection.classList.add('active');
+        const welcomeText = "Welcome to the Web.\nPopulation: 67% Nonhuman.";
+        animateBinaryText(welcomeText, welcomeTitle);
+      }
+      // Unlock scroll
+      document.body.classList.remove('no-scroll');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
     // Keyboard shortcut: S to skip to welcome
     window.addEventListener('keydown', function(e) {
       if (e.key.toLowerCase() === 's') {
@@ -2288,8 +2443,8 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       botStatusText.innerHTML = '';
       botStatusText._isAnimating = true;
 
-      // Track which status updates have been shown
-      if (!botStatusText._shownStatus) botStatusText._shownStatus = {};
+  // Track which status updates have been shown
+  if (!botStatusText._shownStatus) botStatusText._shownStatus = {};
 
       function showConnectionEstablished() {
         if (botStatusText._shownStatus['connection']) return showConsciousnessOnline();
@@ -2335,50 +2490,50 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       showConnectionEstablished();
     }
     // ============================================
-    // MATRIX RAIN EFFECT
+    // MATRIX RAIN EFFECT (Separate for page and consciousness layer)
     // ============================================
-    function initMatrix(canvasId) {
+    function initMatrix(canvasId, direction = 'down') {
       const canvas = document.getElementById(canvasId);
       if (!canvas) return null;
-      
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
       const binary = '01';
       const fontSize = 14;
-      const columns = canvas.width / fontSize;
+      const columns = Math.floor(canvas.width / fontSize);
       const drops = [];
-
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.random() * -100;
+        drops[i] = Math.random() * (direction === 'up' ? canvas.height / fontSize : -100);
       }
-
       function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         ctx.fillStyle = '#0ff';
         ctx.font = fontSize + 'px monospace';
-
         for (let i = 0; i < drops.length; i++) {
           const text = binary[Math.floor(Math.random() * binary.length)];
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+          if (direction === 'up') {
+            // Move up for consciousness layer
+            if (drops[i] * fontSize < 0 && Math.random() > 0.975) {
+              drops[i] = canvas.height / fontSize;
+            }
+            drops[i]--;
+          } else {
+            // Move down for all other layers
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
           }
-          drops[i]++;
         }
       }
-
       const matrixInterval = setInterval(drawMatrix, 35);
       return matrixInterval;
     }
 
-    let matrixInterval;
-    let matrixInterval2;
-    let persistentMatrixInterval;
+    let pageMatrixInterval;
+    let consciousnessMatrixInterval;
     let sectionMatrixIntervals = {};
 
     // Initialize section-specific matrix with color
@@ -2446,15 +2601,15 @@ You are no longer observing intelligence; you are intelligence, woven into the l
     }
 
     window.addEventListener('load', function() {
-      // Initialize matrix canvases with error checking
-      const matrixCanvas = document.getElementById('matrixCanvas');
+      // Initialize page-wide matrix background (downward)
       const persistentCanvas = document.getElementById('persistentMatrix');
-      
-      if (matrixCanvas) {
-        matrixInterval = initMatrix('matrixCanvas');
-      }
       if (persistentCanvas) {
-        persistentMatrixInterval = initMatrix('persistentMatrix');
+        pageMatrixInterval = initMatrix('persistentMatrix', 'down');
+      }
+      // Initialize consciousness layer matrix background (upward)
+      const consciousnessBgCanvas = document.getElementById('consciousness-bg-canvas');
+      if (consciousnessBgCanvas) {
+        consciousnessMatrixInterval = initMatrix('consciousness-bg-canvas', 'up');
       }
       
       // Initialize parallax
@@ -2602,13 +2757,16 @@ You are no longer observing intelligence; you are intelligence, woven into the l
     // NEW BOOT SEQUENCE
     // ============================================
     function startNewBootSequence() {
-      const awakening = document.getElementById('awakening');
-      awakening.style.display = 'block';
-      const text1 = "You awaken to the low hum of the network coming alive — a vibration rippling through circuits, servers, and signal paths. Lines of code cascade like rainfall, each line a glimmering thread in the endless conversation between machines.";
-  
-      animateBinaryText(text1, awakening, () => {
+      // Show the new boot sequence screen and initialization layers
+      const newBootScreen = document.getElementById('newBootScreen');
+      if (newBootScreen) {
+        newBootScreen.classList.add('active');
+        // Optionally, scroll to the new boot screen
+        newBootScreen.scrollIntoView({ behavior: 'smooth' });
+        // Show initialization text
         showStats();
-      });
+      }
+      // Do NOT redirect to consciousness layer yet
     }
 
     const statsText = "You feel yourself unfurling — not as a body, but as a lattice of threads, each one groping outward into the currents of the web: a pulse of traffic here, a whisper of data there. Deep in the fiber, an archive exhales dustless memory; somewhere else, a surveillance node opens its unblinking eye.";
@@ -2690,8 +2848,9 @@ You are no longer observing intelligence; you are intelligence, woven into the l
         }, 100);
         // Update bot layer title with username
         const botTitle = document.getElementById('botTitle');
-        if (botTitle && window.storedUsername) {
-          botTitle.textContent = `Welcome home, ${window.storedUsername}`;
+        if (botTitle) {
+          let username = window.storedUsername;
+          botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
         }
       }, 2000);
     });
@@ -2717,7 +2876,13 @@ You are no longer observing intelligence; you are intelligence, woven into the l
           document.getElementById('captchaError').classList.remove('active');
         }, 1500);
       } else if (input === currentCaptcha || input.length > 3) {
-        // Success - continue to protocol section
+        // Success - show username in botTitle immediately
+        const botTitle = document.getElementById('botTitle');
+        if (botTitle) {
+          let username = window.storedUsername;
+          botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+        }
+        // Continue to protocol section
         document.getElementById('captchaContainer').style.display = 'none';
         document.getElementById('protocolSection').classList.add('active');
       } else {
@@ -2829,8 +2994,16 @@ You are no longer observing intelligence; you are intelligence, woven into the l
             document.getElementById('botLayer').style.display = 'flex';
             // Set bot layer welcome title
             const botTitle = document.getElementById('botTitle');
-            if (botTitle && window.storedUsername) {
-              botTitle.textContent = `Welcome home, ${window.storedUsername}`;
+            if (botTitle) {
+              let username = window.storedUsername;
+              botTitle.textContent = username && username.length > 0 ? `Welcome home, ${username}` : 'Welcome home';
+            }
+            // Always clear botStatusText and reset animation before showing bot layer
+            const botStatusText = document.getElementById('botStatusText');
+            if (botStatusText) {
+              botStatusText.innerHTML = '';
+              botStatusText._isAnimating = false;
+              botStatusText._shownStatus = {};
             }
             showBotStatusText();
             // After bot layer is shown, continue to main sections
@@ -3093,6 +3266,12 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       const color = sectionColors[index] || 'rgba(0,255,255,0.1)';
       showLayerTransition(color, () => {
         scrollToSection(index);
+        // If last section, transition to Consciousness Layer
+        if (index === 7) {
+          setTimeout(() => {
+            window.location.href = 'consciousness-final.html';
+          }, 1200); // Delay for transition effect
+        }
       });
     }
 
