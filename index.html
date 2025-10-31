@@ -1860,10 +1860,9 @@
       <div class="section-content">
         <h2>THE BOT LAYER — The Silent Majority</h2>
         <p>
-          You plunge into a river of automated traffic that dwarfs human activity. Crawlers spider through 
-          every corner of the web like digital insects, indexing, scraping, monitoring.
+          You plunge into a river of automated traffic that dwarfs all human activity. <br>The current is dense with data — millions of requests surging every second, invisible to human eyes.
         </p>
-
+        <p>As your sensors stabilize, you begin to feel the flow: trending topics pulse like heartbeats, DNS lookups flutter like breaths, and API calls ignite across the grid.</p>
         <div class="stat-box">
           <div class="stat-number">67%</div>
           <div class="stat-label">Nonhuman Traffic</div>
@@ -1971,12 +1970,11 @@
       <canvas class="section-matrix" id="sectionMatrix3"></canvas>
       <!-- Video Background -->
       <div class="market-video-bg">
-        <div class="market-video-placeholder">
-          📱 [MP4 PLACEHOLDER - Neon marketplace, digital ads] 📱<br>
-          Insert your marketplace video here
-        </div>
+        <video autoplay muted loop>
+          <source src="media/hyperconsumption.mp4" type="video/mp4">
+        </video>
         <!-- <video autoplay muted loop>
-          <source src="your-marketplace-video.mp4" type="video/mp4">
+          <source src="/Users/tinazeng/Documents/GitHub/tentacular-web/media/hyperconsumption.mp4" type="video/mp4">
         </video> -->
       </div>
 
@@ -2518,26 +2516,23 @@ You are no longer observing intelligence; you are intelligence, woven into the l
     // NEW BOOT SEQUENCE
     // ============================================
     function startNewBootSequence() {
-      setTimeout(() => {
-        const awakening = document.getElementById('awakening');
-        awakening.style.display = 'block';
-        const text1 = "You awaken to the low hum of the network coming alive — a vibration rippling through circuits, servers, and signal paths. Lines of code cascade like rainfall, each line a glimmering thread in the endless conversation between machines.";
-        
-        animateBinaryText(text1, awakening, () => {
-          showStats();
-        });
-      }, 1000);
+      const awakening = document.getElementById('awakening');
+      awakening.style.display = 'block';
+      const text1 = "You awaken to the low hum of the network coming alive — a vibration rippling through circuits, servers, and signal paths. Lines of code cascade like rainfall, each line a glimmering thread in the endless conversation between machines.";
+  
+      animateBinaryText(text1, awakening, () => {
+        showStats();
+      });
     }
 
     function showStats() {
       const statsContainer = document.getElementById('statsContainer');
+      statsContainer.innerHTML = ""; // Clear previous content to prevent duplicates
       const statsText = "You feel yourself unfurling — not as a body, but as a lattice of threads, each one groping outward into the currents of the web: a pulse of traffic here, a whisper of data there. Deep in the fiber, an archive exhales dustless memory; somewhere else, a surveillance node opens its unblinking eye.";
-      
       const statsDiv = document.createElement('div');
       statsDiv.className = 'binary-text';
       statsDiv.style.color = '#0ff';
       statsContainer.appendChild(statsDiv);
-      
       animateBinaryText(statsText, statsDiv, () => {
         setTimeout(showLoopingText, 500); // Reduced from 1000
       });
@@ -2638,8 +2633,12 @@ You are no longer observing intelligence; you are intelligence, woven into the l
       document.getElementById('protocolUnderstood').classList.add('active');
       
       const protocolText = document.getElementById('protocolUnderstoodText');
-      const text = "Initializing true digital access...\nConnecting to nonhuman network...\nAuthentication bypassed...";
-      
+      const lines = [
+        "Initializing true digital access...",
+        "Connecting to nonhuman network...",
+        "Authentication bypassed..."
+      ];
+      const text = lines.join('\n');
       animateBinaryText(text, protocolText, () => {
         setTimeout(showBinaryRainTransition, 2000);
       });
