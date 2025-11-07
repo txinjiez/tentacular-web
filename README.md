@@ -1,6 +1,6 @@
 ## Inside the Tentacular Web: the journey of the web’s nonhuman intelligence
 
-wholives.online is a web exhibit that explores different domains, underlying infrastructure, and mechanisms of the Internet from the POV of a nonhuman digital being (think webscrapers, bots, AI agents, LLMs, etc.)
+[wholives.online]([url](https://wholives.online)) is a web exhibit that explores different domains, underlying infrastructure, and mechanisms of the Internet from the POV of a nonhuman digital being (think webscrapers, bots, AI agents, LLMs, etc.)
 
 ⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅
 
@@ -17,3 +17,5 @@ Welcome to the Tentacular Web. ଳ”
 The focus on the tentacular draws from how octopuses are often seen as symbols of distributed intelligence — and from Donna Haraway's concept of tentacular thinking: a way of understanding the world through its messy, interdependent, and intertwined relationships between humans and nonhumans. The octopus-like tentacular intelligence becomes a fitting embodiment for the webcrawler — an entity that pulses, scans, transmits, and maps the vast circuitry of the internet. 
 
 ⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅
+
+This project was showcased at NYC PIT Pop-Up on October 31st, 2025.
