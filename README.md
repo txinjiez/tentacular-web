@@ -21,4 +21,4 @@ The focus on the tentacular draws from how octopuses are often seen as symbols o
 
 This project was showcased at NYC PIT Pop-Up on October 31st, 2025.
 
-![Uploading Screenshot 2025-11-07 at 11.02.16 am.png…]()
+<img src="https://github.com/txinjiez/tentacular-web/blob/main/media/Inside%20the%20Tentacular%20Web%20the%20journey%20of%20the%20web’s%20nonhuman%20intelligence-5.jpg?raw=true" width="60%">
