@@ -19,3 +19,5 @@ The focus on the tentacular draws from how octopuses are often seen as symbols o
 ⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅
 
 This project was showcased at NYC PIT Pop-Up on October 31st, 2025.
+
+![Inside the Tentacular Web the journey of the web’s nonhuman intelligence-5](https://github.com/user-attachments/assets/fd954f07-ec4a-4bf5-91a9-1b36ae3e2468)
