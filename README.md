@@ -14,10 +14,11 @@ Welcome to the Tentacular Web. ଳ”
 
 ⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅
 
+
 The focus on the tentacular draws from how octopuses are often seen as symbols of distributed intelligence — and from Donna Haraway's concept of tentacular thinking: a way of understanding the world through its messy, interdependent, and intertwined relationships between humans and nonhumans. The octopus-like tentacular intelligence becomes a fitting embodiment for the webcrawler — an entity that pulses, scans, transmits, and maps the vast circuitry of the internet. 
 
 ⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅⋅˚₊‧ ⎯⎯⎯ ଳ ⎯⎯⎯ ‧₊˚⋅
 
 This project was showcased at NYC PIT Pop-Up on October 31st, 2025.
 
-![Inside the Tentacular Web the journey of the web’s nonhuman intelligence-5](https://github.com/user-attachments/assets/fd954f07-ec4a-4bf5-91a9-1b36ae3e2468)
+![Uploading Screenshot 2025-11-07 at 11.02.16 am.png…]()
